@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/08 11:44:02 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/08 18:01:50 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,14 +27,19 @@ OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
 
 
-all: git_sub_update $(NAME)
+all: git_sub_update readline_install $(NAME)
 
-
+#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE COMMAND
+readline_install:
+	@if ! brew list readline > /dev/null 2>&1; then \
+		brew install readline; \
+	fi
+#IF SUBMODULE IS NOT EXISTS IN THE REPO, FETCH AND UPDATE
 git_sub_update:
 	@git submodule update --init --recursive
 
 $(NAME): $(MAIN_OBJ) $(SRC_FILES)
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@ -lreadline
 
 $(OBJ_PATH)/%.o: %.c
 	@mkdir -p $(@D)

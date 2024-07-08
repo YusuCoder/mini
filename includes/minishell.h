@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/08 17:59:29 by ryusupov         ###   ########.fr       */
+/*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
+/*   Updated: 2024/07/08 17:47:11 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<limits.h>
+#include<readline/readline.h>
+#include<readline/history.h>
 
-int	main(void)
+#include "../libft/libft.h"
+
+typedef struct s_commands
 {
-	char	*line;
+	char		**tokens;
+	t_ryusupov	**env;
 
-	line = NULL;
-	while(1)
-	{
-		line = readline("minshell> ");
-		if (!line)
-			break ;
-		else
-			printf("Welcome to MINISHELL!\n");
-	}
-	return (0);
-}
+}				t_command;
+
+
+#endif
