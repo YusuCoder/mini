@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/08 19:09:03 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/09 14:54:02 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ MAIN_OBJ	:= $(OBJ_PATH)/main.o
 LIBFT		:= $(LIBFT_PATH)/libft.a
 
 all: git_sub_update readline_install $(NAME)
-#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE COMMAND
+#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE COMMAND IN MAC
 readline_install:
 	@if ! brew list readline > /dev/null 2>&1; then \
 		brew install readline; \
@@ -48,6 +48,13 @@ $(OBJ_PATH)/%.o: %.c
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
+#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE LINUX (LINUX ONLY)
+linux: git_sub_update readline_linux_install $(NAME)
+#COMMAND TO INSTALL READLINE ON LINUX
+readline_linux_install:
+	@if ! dpkg -s libreadline-dev > /dev/null 2>&1; then \
+		sudo apt-get install libreadline-dev; \
+	fi
 
 clean:
 	@$(RM) $(OBJ_PATH)

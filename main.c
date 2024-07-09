@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/08 19:12:01 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:19:31 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,26 @@ int	execute_pwd(void)
 	return (0);
 }
 
+
 char	*read_line(char *line)
 {
+	char *cwd;
+
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
 	if (line)
 	{
 		free(line);
 		line = NULL;
 	}
-	line = readline("minishell> ");
-	if (line && *line)
+	char *slash = ft_strchr(cwd, '/');
+	if (slash)
+	{
+		cwd = slash + 7;
+	}
+	printf(RED"~/%s $\n"RESET, cwd);
+	line = readline(GREEN">>> "RESET);
+	if (line && *line != '\0')
 		add_history(line);
 	return (line);
 }
