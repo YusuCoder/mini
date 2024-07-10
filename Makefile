@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/09 14:54:02 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/10 14:12:23 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,52 +15,57 @@ CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror -g
 RM		:= rm -rf
 
-
 LIBFT_PATH  := ./libft
 OBJ_PATH	:= ./obj
-P_SRC_PATH	:= ./p_srcs
-E_SRC_PATH	:= ./e_srcs
+P_SRC_PATH	:= ./_p_srcs
+E_SRC_PATH	:= ./_e_srcs
 MAIN		:= main.c
-SRC_FILES	:=
+SRC_FILES	:= ./_p_srcs/_init_cmd.c \
+			   ./_p_srcs/_handle_signals.c
 
-
-OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES))
+OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
 
 LIBFT		:= $(LIBFT_PATH)/libft.a
 
-all: git_sub_update readline_install $(NAME)
+all: update $(NAME)
+
 #IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE COMMAND IN MAC
-readline_install:
-	@if ! brew list readline > /dev/null 2>&1; then \
-		brew install readline; \
-	fi
+rl:
+	@brew install readline
+
 #IF SUBMODULE IS NOT EXISTS IN THE REPO, FETCH AND UPDATE
-git_sub_update:
+update:
 	@git submodule update --init --recursive
 
-$(NAME): $(MAIN_OBJ) $(SRC_FILES) $(LIBFT)
+#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE LINUX (LINUX ONLY)
+linux: update readline_linux_install $(NAME)
+
+#COMMAND TO INSTALL READLINE ON LINUX
+readline_linux_install:
+	@sudo apt install libreadline-dev
+
+$(NAME): $(MAIN_OBJ) $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $^ -o $@ -lreadline
 
 $(OBJ_PATH)/%.o: %.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_PATH)/%.o: $(P_SRC_PATH)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
-#IF READLINE IS NOT INSTALLED INSTALL IT WITH MAKE LINUX (LINUX ONLY)
-linux: git_sub_update readline_linux_install $(NAME)
-#COMMAND TO INSTALL READLINE ON LINUX
-readline_linux_install:
-	@if ! dpkg -s libreadline-dev > /dev/null 2>&1; then \
-		sudo apt-get install libreadline-dev; \
-	fi
 
 clean:
 	@$(RM) $(OBJ_PATH)
+	@$(MAKE) -C $(LIBFT_PATH) clean
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_PATH) fclean
 
 re: fclean all
 

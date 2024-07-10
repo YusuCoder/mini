@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/09 14:19:31 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:55:17 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ int	execute_pwd(void)
 	free(cwd);
 	return (0);
 }
-
-
 char	*read_line(char *line)
 {
-	char *cwd;
+	char	*cwd;
+	char	*home;
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
@@ -37,10 +36,12 @@ char	*read_line(char *line)
 		free(line);
 		line = NULL;
 	}
-	char *slash = ft_strchr(cwd, '/');
-	if (slash)
+	home = getenv("HOME");
+	if (home && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
-		cwd = slash + 7;
+		cwd += ft_strlen(home);
+		if (*cwd == '/')
+			cwd++;
 	}
 	printf(RED"~/%s $\n"RESET, cwd);
 	line = readline(GREEN">>> "RESET);
@@ -49,11 +50,14 @@ char	*read_line(char *line)
 	return (line);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 
 	line = NULL;
+	(void)argv;
+	(void)argc;
+	_init_cmd(&gl_command, envp);
 	while(1)
 	{
 		line = read_line(line);
