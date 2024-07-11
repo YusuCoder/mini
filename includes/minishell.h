@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/10 13:49:08 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:58:08 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include<readline/readline.h>
 #include<readline/history.h>
 #include<signal.h>
+#include<termios.h>
 
 #include "../libft/libft.h"
 /*----global variable-----*/
@@ -51,7 +52,9 @@ typedef enum s_process
 t_command	gl_command;
 
 /*-------Function declarations---------*/
-void	_init_cmd(t_command *cmd, char **envp);
+void	_init_terminal(t_command *cmd, char **envp);
 void	_handle_signals(t_process stats);
-
+/*--------Error messages---------*/
+void	_err_msg(char *msg, char err_code);
+void	_free_it(char **p);
 #endif

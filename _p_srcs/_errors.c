@@ -1,0 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   _errors.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/11 12:49:37 by ryusupov          #+#    #+#             */
+/*   Updated: 2024/07/11 13:45:15 by ryusupov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+void	_free_it(char **p)
+{
+	free(*p);
+	*p = NULL;
+}
+
+void _err_msg(char *msg, char err_code)
+{
+	perror(msg);
+	exit(err_code);
+}

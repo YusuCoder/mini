@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/10 12:55:17 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:58:22 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	(void)argv;
 	(void)argc;
-	_init_cmd(&gl_command, envp);
+	_init_terminal(&gl_command, envp);
 	while(1)
 	{
 		line = read_line(line);

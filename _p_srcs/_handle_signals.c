@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:28:23 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/10 14:47:32 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:01:18 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	_handle_other_signals(int signal)
 	else
 		return ;
 }
-
+/*if the signal came in interactive mode do it otherwise ignore the quit signal*/
 void	_handle_signals(t_process stats)
 {
 	struct sigaction	sa;

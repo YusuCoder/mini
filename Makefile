@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/10 14:12:23 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/11 12:57:18 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ P_SRC_PATH	:= ./_p_srcs
 E_SRC_PATH	:= ./_e_srcs
 MAIN		:= main.c
 SRC_FILES	:= ./_p_srcs/_init_cmd.c \
-			   ./_p_srcs/_handle_signals.c
+			   ./_p_srcs/_handle_signals.c \
+			   ./_p_srcs/_errors.c
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
