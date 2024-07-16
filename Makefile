@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/11 12:57:18 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/16 18:02:05 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,14 @@ RM		:= rm -rf
 
 LIBFT_PATH  := ./libft
 OBJ_PATH	:= ./obj
-P_SRC_PATH	:= ./_p_srcs
-E_SRC_PATH	:= ./_e_srcs
+P_SRC_PATH	:= ./p_srcs
+E_SRC_PATH	:= ./e_srcs
 MAIN		:= main.c
-SRC_FILES	:= ./_p_srcs/_init_cmd.c \
-			   ./_p_srcs/_handle_signals.c \
-			   ./_p_srcs/_errors.c
+SRC_FILES	:= ./p_srcs/i_init_cmd.c \
+			   ./p_srcs/i_handle_signals.c \
+			   ./p_srcs/errors.c \
+			   ./t_tokenize.c \
+			   ./t_utils.c \
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
