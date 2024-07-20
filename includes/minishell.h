@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/16 18:03:14 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:16:37 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	_err_msg(char *msg, char err_code);
 void	_free_it(char **p);
 /*----------TOKENIZING-----------*/
 char	**tokenizing(const char *str);
+int		take_tokens(char **token, const char *str, int counter, int i);
+int		matching_quotes(const char *str);
 int		count_words(const char *str, int i);
 int		count_tokens(char token);
 int		get_word_len(const char *str, int i);

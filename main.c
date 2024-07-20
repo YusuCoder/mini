@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/11 13:58:22 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:26:35 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	main(int argc, char **argv, char **envp)
 		line = read_line(line);
 		if (!line)
 			break ;
+		gl_command.tokens = tokenizing(line);
+		if (!gl_command.tokens)
+			continue ;
 		if (ft_strcmp(line, "pwd") == 0)
 			execute_pwd();
 	}
