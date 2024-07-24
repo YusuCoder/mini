@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/22 18:31:48 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:49:03 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,24 @@ int	parse(char	**t)
 		}
 		i++;
 	}
-	if (ft_strncmp(t[i - 1], ">", 1) == 0 || ft_strncmp(t[i - 1], "<", 1) == 0)
-		_err_msg("Error! Parsing!\n", EXIT_FAILURE);
-	if (t[i - 1] && (ft_strncmp(t[0], "|", 1) == 0 || (i - 1 >= 1 && ft_strncmp(t[i - 1], "|", 1) == 0)))
-		_err_msg("Error! Parsing!\n", EXIT_FAILURE);
+	if (!check_beginning_and_end(t, i - 1))
+		return (0);
 	return (1);
 }
 
 // int main() {
-//     char *test1[] = {"echo", "hello", "world", NULL};
-//     char *test2[] = {"echo", "\"hello world\"", ">", "output.txt", NULL};
-//     char *test3[] = {"cat", "<", "input.txt", "|", "grep", "search_term", NULL};
+//     char *test0[] = {"echo", "hello", "world", NULL};
+//     char *test1[] = {"echo", "\"hello world\"", ">", "output.txt", NULL};
+//     char *test2[] = {"cat", "<", "input.txt", "|", "grep", "search_term", NULL};
+//     char *test3[] = {">", "echo", "ls", NULL};
 //     char *test4[] = {"|", "echo", "error", NULL}; // Invalid test case
 //     char *test5[] = {"echo", "unmatched", "\"", NULL}; // Invalid test case
 //     char *test6[] = {"echo", "multiple", ">", ">", "error", NULL}; // Invalid test case
 
+// 	if (parse(test0) == 0)
+// 		printf("Test 0 passed.\n");
+// 	else
+// 		printf("test 0 failed,\n");
 //     if (parse(test1) == 0)
 //         printf("Test 1 passed.\n");
 //     else
