@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:49:51 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/27 17:12:38 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:49:38 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	execute_cd(char **args)
 {
-
+	printf("inside cd function\n");
 }
