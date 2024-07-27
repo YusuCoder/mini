@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/23 16:49:03 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:57:49 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@
 int	check_beginning_and_end(char **t, int i)
 {
 	if (ft_strncmp(t[i], ">", 1) == 0 || ft_strncmp(t[i], "<", 1) == 0)
-		_err_msg("Error! Parsing!\n", EXIT_FAILURE);
-	if (t[i] && (ft_strncmp(t[0], "|", 1) == 0 || (i >= 1 && ft_strncmp(t[i], "|", 1) == 0)))
-		_err_msg("Error! Parsing!\n", EXIT_FAILURE);
+	{
+		// printf("Error parsing!\n");
+		return (0);
+	}
+	else if (t[i] && (ft_strncmp(t[0], "|", 1) == 0 || (i >= 1 && ft_strncmp(t[i], "|", 1) == 0)))
+	{
+		printf("Error parsing!\n");
+		return (0);
+	}
 	return (0);
 }
 /*
