@@ -6,7 +6,7 @@
 #    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/16 18:06:10 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/27 16:54:15 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 			   ./p_srcs/t_tokenize.c \
 			   ./p_srcs/t_add_tokens.c \
 			   ./p_srcs/t_utils.c \
+			   ./p_srcs/parse.c \
+			#    ./p_srcs/expand.c \
+			#    ./p_srcs/expand_1.c \
+			#    ./p_srcs/expand_2.c \
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o

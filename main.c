@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 16:11:46 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:44:09 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		t.tokens = tokenizing(line);
 		int i = 0;
-		while (t.tokens && t.tokens[i] != NULL) // Check if t.tokens[i] is not NULL
+		while (t.tokens && t.tokens[i] != NULL)
 		{
 			printf("[ %s ]\n", t.tokens[i]);
+			if (parse(t.tokens) && t.tokens)
+			{
+
+			}
 			i++;
 		}
 		// if (!t.tokens)
