@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/22 16:12:04 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:11:46 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-int	execute_pwd(void)
-{
-	char	*cwd;
-
-	cwd = NULL;
-	cwd = getcwd(cwd, 0);
-	if (!cwd)
-		return (0);
-	printf("%s\n", cwd);
-	free(cwd);
-	return (0);
-}
 char	*read_line(char *line)
 {
 	char	*cwd;
