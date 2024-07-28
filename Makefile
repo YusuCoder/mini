@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
+#    By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/27 16:54:15 by ryusupov         ###   ########.fr        #
+#    Updated: 2024/07/28 17:48:11 by tkubanyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,20 @@ P_SRC_PATH	:= ./p_srcs
 E_SRC_PATH	:= ./e_srcs
 MAIN		:= main.c
 SRC_FILES	:= ./p_srcs/i_init_cmd.c \
-			   ./p_srcs/i_handle_signals.c \
-			   ./p_srcs/errors.c \
-			   ./p_srcs/t_tokenize.c \
-			   ./p_srcs/t_add_tokens.c \
-			   ./p_srcs/t_utils.c \
-			   ./p_srcs/parse.c \
-			#    ./p_srcs/expand.c \
-			#    ./p_srcs/expand_1.c \
-			#    ./p_srcs/expand_2.c \
+				./p_srcs/i_handle_signals.c \
+				./p_srcs/errors.c \
+				./p_srcs/t_tokenize.c \
+				./p_srcs/t_add_tokens.c \
+				./p_srcs/t_utils.c \
+				./p_srcs/parse.c \
+				./e_srcs/builtin/cd.c \
+				./e_srcs/builtin/echo.c \
+				./e_srcs/builtin/env.c \
+				./e_srcs/builtin/exit.c \
+				./e_srcs/builtin/export.c \
+				./e_srcs/builtin/pwd.c \
+				./e_srcs/builtin/unset.c \
+				./e_srcs/execute.c \
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o

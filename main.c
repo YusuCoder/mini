@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 17:44:09 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:02:04 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int	main(int argc, char **argv, char **envp)
 			printf("[ %s ]\n", t.tokens[i]);
 			if (parse(t.tokens) && t.tokens)
 			{
-
+				execute(&t);
 			}
 			i++;
+
 		}
 		// if (!t.tokens)
 		// 	return (0);

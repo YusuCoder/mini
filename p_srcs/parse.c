@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 17:45:33 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:51:34 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,48 +92,48 @@ int	parse(char	**t)
 	return (1);
 }
 
-int main() {
-    char *test0[] = {"echo", "hello", "world", NULL};
-    char *test1[] = {"echo", "\"hello world\"", ">", "output.txt", NULL};
-    char *test2[] = {"cat", "<", "input.txt", "|", "grep", "search_term", NULL};
-    char *test3[] = {"ls", "<", NULL};
-    char *test4[] = {"|", "echo", "error", NULL}; // Invalid test case
-    char *test5[] = {"echo", "unmatched", "\"", NULL}; // Invalid test case
-    char *test6[] = {"echo", "multiple", ">", ">", "error", NULL}; // Invalid test case
+// int main() {
+//     char *test0[] = {"echo", "hello", "world", NULL};
+//     char *test1[] = {"echo", "\"hello world\"", ">", "output.txt", NULL};
+//     char *test2[] = {"cat", "<", "input.txt", "|", "grep", "search_term", NULL};
+//     char *test3[] = {"ls", "<", NULL};
+//     char *test4[] = {"|", "echo", "error", NULL}; // Invalid test case
+//     char *test5[] = {"echo", "unmatched", "\"", NULL}; // Invalid test case
+//     char *test6[] = {"echo", "multiple", ">", ">", "error", NULL}; // Invalid test case
 
-	if (parse(test0) == 0)
-		printf("Test 0 passed.\n");
-	else
-		printf("test 0 failed,\n");
-    if (parse(test1) == 0)
-        printf("Test 1 passed.\n");
-    else
-        printf("Test 1 failed.\n");
+// 	if (parse(test0) == 0)
+// 		printf("Test 0 passed.\n");
+// 	else
+// 		printf("test 0 failed,\n");
+//     if (parse(test1) == 0)
+//         printf("Test 1 passed.\n");
+//     else
+//         printf("Test 1 failed.\n");
 
-    if (parse(test2) == 0)
-        printf("Test 2 passed.\n");
-    else
-        printf("Test 2 failed.\n");
+//     if (parse(test2) == 0)
+//         printf("Test 2 passed.\n");
+//     else
+//         printf("Test 2 failed.\n");
 
-    if (parse(test3) == 0)
-        printf("Test 3 passed.\n");
-    else
-        printf("Test 3 failed.\n");
+//     if (parse(test3) == 0)
+//         printf("Test 3 passed.\n");
+//     else
+//         printf("Test 3 failed.\n");
 
-    if (parse(test4) != 0)
-        printf("Test 4 passed.\n");
-    else
-        printf("Test 4 failed.\n");
+//     if (parse(test4) != 0)
+//         printf("Test 4 passed.\n");
+//     else
+//         printf("Test 4 failed.\n");
 
-    if (parse(test5) != 0)
-        printf("Test 5 passed.\n");
-    else
-        printf("Test 5 failed.\n");
+//     if (parse(test5) != 0)
+//         printf("Test 5 passed.\n");
+//     else
+//         printf("Test 5 failed.\n");
 
-    if (parse(test6) != 0)
-        printf("Test 6 passed.\n");
-    else
-        printf("Test 6 failed.\n");
+//     if (parse(test6) != 0)
+//         printf("Test 6 passed.\n");
+//     else
+//         printf("Test 6 failed.\n");
 
-    return 0;
-}
+//     return 0;
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 16:53:28 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:52:08 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,17 @@ char	*get_c_string(char *token);
 char	*get_x_string(char	*token);
 int		count_string(char	*token);
 
+/*-------------*/
+/*  Executing  */
+/*-------------*/
+void	execute(t_command *cmd);
+int		execute_builtin(t_command *cmd);
+int		execute_cd(char **args);
+int		execute_pwd(void);
+int		execute_echo(char **args);
+int		execute_env(char **envp);
+int		execute_export(char **args);
+int		execute_unset(char **args);
+int		execute_exit(void);
 
 #endif
