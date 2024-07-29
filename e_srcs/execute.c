@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:11:38 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/29 15:37:31 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:07:44 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int	execute_builtin(t_command *cmd)
 		is_error = execute_exit();
 	return (is_error);
 }
+
+
 void	execute(t_command *cmd)
 {
 	int	is_error;
 
-	cmd->envp = set_envp(cmd->env);
+	// cmd->envp = set_envp(cmd->env);
 	is_error = execute_builtin(cmd);
 }

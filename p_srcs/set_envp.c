@@ -6,49 +6,93 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:43:42 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 15:44:41 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:28:19 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	get_len(t_ryusupov **str)
+// int	get_len(char **str)
+// {
+// 	int			i;
+// 	char	*temp;
+
+// 	i = 0;
+// 	temp = *str;
+// 	while (temp != NULL)
+// 	{
+// 		i++;
+// 		temp = temp->next;
+// 	}
+// 	return (i);
+// }
+
+// char	**set_envp(t_ryusupov **envp)
+// {
+// 	t_ryusupov  *temp;
+// 	char		**env;
+// 	int			size;
+// 	int			i;
+
+// 	i = 0;
+// 	if (envp == NULL || *envp == NULL)
+// 		return (NULL);
+// 	temp = *envp;
+// 	size = get_len(envp);
+// 	env = (char **)malloc((size + 1) * sizeof(char *));
+// 	if (!env)
+// 		return (NULL);
+// 	while (i < size)
+// 	{
+// 		env[i] = temp->content;
+// 		i++;
+// 		temp = temp->next;
+// 	}
+// 	env[i] = NULL;
+// 	return (env);
+// }
+
+int	get_len(char **envp)
 {
-	int			i;
-	t_ryusupov	*temp;
+	int	i;
 
 	i = 0;
-	temp = *str;
-	while (temp != NULL)
+	while (envp[i] != NULL)
 	{
 		i++;
-		temp = temp->next;
 	}
 	return (i);
 }
 
-char	**set_envp(t_ryusupov **envp)
+char	**set_envp(char **envp)
 {
-	t_ryusupov  *temp;
-	char		**env;
-	int			size;
-	int			i;
+	int		size;
+	char	**env;
+	int		i;
 
-	i  = 0;
-	temp = *envp;
 	size = get_len(envp);
 	env = (char **)malloc((size + 1) * sizeof(char *));
 	if (!env)
 		return (NULL);
+	i = 0;
 	while (i < size)
 	{
-		env[i] = temp->content;
+		env[i] = strdup(envp[i]);
+		if (!env[i])
+		{
+			while (i > 0)
+			{
+				free(env[--i]);
+			}
+			free(env);
+			return (NULL);
+		}
 		i++;
-		temp = temp->next;
 	}
 	env[i] = NULL;
 	return (env);
 }
+
 // int main(void)
 // {
 //     // Create linked list nodes
@@ -96,6 +140,5 @@ char	**set_envp(t_ryusupov **envp)
 //     free(node2);
 //     free(node3);
 
-//     return 0;
+//     return (0);
 // }
-

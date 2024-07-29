@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 15:30:36 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:30:39 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ char	*read_line(char *line)
 	return (line);
 }
 
+// void print_envp(char **envp) {
+//     int i = 0;
+//     while (envp[i] != NULL) {
+//         printf("%s\n", envp[i]);
+//         i++;
+//     }
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -47,6 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	_init_terminal(&gl_command, envp);
+	t.envp = set_envp(envp);
+	// print_envp(t.envp);
 	while(1)
 	{
 		line = read_line(line);

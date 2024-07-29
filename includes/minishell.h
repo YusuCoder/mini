@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 15:34:51 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:29:03 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,10 @@ char	*get_x_string(char	*token);
 int		count_string(char	*token);
 
 /*----------envp handling-----------*/
-char	**set_envp(t_ryusupov **envp);
-int		get_len(t_ryusupov **str);
+// char	**set_envp(t_ryusupov **envp);
+char	**set_envp(char **envp);
+// int		get_len(t_ryusupov **str);
+int		get_len(char **envp);
 
 /*-------------*/
 /*  Executing  */
