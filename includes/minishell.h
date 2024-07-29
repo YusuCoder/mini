@@ -58,14 +58,30 @@ typedef struct s_fd
 /*---General command struct---*/
 typedef struct s_commands
 {
-	char		**tokens;
-	t_ryusupov	**env;
-	uint8_t		exit_code;
-	int			*pipe;
-	int			argc;
-	char		**envp;
-	char		**path;
-}				t_command;
+	char			**tokens;
+	t_ryusupov		**env;
+	uint8_t			exit_code;
+	int				*pipe;
+	int				argc;
+	char			**envp;
+	char			**path;
+	t_sub_commands	*sub_command;
+}					t_command;
+
+typedef struct s_sub_commands 
+{
+	int		sub_argc_count;
+	char	**arguments;
+	int		argc;
+	char	**argv;
+	t_fd	input_fd;
+	t_fd	output_fd;
+	t_fd	error_fd;
+	int		is_heredoc;
+	char	*is_delimeter;
+	int		append;
+	int		pid;
+}			t_sub_commands;
 
 typedef enum s_process
 {
