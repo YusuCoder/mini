@@ -29,7 +29,7 @@ char	*shlvl_handler(char *str)
 	free(number);
 	return (str);
 }
-
+/*---Creating the list of enviroment variables to the t_cmd struct---*/
 void	_init_env_shlvl(t_command *cmd, char **envp)
 {
 	int			i;

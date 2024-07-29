@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 14:25:52 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:48:01 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	main(int argc, char **argv, char **envp)
 		execute(&t);
 		// if (!t.tokens)
 		// 	return (0);
+		if (ft_strcmp(line, "pwd") == 0)
+			execute_pwd();
 	}
 	return (0);
 }

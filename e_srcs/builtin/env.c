@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:17:14 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/28 17:40:03 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:34:24 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	execute_env(char **envp)
-{
-	int	i;
+// int	execute_env(t_command **env)
+// {
+// 	int	i;
 
-	i = 0;
-	while ((*envp)[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while ((env)[i])
+// 	{
+// 		printf("%s\n", env[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }
