@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+         #
+#    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/28 17:48:11 by tkubanyc         ###   ########.fr        #
+#    Updated: 2024/07/29 15:35:27 by ryusupov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./e_srcs/builtin/pwd.c \
 				./e_srcs/builtin/unset.c \
 				./e_srcs/execute.c \
+				./p_srcs/set_envp.c
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o

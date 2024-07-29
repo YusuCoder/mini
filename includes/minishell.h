@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 19:52:08 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:34:51 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,7 @@ typedef struct s_fd
 	int		fd;
 }			t_fd;
 
-/*---General command struct---*/
-typedef struct s_commands
-{
-	char			**tokens;
-	t_ryusupov		**env;
-	uint8_t			exit_code;
-	int				*pipe;
-	int				argc;
-	char			**envp;
-	char			**path;
-	t_sub_commands	*sub_command;
-}					t_command;
-
-typedef struct s_sub_commands 
+typedef struct s_sub_commands
 {
 	int		sub_argc_count;
 	char	**arguments;
@@ -83,6 +70,18 @@ typedef struct s_sub_commands
 	int		pid;
 }			t_sub_commands;
 
+/*---General command struct---*/
+typedef struct s_commands
+{
+	char			**tokens;
+	t_ryusupov		**env;
+	uint8_t			exit_code;
+	int				*pipe;
+	int				argc;
+	char			**envp;
+	char			**path;
+	t_sub_commands	*sub_command;
+}					t_command;
 typedef enum s_process
 {
 	INIT,
@@ -127,6 +126,10 @@ char	*get_c_string(char *token);
 char	*get_x_string(char	*token);
 int		count_string(char	*token);
 
+/*----------envp handling-----------*/
+char	**set_envp(t_ryusupov **envp);
+int		get_len(t_ryusupov **str);
+
 /*-------------*/
 /*  Executing  */
 /*-------------*/
@@ -135,7 +138,7 @@ int		execute_builtin(t_command *cmd);
 int		execute_cd(char **args);
 int		execute_pwd(void);
 int		execute_echo(char **args);
-int		execute_env(char **envp);
+// int		execute_env(t_command **envp);
 int		execute_export(char **args);
 int		execute_unset(char **args);
 int		execute_exit(void);

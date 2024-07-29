@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:11:38 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/28 17:43:10 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:37:31 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	execute_builtin(t_command *cmd)
 		is_error = execute_pwd();
 	else if (ft_strcmp(cmd->tokens[0], "cd") == 0)
 		is_error = execute_cd(cmd->tokens);
-	else if (ft_strcmp(cmd->tokens[0], "env") == 0)
-		is_error = execute_env(cmd->envp);
+	// else if (ft_strcmp(cmd->tokens[0], "env") == 0)
+	// 	is_error = execute_env(cmd->env);
 	else if (ft_strcmp(cmd->tokens[0], "echo") == 0)
 		is_error = execute_echo(cmd->tokens);
 	else if (ft_strcmp(cmd->tokens[0], "unset") == 0)
@@ -37,5 +37,6 @@ void	execute(t_command *cmd)
 {
 	int	is_error;
 
+	cmd->envp = set_envp(cmd->env);
 	is_error = execute_builtin(cmd);
 }
