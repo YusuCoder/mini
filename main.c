@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 11:46:35 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 16:37:04 by tkubanyc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
@@ -76,8 +65,6 @@ int	main(int argc, char **argv, char **envp)
 		execute(&t);
 		// if (!t.tokens)
 		// 	return (0);
-		if (ft_strcmp(line, "pwd") == 0)
-			execute_pwd();
 	}
 	return (0);
 }
