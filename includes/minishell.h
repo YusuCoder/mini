@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/30 15:30:50 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:53:04 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		execute_builtin(t_command *cmd);
 int		execute_cd(char **args);
 int		execute_pwd(void);
 int		execute_echo(char **args);
-// int		execute_env(t_command **envp);
+int		execute_env(char **envp);
 int		execute_export(char **args);
 int		execute_unset(char **args);
 int		execute_exit(void);

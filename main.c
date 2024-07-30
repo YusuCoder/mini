@@ -65,8 +65,6 @@ int	main(int argc, char **argv, char **envp)
 		execute(&t);
 		// if (!t.tokens)
 		// 	return (0);
-		// if (ft_strcmp(line, "pwd") == 0)
-		// 	execute_pwd();
 	}
 	return (0);
 }
