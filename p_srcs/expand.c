@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/27 16:30:30 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:27:48 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,32 +84,60 @@ int	expansion_of_first_token(char *token)
 /*
 	this function is responsible for expanding a certain token with ($) within the array
 */
-void	expand(char	**tokens, t_ryusupov **env)
-{
-	int		i;
-	int		x;
-	char	*expanded_token;
+// void	expand(char	**tokens, char **env)
+// {
+// 	int		i;
+// 	int		x;
+// 	char	*expanded_token;
 
-	i = 0;
-	while (tokens[i])
-	{
-		if (expansion_of_first_token(tokens[i]) != -1)
-		{
-			if (ft_strchr(tokens[i], '$')[1] == '\0' || count_str(ft_strchr(tokens[i], '$')[1]) || is_exeption(ft_strchr(tokens[i], '$')[1]))    //maybe the issue here in this function need to be clarified later with test
-			{
-				i++;
-				continue ;
-			}
-			x = expansion_of_first_token(tokens[i]);
-			expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env);
-			// free(tokens[i]);
-			tokens[i] = expanded_token;
-		}
-		if (still_dollar_sign_there(tokens[i]))
-			continue ;
-		i++;
-	}
+// 	i = 0;
+// 	while (tokens[i])
+// 	{
+// 		if (expansion_of_first_token(tokens[i]) != -1)
+// 		{
+// 			if (ft_strchr(tokens[i], '$')[1] == '\0' || count_str(ft_strchr(tokens[i], '$')[1]) || is_exeption(ft_strchr(tokens[i], '$')[1]))    //maybe the issue here in this function need to be clarified later with test
+// 			{
+// 				i++;
+// 				continue ;
+// 			}
+// 			x = expansion_of_first_token(tokens[i]);
+// 			expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env);
+// 			// free(tokens[i]);
+// 			tokens[i] = expanded_token;
+// 		}
+// 		if (still_dollar_sign_there(tokens[i]))
+// 			continue ;
+// 		i++;
+// 	}
+// }
+
+void expand(char **tokens, char **env, t_command *cmd)
+{
+    int i = 0;
+    int x;
+    char *expanded_token;
+
+    while (tokens[i]) {
+        if (expansion_of_first_token(tokens[i]) != -1) {
+            if (ft_strchr(tokens[i], '$')[1] == '\0' ||
+                count_str(ft_strchr(tokens[i], '$')[1]) ||
+                is_exeption(ft_strchr(tokens[i], '$')[1])) {
+                i++;
+                continue;
+            }
+            x = expansion_of_first_token(tokens[i]);
+            expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env, cmd);
+            free(tokens[i]);
+            tokens[i] = expanded_token;
+        }
+        if (still_dollar_sign_there(tokens[i])) {
+            i++;
+            continue;
+        }
+        i++;
+    }
 }
+
 
 // int main() {
 // 	t_ryusupov env_struct = {
@@ -140,34 +168,34 @@ void	expand(char	**tokens, t_ryusupov **env)
 // 	return 0;
 // }
 
-int main() {
-    // Mock environment variable. Replace with actual environment setup.
-    t_ryusupov* env = NULL; // Assuming t_ryusupov is a structure for environment variables.
+// int main() {
+//     // Mock environment variable. Replace with actual environment setup.
+//     t_ryusupov* env = NULL; // Assuming t_ryusupov is a structure for environment variables.
 
-    // Example tokens array to be expanded.
-    char* tokens[] = {
-        "echo $PATH",
-        "ls -l $HOME",
-        "echo 'This $VAR should not expand'",
-        "echo \"This $VAR should expand\"",
-        NULL // Array terminator
-    };
+//     // Example tokens array to be expanded.
+//     char* tokens[] = {
+//         "echo $PATH",
+//         "ls -l $HOME",
+//         "echo 'This $VAR should not expand'",
+//         "echo \"This $VAR should expand\"",
+//         NULL // Array terminator
+//     };
 
-    // Call the expand function.
-    expand(tokens, &env);
+//     // Call the expand function.
+//     expand(tokens, &env);
 
-    // Print the expanded tokens.
-    for (int i = 0; tokens[i] != NULL; i++) {
-        printf("Token %d: %s\n", i, tokens[i]);
-    }
+//     // Print the expanded tokens.
+//     for (int i = 0; tokens[i] != NULL; i++) {
+//         printf("Token %d: %s\n", i, tokens[i]);
+//     }
 
-    // Free the allocated memory for tokens.
-    // Note: This is necessary because the expand function replaces tokens with dynamically allocated strings.
-    for (int i = 0; tokens[i] != NULL; i++) {
-        free(tokens[i]);
-    }
+//     // Free the allocated memory for tokens.
+//     // Note: This is necessary because the expand function replaces tokens with dynamically allocated strings.
+//     for (int i = 0; tokens[i] != NULL; i++) {
+//         free(tokens[i]);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 

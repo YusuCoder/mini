@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/07/29 16:29:03 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:30:50 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_commands
 	t_ryusupov		**env;
 	uint8_t			exit_code;
 	int				*pipe;
-	int				argc;
+	int				cmd_num;
 	char			**envp;
 	char			**path;
 	t_sub_commands	*sub_command;
@@ -111,15 +111,18 @@ int		count_str(char c);
 int		is_empty(const char *str);
 int		count_tokens(char token);
 /*-----------PARSING-------------*/
-void	expand(char	**tokens, t_ryusupov **env);
+// void	expand(char	**tokens, char **env);
+void 	expand(char **tokens, char **env, t_command *cmd);
 int		not_in_squote(char *token, int i);
 int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
 int		expansion_of_first_token(char *token);
-char	*dollar_sign(char *sign, char *token, t_ryusupov **env);
+// char	*dollar_sign(char *sign, char *token, char **env);
+char 	*dollar_sign(char *sign, char *token, char **env, t_command *cmd);
 char	*remove_var(char *token, char *v_name);
 char	*replace_token(char *token, char *e_name);
-char	*get_e_name(char *v_name, t_ryusupov **env);
+// char	*get_e_name(char *v_name, t_ryusupov **env);
+char 	*get_e_name(char *v_name, char **env);
 char	*get_v_name(char	*token);
 char	*fill_e_name(char *line, int i);
 char	*get_c_string(char *token);
