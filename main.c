@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_command	t;
-	char		prev_dir[1024];
+	char		prev_dir[PATH_MAX];
 	int			exit_code;
 
 	(void)argv;

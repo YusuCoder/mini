@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 13:11:38 by tkubanyc          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/30 15:54:48 by ryusupov         ###   ########.fr       */
-=======
-/*   Updated: 2024/07/30 15:56:26 by tkubanyc         ###   ########.fr       */
->>>>>>> 52b41477f0c7f92fb24f1061bfb615a81cf76d3c
+/*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
+/*   Updated: 2024/07/31 19:34:01 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +41,6 @@ int	execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size,
 		return (127);
 	}
 }
-
 
 int	execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code)
 {
