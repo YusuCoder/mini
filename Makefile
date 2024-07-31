@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/07/08 11:33:19 by ryusupov          #+#    #+#              #
-#    Updated: 2024/07/30 15:06:42 by ryusupov         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 NAME	:= minishell
 CC		:= gcc
@@ -27,18 +16,15 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./p_srcs/t_add_tokens.c \
 				./p_srcs/t_utils.c \
 				./p_srcs/parse.c \
-				./e_srcs/builtin/cd.c \
-				./e_srcs/builtin/echo.c \
-				./e_srcs/builtin/env.c \
-				./e_srcs/builtin/exit.c \
-				./e_srcs/builtin/export.c \
-				./e_srcs/builtin/pwd.c \
-				./e_srcs/builtin/unset.c \
-				./e_srcs/execute.c \
 				./p_srcs/set_envp.c \
-				./p_srcs/expand.c \
-				./p_srcs/expand_1.c \
-				./p_srcs/expand_2.c \
+				./e_srcs/builtins/cd.c \
+				./e_srcs/builtins/echo.c \
+				./e_srcs/builtins/env.c \
+				./e_srcs/builtins/exit.c \
+				./e_srcs/builtins/export.c \
+				./e_srcs/builtins/pwd.c \
+				./e_srcs/builtins/unset.c \
+				./e_srcs/execute.c \
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
