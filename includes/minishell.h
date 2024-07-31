@@ -6,7 +6,11 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:04:06 by ryusupov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/30 15:53:04 by ryusupov         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/30 21:02:18 by tkubanyc         ###   ########.fr       */
+>>>>>>> 52b41477f0c7f92fb24f1061bfb615a81cf76d3c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,14 +142,18 @@ int		get_len(char **envp);
 /*-------------*/
 /*  Executing  */
 /*-------------*/
-void	execute(t_command *cmd);
-int		execute_builtin(t_command *cmd);
-int		execute_cd(char **args);
-int		execute_pwd(void);
-int		execute_echo(char **args);
-int		execute_env(char **envp);
-int		execute_export(char **args);
-int		execute_unset(char **args);
-int		execute_exit(void);
+int		execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+int		execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+int		execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+int		cd_home_dir(char **args, char **env, int *exit_code);
+char	*get_env_var(const char *name, char **env);
+int		cd_dash_arg(char **args, char *prev_dir, int *exit_code);
+int		change_directory(char **args, char *path, int *exit_code);
+int		execute_pwd(int *exit_code);
+int		execute_echo(char **args, int exit_code, int *exit_code_out);
+int		execute_env(char **env, int *exit_code);
+int		execute_export(t_command *cmd, int *exit_code);
+int		execute_unset(char **args, int *exit_code);
+int		execute_exit(char **args, int *exit_code);
 
 #endif

@@ -6,39 +6,48 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:11:38 by tkubanyc          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/30 15:54:48 by ryusupov         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/30 15:56:26 by tkubanyc         ###   ########.fr       */
+>>>>>>> 52b41477f0c7f92fb24f1061bfb615a81cf76d3c
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	execute_builtin(t_command *cmd)
+int	execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size,
+	int *exit_code)
 {
-	int	is_error;
-
-	is_error = 0;
+	if (cmd->tokens[0] == NULL)
+	{
+		*exit_code = 0;
+		return (0);
+	}
 	if (ft_strcmp(cmd->tokens[0], "pwd") == 0)
-		is_error = execute_pwd();
+		return (execute_pwd(exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "cd") == 0)
-		is_error = execute_cd(cmd->tokens);
+		return (execute_cd(cmd, prev_dir, prev_dir_size, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "env") == 0)
-		is_error = execute_env(cmd->envp);
+		return (execute_env(cmd->envp, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "echo") == 0)
-		is_error = execute_echo(cmd->tokens);
+		return (execute_echo(cmd->tokens, *exit_code, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "unset") == 0)
-		is_error = execute_unset(cmd->tokens);
+		return (execute_unset(cmd->tokens, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "export") == 0)
-		is_error = execute_export(cmd->tokens);
+		return (execute_export(cmd, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "exit") == 0)
-		is_error = execute_exit();
-	return (is_error);
+		return (execute_exit(cmd->tokens, exit_code));
+	else
+	{
+		write(2, "Command not found\n", 18);
+		*exit_code = 127;
+		return (127);
+	}
 }
 
 
-void	execute(t_command *cmd)
+int	execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code)
 {
-	int	is_error;
-
-	// cmd->envp = set_envp(cmd->env);
-	is_error = execute_builtin(cmd);
+	return (execute_builtin(cmd, prev_dir, prev_dir_size, exit_code));
 }

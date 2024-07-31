@@ -6,32 +6,53 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:29:38 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/28 17:40:21 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:25:08 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	execute_export(char **args)
+int	execute_export(t_command *cmd, int *exit_code)
 {
-	char	*env_var;
+	char	*env_line;
 	char	*name;
 	char	*value;
+	int		i;
 
-	if (args[1] == NULL)
+	i = 0;
+	if (cmd->tokens[1] == NULL)
 	{
-		write(2, "export: expected arguments\n", 28);
-		return (0);
-	}
-	env_var = args[1];
-	name = strtok(env_var, "=");
-	value = strtok(NULL, "=");
-	if (name && value)
-	{
-		if (setenv(name, value, 1) != 0)
-			perror("export");
+		while (cmd->envp[i])
+		{
+			env_line = *cmd->envp;
+			printf("%s\n", env_line);
+			i++;
+		}
 	}
 	else
-		write(2, "export: invalid fromat, expected NAME=VALUE\n", 45);
+	{
+		while (cmd->tokens[i])
+		{
+			name = strtok(cmd->tokens[i], "=");
+			value = strtok(NULL, "=");
+			if (name && value)
+			{
+				if (setenv(name, value, 1) != 0)
+				{
+					perror("export");
+					*exit_code = 1;
+					return (1);
+				}
+			}
+			else
+			{
+				write(2, "export: invalid argument\n", 25);
+				*exit_code = 1;
+				return (1);
+			}
+			i++;
+		}
+	}
+	*exit_code = 0;
 	return (0);
 }
