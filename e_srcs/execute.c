@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/31 19:34:01 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:25:49 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size,
 	else if (ft_strcmp(cmd->tokens[0], "env") == 0)
 		return (execute_env(cmd->envp, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "echo") == 0)
-		return (execute_echo(cmd->tokens, *exit_code, exit_code));
+		return (execute_echo(cmd->tokens, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "unset") == 0)
 		return (execute_unset(cmd->tokens, exit_code));
 	else if (ft_strcmp(cmd->tokens[0], "export") == 0)

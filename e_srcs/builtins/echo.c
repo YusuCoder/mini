@@ -6,45 +6,74 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:24:03 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/30 15:18:31 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:27:13 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*substitute_vars(char *arg, int exit_code)
+static void	print_arg(char *arg, int exit_code)
 {
-	static char	code_str[12];
-
-	if (ft_strcmp(arg, "$?") == 0)
+	if (strncmp(arg, "$?", 2) == 0)
 	{
-		snprintf(code_str, sizeof(code_str), "%d", exit_code);
-		return (code_str);
+		printf("%d", exit_code);
+		if (ft_strlen(arg) > 2)
+			printf("%s", arg + 2);
 	}
-	return (arg);
+	else
+		printf("%s", arg);
 }
 
-int	execute_echo(char **args, int exit_code, int *exit_code_out)
+static int is_all_n(char *arg)
+{
+	int	i;
+
+	i = 1;
+	if (arg[0] != '-')
+		return 0;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
+static int skip_all_n(char **args, int *i)
+{
+	int all_n;
+
+	all_n = 0;
+	while (args[*i] && is_all_n(args[*i]))
+	{
+		all_n = 1;
+		(*i)++;
+	}
+	return all_n;
+}
+
+int execute_echo(char **args, int *exit_code)
 {
 	int		new_line;
+	int		space;
 	int		i;
-	char	*arg;
 
 	new_line = 1;
+	space = 0;
 	i = 1;
-	if (args[i] && ft_strcmp(args[i], "-n") == 0)
-	{
+	if (skip_all_n(args, &i))
 		new_line = 0;
-		i++;
-	}
 	while (args[i])
 	{
-		arg = substitute_vars(args[i], exit_code);
-		if (i > 1) printf(" ");
-		printf("%s", args[i]);
+		if (space)
+			printf(" ");
+		print_arg(args[i], *exit_code);
+		space = 1;
 		i++;
 	}
-	if (new_line) printf("\n");
-	*exit_code_out = 0;
-	return (0);
+	if (new_line)
+		printf("\n");
+	*exit_code = 0;
+	return 0;
 }
