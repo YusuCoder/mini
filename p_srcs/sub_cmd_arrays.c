@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_cmd_arrays.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 10:57:03 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/02 13:22:53 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:25:05 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	sub_cmds_array(t_command *cmd, char **tokens)
 		i++;
 	}
 }
+
+// echo hello | wc -l = echo hello | wc -l  szzsc szzsc
 
 // int main() {
 //     char *tokens[] = {"echo", "hello", "|", "wc", "-l", NULL};

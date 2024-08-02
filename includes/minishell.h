@@ -46,8 +46,8 @@ typedef struct s_fd
 
 typedef struct s_sub_commands
 {
-	char	**sub_cmd_array;
-	int		sub_argc_count;
+	char	**sub_cmd_array; //avlue of arguments (commands) each sub-command has
+	int		sub_argc_count; //number of arguments (commands) each sub-command has
 	char	**arguments;
 	int		argc;
 	char	**argv;
@@ -67,10 +67,10 @@ typedef struct s_commands
 	t_ryusupov		**env;
 	uint8_t			exit_code;
 	int				*pipe;
-	int				cmd_num;
+	int				cmd_num; //number of commands separated with pipe
 	char			**envp;
 	char			**path;
-	t_sub_commands	*sub_command;
+	t_sub_commands	*sub_command; //array of sub-commands
 }					t_command;
 typedef enum s_process
 {
@@ -79,7 +79,7 @@ typedef enum s_process
 	CHILD_PROCESS,
 }			t_process;
 
-/*----global variable-----*/
+/*----global variable-----*/ // <------- !!! DON"T FORGET TO CHANGE !!!
 t_command	gl_command;
 
 /*-----------SIGNALS----------*/
@@ -132,19 +132,18 @@ int		build_cmds(char	**tokens, t_command *cmd);
 char	**set_envp(char **envp);
 // int		get_len(t_ryusupov **str);
 int		get_len(char **envp);
-
 /*-------------*/
 /*  Executing  */
 /*-------------*/
 int		execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
 int		execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
 int		execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
-int		cd_home_dir(char **args, char **env, int *exit_code);
-char	*get_env_var(const char *name, char **env);
-int		cd_dash_arg(char **args, char *prev_dir, int *exit_code);
-int		change_directory(char **args, char *path, int *exit_code);
+int		cd_home_dir(char *arg, char **env, int *exit_code);
+int		cd_dash_arg(char *arg, char *prev_dir, int *exit_code);
+int		change_directory(char *arg, char *path, int *exit_code);
+void	update_env(char *prev_dir, char **env, int *exit_code);
 int		execute_pwd(int *exit_code);
-int		execute_echo(char **args, int exit_code, int *exit_code_out);
+int		execute_echo(char **args, int *exit_code);
 int		execute_env(char **env, int *exit_code);
 int		execute_export(t_command *cmd, int *exit_code);
 int		execute_unset(char **args, int *exit_code);
