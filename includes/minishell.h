@@ -46,8 +46,8 @@ typedef struct s_fd
 
 typedef struct s_sub_commands
 {
-	char	**sub_cmd_array;
-	int		sub_argc_count;
+	char	**sub_cmd_array; //avlue of arguments (commands) each sub-command has
+	int		sub_argc_count; //number of arguments (commands) each sub-command has
 	char	**arguments;
 	int		argc;
 	char	**argv;
@@ -67,10 +67,10 @@ typedef struct s_commands
 	t_ryusupov		**env;
 	uint8_t			exit_code;
 	int				*pipe;
-	int				cmd_num;
+	int				cmd_num; //number of commands separated with pipe
 	char			**envp;
 	char			**path;
-	t_sub_commands	*sub_command;
+	t_sub_commands	*sub_command; //array of sub-commands
 }					t_command;
 typedef enum s_process
 {
@@ -132,7 +132,6 @@ int		build_cmds(char	**tokens, t_command *cmd);
 char	**set_envp(char **envp);
 // int		get_len(t_ryusupov **str);
 int		get_len(char **envp);
-
 /*-------------*/
 /*  Executing  */
 /*-------------*/
