@@ -46,6 +46,7 @@ typedef struct s_fd
 
 typedef struct s_sub_commands
 {
+	char	**sub_cmd_array;
 	int		sub_argc_count;
 	char	**arguments;
 	int		argc;
@@ -95,11 +96,14 @@ int		count_words(const char *str, int i);
 int		count_tokens(char token);
 int		get_word_len(const char *str, int i);
 int		count_str(char c);
-int		parse(char	**t);
-int		count_str(char c);
-int		is_empty(const char *str);
-int		count_tokens(char token);
 /*-----------PARSING-------------*/
+int		parse(char	**t);
+int		check_beginning_and_end(char **t, int i);
+int		parse_redirs(char *current, char *next);
+int		count_str(char c);
+int		quotes_check(char *t);
+int		is_empty(const char *str);
+/*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);
 void 	expand(char **tokens, char **env, t_command *cmd);
 int		not_in_squote(char *token, int i);
@@ -117,7 +121,12 @@ char	*fill_e_name(char *line, int i);
 char	*get_c_string(char *token);
 char	*get_x_string(char	*token);
 int		count_string(char	*token);
-
+/*------------Sub command bouilding-------------*/
+void	sub_cmds_array(t_command *cmd, char **tokens);
+int		count_commands(char **tokens, t_command *cmd);
+int		count_cmds(char	**token);
+int		token_count(t_command *cmd, char **tokens, int i, int j);
+int		build_cmds(char	**tokens, t_command *cmd);
 /*----------envp handling-----------*/
 // char	**set_envp(t_ryusupov **envp);
 char	**set_envp(char **envp);
