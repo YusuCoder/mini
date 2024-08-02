@@ -17,6 +17,8 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./p_srcs/t_utils.c \
 				./p_srcs/parse.c \
 				./p_srcs/set_envp.c \
+				./p_srcs/count_commands.c \
+				./p_srcs/sub_cmd_arrays.c \
 				./e_srcs/builtins/cd.c \
 				./e_srcs/builtins/echo.c \
 				./e_srcs/builtins/env.c \
