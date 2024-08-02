@@ -14,7 +14,7 @@
 
 static void	print_arg(char *arg, int exit_code)
 {
-	if (strncmp(arg, "$?", 2) == 0)
+	if (ft_strncmp(arg, "$?", 2) == 0)
 	{
 		printf("%d", exit_code);
 		if (ft_strlen(arg) > 2)

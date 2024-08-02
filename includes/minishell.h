@@ -18,6 +18,7 @@
 #include<readline/readline.h>
 #include<readline/history.h>
 #include<signal.h>
+#include<string.h>
 #include<termios.h>
 
 #define PIPE 124
