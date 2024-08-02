@@ -70,7 +70,7 @@ typedef struct s_commands
 	int				cmd_num; //number of commands separated with pipe
 	char			**envp;
 	char			**path;
-	t_sub_commands	*sub_command; //array of sub-commands
+	t_sub_commands	*sub_command; //array of sub-commands seperated with pipes
 }					t_command;
 typedef enum s_process
 {
