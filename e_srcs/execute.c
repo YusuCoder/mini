@@ -6,11 +6,18 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/01 20:25:49 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/01 21:28:50 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	print_wrong_command(char *arg)
+{
+	write(2, "minishell: ", 12);
+	write(2, arg, ft_strlen(arg));
+	write(2, ": command not found\n", 21);
+}
 
 int	execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size,
 	int *exit_code)
@@ -36,7 +43,7 @@ int	execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size,
 		return (execute_exit(cmd->tokens, exit_code));
 	else
 	{
-		write(2, "Command not found\n", 18);
+		print_wrong_command(cmd->tokens[0]);
 		*exit_code = 127;
 		return (127);
 	}

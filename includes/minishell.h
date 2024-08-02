@@ -78,7 +78,7 @@ typedef enum s_process
 	CHILD_PROCESS,
 }			t_process;
 
-/*----global variable-----*/
+/*----global variable-----*/ // <------- !!! DON"T FORGET TO CHANGE !!!
 t_command	gl_command;
 
 /*-----------SIGNALS----------*/
@@ -130,10 +130,10 @@ int		get_len(char **envp);
 int		execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
 int		execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
 int		execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
-int		cd_home_dir(char **args, char **env, int *exit_code);
-int		cd_dash_arg(char **args, char *prev_dir, int *exit_code);
-int		change_directory(char **args, char *path, int *exit_code);
-int		update_env_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
+int		cd_home_dir(char *arg, char **env, int *exit_code);
+int		cd_dash_arg(char *arg, char *prev_dir, int *exit_code);
+int		change_directory(char *arg, char *path, int *exit_code);
+void	update_env(char *prev_dir, char **env, int *exit_code);
 int		execute_pwd(int *exit_code);
 int		execute_echo(char **args, int *exit_code);
 int		execute_env(char **env, int *exit_code);

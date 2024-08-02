@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:24:03 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/01 20:27:13 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:46:42 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static int is_all_n(char *arg)
 
 	i = 1;
 	if (arg[0] != '-')
-		return 0;
+		return (0);
 	while (arg[i])
 	{
 		if (arg[i] != 'n')
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 static int skip_all_n(char **args, int *i)
@@ -50,7 +50,7 @@ static int skip_all_n(char **args, int *i)
 		all_n = 1;
 		(*i)++;
 	}
-	return all_n;
+	return (all_n);
 }
 
 int execute_echo(char **args, int *exit_code)
@@ -75,5 +75,5 @@ int execute_echo(char **args, int *exit_code)
 	if (new_line)
 		printf("\n");
 	*exit_code = 0;
-	return 0;
+	return (0);
 }
