@@ -6,13 +6,13 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:24:03 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/02 14:55:30 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:09:45 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	print_arg(char *arg, int exit_code)
+void	echo_print_arg(char *arg, int exit_code)
 {
 	if (ft_strncmp(arg, "$?", 2) == 0)
 	{
@@ -24,12 +24,14 @@ static void	print_arg(char *arg, int exit_code)
 		printf("%s", arg);
 }
 
-static int is_all_n(char *arg)
+int	echo_is_all_n(char *arg)
 {
 	int	i;
 
 	i = 1;
 	if (arg[0] != '-')
+		return (0);
+	if (ft_strlen(arg) == 1)
 		return (0);
 	while (arg[i])
 	{
@@ -40,12 +42,12 @@ static int is_all_n(char *arg)
 	return (1);
 }
 
-static int skip_all_n(char **args, int *i)
+int	echo_skip_all_n(char **args, int *i)
 {
 	int all_n;
 
 	all_n = 0;
-	while (args[*i] && is_all_n(args[*i]))
+	while (args[*i] && echo_is_all_n(args[*i]))
 	{
 		all_n = 1;
 		(*i)++;
@@ -53,7 +55,7 @@ static int skip_all_n(char **args, int *i)
 	return (all_n);
 }
 
-int execute_echo(char **args, int *exit_code)
+int	execute_echo(char **args, int *exit_code)
 {
 	int		new_line;
 	int		space;
@@ -62,13 +64,13 @@ int execute_echo(char **args, int *exit_code)
 	new_line = 1;
 	space = 0;
 	i = 1;
-	if (skip_all_n(args, &i))
+	if (echo_skip_all_n(args, &i))
 		new_line = 0;
 	while (args[i])
 	{
 		if (space)
 			printf(" ");
-		print_arg(args[i], *exit_code);
+		echo_print_arg(args[i], *exit_code);
 		space = 1;
 		i++;
 	}

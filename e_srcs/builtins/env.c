@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:17:14 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/29 20:21:34 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:52:45 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 int	execute_env(char **env, int *exit_code)
 {
-	int	i;
+	int		i;
+	char	*equal_sign;
 
 	i = 0;
-	while ((env)[i])
+	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		equal_sign = ft_strchr(env[i], '=');
+		if (equal_sign)
+			printf("%s\n", env[i]);
 		i++;
 	}
 	*exit_code = 0;

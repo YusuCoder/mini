@@ -80,8 +80,8 @@ typedef enum s_process
 	CHILD_PROCESS,
 }			t_process;
 
-/*----global variable-----*/ // <------- !!! DON"T FORGET TO CHANGE !!!
-t_command	gl_command;
+/*----global variable-----*/
+t_command	gl_command; // <------- !!! DON"T FORGET TO CHANGE !!!
 
 /*-----------SIGNALS----------*/
 void	_init_terminal(t_command *cmd, char **envp);
@@ -137,17 +137,49 @@ int		get_len(char **envp);
 /*  Executing  */
 /*-------------*/
 int		execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+/*--------------------*/
+/*  Builtin commands  */
+/*--------------------*/
 int		execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+/*---- cd command ----*/
 int		execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
 int		cd_home_dir(char *arg, char **env, int *exit_code);
 int		cd_dash_arg(char *arg, char *prev_dir, int *exit_code);
-int		change_directory(char *arg, char *path, int *exit_code);
-void	update_env(char *prev_dir, char **env, int *exit_code);
+int		cd_chdir(char *arg, char *path, int *exit_code);
+void	cd_update_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
+/*---- pwd command ----*/
 int		execute_pwd(int *exit_code);
+/*---- echo command ----*/
 int		execute_echo(char **args, int *exit_code);
+int		echo_skip_all_n(char **args, int *i);
+int		echo_is_all_n(char *arg);
+void	echo_print_arg(char *arg, int exit_code);
+/*---- env command ----*/
 int		execute_env(char **env, int *exit_code);
+/*---- export command ----*/
 int		execute_export(t_command *cmd, int *exit_code);
+void	export_no_args(t_command *cmd, int *exit_code);
+void	export_with_args(t_command *cmd, int *exit_code);
+void	export_arg_with_value(t_command *cmd, int *exit_code, int i, char *equal_sign);
+void	export_arg_no_value(t_command *cmd, int *exit_code, int i);
+char	**export_sort_env(char **env);
+void	quicksort(char **arr, int low, int high);
+int		partition(char **arr, int low, int high);
+void	swap(char **a, char **b);
+int		export_set_env(char ***env, const char *name, const char *value, int overwrite);
+int		add_new_env_var(char ***env, char *new_env_var);
+char	*create_env_var(const char *name, const char *value);
+int		find_env_var(char **env, const char *name);
+/*---- unset command ----*/
 int		execute_unset(char **args, int *exit_code);
+/*---- exit command ----*/
 int		execute_exit(char **args, int *exit_code);
+int		exit_args_len(char **args);
+int		exit_is_number(char *arg);
+/*--------------------*/
+/*  Custom finctions  */
+/*--------------------*/
+char	*my_strndup(const char *str, int len);
+void	*my_realloc(void *ptr, int old_size, int new_size);
 
 #endif

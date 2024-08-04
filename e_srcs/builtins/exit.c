@@ -6,13 +6,13 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:54:56 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/02 11:29:14 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:34:30 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_number(char *arg)
+int	exit_is_number(char *arg)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ static int	is_number(char *arg)
 	return (1);
 }
 
-static int	args_len(char **args)
+int	exit_args_len(char **args)
 {
 	int	i;
 
@@ -40,11 +40,11 @@ static int	args_len(char **args)
 int	execute_exit(char **args, int *exit_code)
 {
 	printf("exit\n");
-	if (args_len(args) > 1)
+	if (exit_args_len(args) > 1)
 	{
-		if (is_number(args[1]))
+		if (exit_is_number(args[1]))
 		{
-			if (args_len(args) == 2)
+			if (exit_args_len(args) == 2)
 				exit(ft_atoi(args[1]));
 			else
 			{

@@ -6,14 +6,14 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:49:51 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/02 12:03:37 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:07:04 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Function to update PWD and OLDPWD in the environment
-void	update_env(char *prev_dir, char **env, int *exit_code)
+void	cd_update_pwd_oldpwd(char *prev_dir, char **env, int *exit_code)
 {
 	char	curr_dir[PATH_MAX];
 	int		i;
@@ -40,7 +40,7 @@ void	update_env(char *prev_dir, char **env, int *exit_code)
 }
 
 // Function to change directory and handle errors
-int	change_directory(char *arg, char *path, int *exit_code)
+int	cd_chdir(char *arg, char *path, int *exit_code)
 {
 	if (chdir(path) != 0)
 	{
@@ -76,7 +76,7 @@ int	cd_dash_arg(char *arg, char *prev_dir, int *exit_code)
 	else
 	{
 		printf("%s\n", prev_dir);
-		return (change_directory(arg, prev_dir, exit_code));
+		return (cd_chdir(arg, prev_dir, exit_code));
 	}
 }
 
@@ -104,7 +104,7 @@ int	cd_home_dir(char *arg, char **env, int *exit_code)
 		*exit_code = 1;
 		return (1);
 	}
-	return (change_directory(arg, home, exit_code));
+	return (cd_chdir(arg, home, exit_code));
 }
 
 // Function to execute the "cd" command
@@ -131,9 +131,9 @@ int	execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size,
 	}
 	else
 	{
-		if (change_directory(cmd->tokens[1], cmd->tokens[1], exit_code) == 0)
+		if (cd_chdir(cmd->tokens[1], cmd->tokens[1], exit_code) == 0)
 			ft_strlcpy(prev_dir, curr_dir, prev_dir_size);
 	}
-	update_env(prev_dir, cmd->envp, exit_code);
+	cd_update_pwd_oldpwd(prev_dir, cmd->envp, exit_code);
 	return (*exit_code);
 }

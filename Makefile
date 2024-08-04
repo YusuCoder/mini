@@ -19,14 +19,17 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./p_srcs/set_envp.c \
 				./p_srcs/count_commands.c \
 				./p_srcs/sub_cmd_arrays.c \
+				./e_srcs/execute.c \
+				./e_srcs/execute_utils.c \
 				./e_srcs/builtins/cd.c \
 				./e_srcs/builtins/echo.c \
 				./e_srcs/builtins/env.c \
 				./e_srcs/builtins/exit.c \
 				./e_srcs/builtins/export.c \
+				./e_srcs/builtins/export_set_env.c \
+				./e_srcs/builtins/export_sort_env.c \
 				./e_srcs/builtins/pwd.c \
 				./e_srcs/builtins/unset.c \
-				./e_srcs/execute.c \
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o
