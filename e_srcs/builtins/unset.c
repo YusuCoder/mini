@@ -6,12 +6,13 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:39:28 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/29 21:17:27 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:32:15 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Function to execute the "unset" command
 int	execute_unset(char **args, int *exit_code)
 {
 	int i;

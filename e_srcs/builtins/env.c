@@ -6,12 +6,13 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:17:14 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/04 18:52:45 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:31:25 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Function to execute the "env" command
 int	execute_env(char **env, int *exit_code)
 {
 	int		i;

@@ -6,12 +6,13 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:18:11 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/07/29 21:01:52 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:32:04 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Function to execute the "pwd" command
 int	execute_pwd(int *exit_code)
 {
 	char	curr_dir[1024];
