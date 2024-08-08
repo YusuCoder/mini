@@ -47,22 +47,26 @@ void	quicksort(char **arr, int low, int high)
 }
 
 // Sort environment variables for export
-char	**export_sort_env(char **env)
+char **export_sort_env(char **env)
 {
-	int		count;
 	char	**sorted_env;
+	int		count;
 	int		i;
 
 	count = 0;
-	while (env[count])
-		count++;
+	while (env[count]) count++;
 	sorted_env = malloc((count + 1) * sizeof(char *));
-	if (!sorted_env)
-		return (NULL);
+	if (!sorted_env) return NULL;
 	i = 0;
 	while (i < count)
 	{
-		sorted_env[i] = env[i];
+		sorted_env[i] = ft_strdup(env[i]);
+		if (!sorted_env[i])
+		{
+			while (i > 0) free(sorted_env[--i]);
+			free(sorted_env);
+			return (NULL);
+		}
 		i++;
 	}
 	sorted_env[count] = NULL;

@@ -133,35 +133,53 @@ int		build_cmds(char	**tokens, t_command *cmd);
 char	**set_envp(char **envp);
 // int		get_len(t_ryusupov **str);
 int		get_len(char **envp);
+
 /*-------------*/
 /*  Executing  */
 /*-------------*/
-int		execute(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+void	execute(t_command *cmd, int *exit_code);
+void	print_wrong_command(char *arg, int *exit_code);
+
 /*--------------------*/
 /*  Builtin commands  */
 /*--------------------*/
-int		execute_builtin(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
+void	execute_builtin(char **args, char ***env, int *exit_code);
+int		is_builtin(char *arg);
+int		is_cd(char *arg);
+int		is_pwd(char *arg);
+int		is_env(char *arg);
+int		is_echo(char *arg);
+
 /*---- cd command ----*/
-int		execute_cd(t_command *cmd, char *prev_dir, int prev_dir_size, int *exit_code);
-int		cd_home_dir(char *arg, char **env, int *exit_code);
-int		cd_dash_arg(char *arg, char *prev_dir, int *exit_code);
-int		cd_chdir(char *arg, char *path, int *exit_code);
-void	cd_update_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
-/*---- pwd command ----*/
-int		execute_pwd(int *exit_code);
+void	execute_cd(char **args, char **env, int *exit_code);
+char	*get_env_value(char **env, const char *key);
+int		cd_home_dir(char **env, int *exit_code);
+int		cd_dash_arg(char *prev_dir, int *exit_code);
+int		change_directory(char *path, int *exit_code);
+void	update_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
+void	update_env_var(char **env, const char *key, const char *value);
+
 /*---- echo command ----*/
-int		execute_echo(char **args, int *exit_code);
+void	execute_echo(char **args, int *exit_code);
 int		echo_skip_all_n(char **args, int *i);
 int		echo_is_all_n(char *arg);
 void	echo_print_arg(char *arg, int exit_code);
+
 /*---- env command ----*/
-int		execute_env(char **env, int *exit_code);
+void	execute_env(char **env, int *exit_code);
+
+/*---- exit command ----*/
+void	execute_exit(char **args, int *exit_code);
+int		args_len(char **args);
+int		is_number(char *arg);
+
 /*---- export command ----*/
-int		execute_export(t_command *cmd, int *exit_code);
-void	export_no_args(t_command *cmd, int *exit_code);
-void	export_with_args(t_command *cmd, int *exit_code);
-void	export_arg_with_value(t_command *cmd, int *exit_code, int i, char *equal_sign);
-void	export_arg_no_value(t_command *cmd, int *exit_code, int i);
+void	execute_export(char **args, char ***env, int *exit_code);
+void	export_no_args(char **env, int *exit_code);
+void	export_with_args(char *arg, char ***env, int *exit_code);
+void	export_arg_with_value(char *arg, char *equal_sign,
+	char ***env, int *exit_code);
+void	export_arg_no_value(char *arg, char ***env, int *exit_code);
 char	**export_sort_env(char **env);
 void	quicksort(char **arr, int low, int high);
 int		partition(char **arr, int low, int high);
@@ -170,12 +188,13 @@ int		export_set_env(char ***env, const char *name, const char *value, int overwr
 int		add_new_env_var(char ***env, char *new_env_var);
 char	*create_env_var(const char *name, const char *value);
 int		find_env_var(char **env, const char *name);
+
+/*---- pwd command ----*/
+void	execute_pwd(int *exit_code);
+
 /*---- unset command ----*/
-int		execute_unset(char **args, int *exit_code);
-/*---- exit command ----*/
-int		execute_exit(char **args, int *exit_code);
-int		exit_args_len(char **args);
-int		exit_is_number(char *arg);
+void	execute_unset(char **args, char ***env, int *exit_code);
+
 /*--------------------*/
 /*  Custom finctions  */
 /*--------------------*/

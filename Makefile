@@ -20,8 +20,10 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./p_srcs/count_commands.c \
 				./p_srcs/sub_cmd_arrays.c \
 				./e_srcs/execute.c \
-				./e_srcs/execute_utils.c \
+				./e_srcs/builtins/builtin_utils.c \
+				./e_srcs/builtins/builtin_checker.c \
 				./e_srcs/builtins/cd.c \
+				./e_srcs/builtins/cd_update_env.c \
 				./e_srcs/builtins/echo.c \
 				./e_srcs/builtins/env.c \
 				./e_srcs/builtins/exit.c \

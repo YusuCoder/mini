@@ -41,6 +41,8 @@
 // 	return (env);
 // }
 
+
+
 int	get_len(char **envp)
 {
 	int	i;
@@ -55,28 +57,28 @@ int	get_len(char **envp)
 
 char	**set_envp(char **envp)
 {
-	int		size;
 	char	**env;
 	int		i;
 
-	size = get_len(envp);
-	env = (char **)malloc((size + 1) * sizeof(char *));
+	env = (char **)malloc((get_len(envp) + 1) * sizeof(char *));
 	if (!env)
 		return (NULL);
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (++i < get_len(envp))
 	{
-		env[i] = ft_strdup(envp[i]);
-		if (!env[i])
+		if (ft_strncmp(envp[i], "OLDPWD", 6) == 0)
+			env[i] = ft_strdup("OLDPWD");
+		else
 		{
-			while (i > 0)
+			env[i] = ft_strdup(envp[i]);
+			if (!env[i])
 			{
-				free(env[--i]);
+				while (i > 0)
+					free(env[--i]);
+				free(env);
+				return (NULL);
 			}
-			free(env);
-			return (NULL);
 		}
-		i++;
 	}
 	env[i] = NULL;
 	return (env);

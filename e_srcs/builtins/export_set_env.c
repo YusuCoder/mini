@@ -23,13 +23,19 @@ int	find_env_var(char **env, const char *name)
 char	*create_env_var(const char *name, const char *value)
 {
 	char	*new_env_var;
+	size_t	name_len;
+	size_t	value_len;
 
 	if (value)
 	{
-		new_env_var = malloc(ft_strlen(name) + ft_strlen(value) + 2);
+		name_len = ft_strlen(name);
+		value_len = ft_strlen(value);
+		new_env_var = (char *)malloc(name_len + value_len + 2);
 		if (!new_env_var)
 			return (NULL);
-		sprintf(new_env_var, "%s=%s", name, value);
+		ft_strlcpy(new_env_var, name, name_len);
+		new_env_var[name_len] = '=';
+		ft_strlcpy(new_env_var + name_len + 1, value, value_len);
 	}
 	else
 	{
@@ -47,7 +53,8 @@ int	add_new_env_var(char ***env, char *new_env_var)
 	env_len = 0;
 	while ((*env)[env_len])
 		env_len++;
-	new_env = my_realloc(*env, (env_len + 1) * sizeof(char *), (env_len + 2) * sizeof(char *));
+	new_env = my_realloc(*env, (env_len + 1) * sizeof(char *),
+		(env_len + 2) * sizeof(char *));
 	if (!new_env)
 	{
 		free(new_env_var);

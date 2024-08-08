@@ -1,6 +1,7 @@
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
+// Custom strndup function
 char	*my_strndup(const char *str, int len)
 {
 	char	*new_str;
@@ -19,6 +20,7 @@ char	*my_strndup(const char *str, int len)
 	return (new_str);
 }
 
+// Custom realloc function
 void	*my_realloc(void *ptr, int old_size, int new_size)
 {
 	void	*new_ptr;
@@ -34,13 +36,25 @@ void	*my_realloc(void *ptr, int old_size, int new_size)
 	new_ptr = malloc(new_size);
 	if (!new_ptr)
 		return (NULL);
-
-	if (old_size < new_size) {
+	if (old_size < new_size)
 		copy_size = old_size;
-	} else {
+	else
 		copy_size = new_size;
-	}
 	ft_memcpy(new_ptr, ptr, copy_size);
 	free(ptr);
 	return (new_ptr);
 }
+
+// // Custom strcpy function
+// char *my_strcpy(char *dest, const char *src)
+// {
+// 	char *ptr;
+
+// 	ptr = dest;
+// 	while (*src)
+// 	{
+// 		*ptr++ = *src++;
+// 	}
+// 	*ptr = '\0';
+// 	return dest;
+// }

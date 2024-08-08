@@ -6,34 +6,73 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:39:28 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/05 12:32:15 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/08 20:56:16 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Function to execute the "unset" command
-int	execute_unset(char **args, int *exit_code)
+int	remove_env_var(char ***env, int index)
 {
-	int i;
+	int		i;
+	int		j;
+	char	**new_env;
 
 	i = 0;
-	if (args[1] == NULL)
+	while ((*env)[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * i);
+	if (!new_env)
+		return (-1);
+	i = 0;
+	j = 0;
+	while ((*env)[i])
 	{
-		write(2, "unset: not enough arguments\n", 28);
-		*exit_code = 1;
-		return (1);
+		if (i != index)
+		{
+			new_env[j] = (*env)[i];
+			j++;
+		}
+		else
+			free((*env)[i]);
+		i++;
 	}
+	new_env[j] = NULL;
+	free(*env);
+	*env = new_env;
+	return (0);
+}
+
+void	execute_unset(char **args, char ***env, int *exit_code)
+{
+	int		i;
+	int		j;
+	int		arg_len;
+
+	i = 1;
+	if (args[1] == NULL)
+		return ;
 	while (args[i])
 	{
-		if (unsetenv(args[1]) != 0)
+		arg_len = strlen(args[i]);
+		j = 0;
+		while ((*env)[j])
 		{
-			perror("unset");
-			*exit_code = 1;
-			return (1);
+			if (strncmp((*env)[j], args[i], arg_len) == 0)
+				// (*env)[j][arg_len] == '=')
+			{
+				if (remove_env_var(env, j) != 0)
+				{
+					write(2, "unset: memory allocation error\n", 31);
+					*exit_code = 1;
+					return ;
+				}
+				break ;
+			}
+			j++;
 		}
 		i++;
 	}
 	*exit_code = 0;
-	return (0);
 }

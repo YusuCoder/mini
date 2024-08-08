@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_command	t;
-	char		prev_dir[PATH_MAX];
+	// char		prev_dir[PATH_MAX];
 	int			exit_code;
 
 	(void)argv;
@@ -65,7 +65,8 @@ int	main(int argc, char **argv, char **envp)
 			i++;
 
 		}
-		execute(&t, prev_dir, sizeof(prev_dir), &exit_code);
+		// execute(&t, prev_dir, sizeof(prev_dir), &exit_code);
+		execute(&t, &exit_code);
 		// if (!t.tokens)
 		// 	return (0);
 	}

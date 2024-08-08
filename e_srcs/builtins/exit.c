@@ -6,14 +6,14 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:54:56 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/05 12:36:33 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:29:34 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Function to check if the character is a number
-int	exit_is_number(char *arg)
+int	is_number(char *arg)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int	exit_is_number(char *arg)
 }
 
 // Function to count the number of arguments
-int	exit_args_len(char **args)
+int	args_len(char **args)
 {
 	int	i;
 
@@ -40,20 +40,20 @@ int	exit_args_len(char **args)
 }
 
 // Function to execute the "exit" command
-int	execute_exit(char **args, int *exit_code)
+void	execute_exit(char **args, int *exit_code)
 {
 	printf("exit\n");
-	if (exit_args_len(args) > 1)
+	if (args_len(args) > 1)
 	{
-		if (exit_is_number(args[1]))
+		if (is_number(args[1]))
 		{
-			if (exit_args_len(args) == 2)
+			if (args_len(args) == 2)
 				exit(ft_atoi(args[1]));
 			else
 			{
 				write(2, "minishell: exit: too many arguments\n", 37);
 				*exit_code = 1;
-				return (1);
+				return ;
 			}
 		}
 		else

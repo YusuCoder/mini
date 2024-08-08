@@ -6,14 +6,14 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:17:14 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/05 12:31:25 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:29:08 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Function to execute the "env" command
-int	execute_env(char **env, int *exit_code)
+void	execute_env(char **env, int *exit_code)
 {
 	int		i;
 	char	*equal_sign;
@@ -27,5 +27,4 @@ int	execute_env(char **env, int *exit_code)
 		i++;
 	}
 	*exit_code = 0;
-	return (0);
 }
