@@ -7,9 +7,9 @@ void	export_arg_no_value(char *arg, char ***env, int *exit_code)
 	char	*name;
 
 	name = arg;
-	if (find_env_var(*env, name) == -1)
+	if (env_var_find(*env, name) == -1)
 	{
-		if (export_set_env(env, name, NULL, 0) != 0)
+		if (export_update_env(env, name, NULL, 0) != 0)
 		{
 			perror("export");
 			*exit_code = 1;
@@ -28,7 +28,7 @@ void	export_arg_with_value(char *arg, char *equal_sign,
 	value = ft_strdup(equal_sign + 1);
 	if (name && value)
 	{
-		if (export_set_env(env, name, value, 1) != 0)
+		if (export_update_env(env, name, value, 1) != 0)
 		{
 			perror("export");
 			*exit_code = 1;
@@ -65,7 +65,7 @@ void	export_no_args(char **env, int *exit_code)
 	int		i;
 	char	*equal_sign;
 
-	sorted_env = export_sort_env(env);
+	sorted_env = env_sort(env);
 	if (!sorted_env)
 	{
 		perror("malloc");

@@ -19,17 +19,19 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./p_srcs/set_envp.c \
 				./p_srcs/count_commands.c \
 				./p_srcs/sub_cmd_arrays.c \
+				./e_srcs/environment/env_set.c \
+				./e_srcs/environment/env_sort.c \
+				./e_srcs/environment/env_value.c \
+				./e_srcs/environment/env_var.c \
 				./e_srcs/execute.c \
 				./e_srcs/builtins/builtin_utils.c \
 				./e_srcs/builtins/builtin_checker.c \
 				./e_srcs/builtins/cd.c \
-				./e_srcs/builtins/cd_update_env.c \
 				./e_srcs/builtins/echo.c \
 				./e_srcs/builtins/env.c \
 				./e_srcs/builtins/exit.c \
 				./e_srcs/builtins/export.c \
-				./e_srcs/builtins/export_set_env.c \
-				./e_srcs/builtins/export_sort_env.c \
+				./e_srcs/builtins/export_utils.c \
 				./e_srcs/builtins/pwd.c \
 				./e_srcs/builtins/unset.c \
 

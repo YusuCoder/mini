@@ -39,7 +39,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_command	t;
-	// char		prev_dir[PATH_MAX];
 	int			exit_code;
 
 	(void)argv;
@@ -47,7 +46,8 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	exit_code = 0;
 	_init_terminal(&gl_command, envp);
-	t.envp = set_envp(envp);
+	t.envp = env_set(envp);
+	env_value_delete(t.envp, "OLDPWD");
 	// print_envp(t.envp);
 	while(1)
 	{
@@ -65,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 			i++;
 
 		}
-		// execute(&t, prev_dir, sizeof(prev_dir), &exit_code);
 		execute(&t, &exit_code);
 		// if (!t.tokens)
 		// 	return (0);

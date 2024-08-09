@@ -2,7 +2,7 @@
 #include "../../includes/minishell.h"
 
 // Find environment variable by name
-int	find_env_var(char **env, const char *name)
+int	env_var_find(char **env, const char *name)
 {
 	int	name_len;
 	int	i;
@@ -20,22 +20,16 @@ int	find_env_var(char **env, const char *name)
 }
 
 // Create new environment variable string
-char	*create_env_var(const char *name, const char *value)
+char	*env_var_create(const char *name, const char *value)
 {
 	char	*new_env_var;
-	size_t	name_len;
-	size_t	value_len;
+	char	*temp;
 
 	if (value)
 	{
-		name_len = ft_strlen(name);
-		value_len = ft_strlen(value);
-		new_env_var = (char *)malloc(name_len + value_len + 2);
-		if (!new_env_var)
-			return (NULL);
-		ft_strlcpy(new_env_var, name, name_len);
-		new_env_var[name_len] = '=';
-		ft_strlcpy(new_env_var + name_len + 1, value, value_len);
+		temp = ft_strjoin(name, "=");
+		new_env_var = ft_strjoin(temp, value);
+		free(temp);
 	}
 	else
 	{
@@ -45,7 +39,7 @@ char	*create_env_var(const char *name, const char *value)
 }
 
 // Add new environment variable to the environment
-int	add_new_env_var(char ***env, char *new_env_var)
+int	env_var_add(char ***env, char *new_env_var)
 {
 	int		env_len;
 	char	**new_env;
@@ -66,27 +60,30 @@ int	add_new_env_var(char ***env, char *new_env_var)
 	return (0);
 }
 
-// Set environment variable
-int	export_set_env(char ***env, const char *name, const char *value,
-	int overwrite)
+// Remove variable from environment
+int	env_var_remove(char ***env, int index)
 {
 	int		i;
-	char	*new_env_var;
+	int		j;
+	char	**new_env;
 
-	i = find_env_var(*env, name);
-	new_env_var = create_env_var(name, value);
-	if (!new_env_var)
+	i = 0;
+	while ((*env)[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * i);
+	if (!new_env)
 		return (-1);
-	if (i != -1)
+	i = -1;
+	j = -1;
+	while ((*env)[i])
 	{
-		if (overwrite)
-		{
-			free((*env)[i]);
-			(*env)[i] = new_env_var;
-		}
+		if (++i != index)
+			new_env[++j] = (*env)[i];
 		else
-			free(new_env_var);
-		return (0);
+			free((*env)[i]);
 	}
-	return (add_new_env_var(env, new_env_var));
+	new_env[j] = NULL;
+	free(*env);
+	*env = new_env;
+	return (0);
 }

@@ -1,3 +1,4 @@
+
 #include "../../includes/minishell.h"
 
 // Swap function for quicksort
@@ -46,30 +47,16 @@ void	quicksort(char **arr, int low, int high)
 	}
 }
 
-// Sort environment variables for export
-char **export_sort_env(char **env)
+// Sort environment variables in alphabetic order
+char **env_sort(char **env)
 {
 	char	**sorted_env;
-	int		count;
-	int		i;
+	int		len_env;
 
-	count = 0;
-	while (env[count]) count++;
-	sorted_env = malloc((count + 1) * sizeof(char *));
-	if (!sorted_env) return NULL;
-	i = 0;
-	while (i < count)
-	{
-		sorted_env[i] = ft_strdup(env[i]);
-		if (!sorted_env[i])
-		{
-			while (i > 0) free(sorted_env[--i]);
-			free(sorted_env);
-			return (NULL);
-		}
-		i++;
-	}
-	sorted_env[count] = NULL;
-	quicksort(sorted_env, 0, count - 1);
+	sorted_env = env_set(env);
+	if (!sorted_env)
+		return (NULL);
+	len_env = env_len(env);
+	quicksort(sorted_env, 0, len_env - 1);
 	return (sorted_env);
 }

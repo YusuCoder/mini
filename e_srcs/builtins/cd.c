@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:49:51 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/07 14:37:57 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:17:57 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cd_home_dir(char **env, int *exit_code)
 {
 	char	*home;
 
-	home = get_env_value(env, "HOME");
+	home = env_value_get(env, "HOME");
 	if (!home)
 	{
 		write(2, "minishell: cd: HOME not set\n", 29);
@@ -50,28 +50,12 @@ int	cd_dash_arg(char *prev_dir, int *exit_code)
 	return (change_directory(prev_dir, exit_code));
 }
 
-char	*get_env_value(char **env, const char *key)
-{
-	int		i;
-	size_t	key_len;
-
-	i = 0;
-	key_len = ft_strlen(key);
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], key, key_len) == 0 && env[i][key_len] == '=')
-			return (env[i] + key_len + 1);
-		i++;
-	}
-	return (NULL);
-}
-
 void	execute_cd(char **args, char **env, int *exit_code)
 {
 	char	*prev_dir;
 	char	curr_dir[PATH_MAX];
 
-	prev_dir = get_env_value(env, "OLDPWD");
+	prev_dir = env_value_get(env, "OLDPWD");
 	if (getcwd(curr_dir, sizeof(curr_dir)) == NULL)
 	{
 		perror("getcwd");
@@ -81,16 +65,16 @@ void	execute_cd(char **args, char **env, int *exit_code)
 	if (!args[1] || strcmp(args[1], "~") == 0)
 	{
 		if (cd_home_dir(env, exit_code) == 0)
-			update_pwd_oldpwd(curr_dir, env, exit_code);
+			env_value_change_pwd_oldpwd(curr_dir, env, exit_code);
 	}
 	else if (strcmp(args[1], "-") == 0)
 	{
 		if (cd_dash_arg(prev_dir, exit_code) == 0)
-			update_pwd_oldpwd(curr_dir, env, exit_code);
+			env_value_change_pwd_oldpwd(curr_dir, env, exit_code);
 	}
 	else
 	{
 		if (change_directory(args[1], exit_code) == 0)
-			update_pwd_oldpwd(curr_dir, env, exit_code);
+			env_value_change_pwd_oldpwd(curr_dir, env, exit_code);
 	}
 }

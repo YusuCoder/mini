@@ -43,46 +43,6 @@
 
 
 
-int	get_len(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	**set_envp(char **envp)
-{
-	char	**env;
-	int		i;
-
-	env = (char **)malloc((get_len(envp) + 1) * sizeof(char *));
-	if (!env)
-		return (NULL);
-	i = -1;
-	while (++i < get_len(envp))
-	{
-		if (ft_strncmp(envp[i], "OLDPWD", 6) == 0)
-			env[i] = ft_strdup("OLDPWD");
-		else
-		{
-			env[i] = ft_strdup(envp[i]);
-			if (!env[i])
-			{
-				while (i > 0)
-					free(env[--i]);
-				free(env);
-				return (NULL);
-			}
-		}
-	}
-	env[i] = NULL;
-	return (env);
-}
 
 // int main(void)
 // {
