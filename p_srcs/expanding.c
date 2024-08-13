@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/13 21:30:46 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:50:39 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	expansion_of_first_token(char *token)
 	this function is responsible for expanding a certain token with ($) within the array
 */
 
-void expand(char **tokens, char **env) {
+void expand(char **tokens, char **env, t_data *data) {
     int i = 0;
     int x;
     char *expanded_token;
@@ -102,7 +102,7 @@ void expand(char **tokens, char **env) {
             // Get the length of the expansion target
             x = expansion_of_first_token(tokens[i]);
             // Expand the token based on the environment variables
-            expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env);
+            expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env, *(data->exit_code));
             // Free the old token memory if necessary
             // free(tokens[i]); // Uncomment if dynamic memory allocation is used
             // Assign the expanded token back to the tokens array

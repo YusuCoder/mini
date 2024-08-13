@@ -138,11 +138,11 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 /*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);
-void 	expand(char **tokens, char **env);
+void 	expand(char **tokens, char **env, t_data *exit_code);
 int		not_in_squote(char *token, int i);
 int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
-char	*dollar_sign(char *sign, char *token,  char **env);
+char	*dollar_sign(char *sign, char *token,  char **env, int exit_code);
 int		expansion_of_first_token(char *token);
 bool	var_between_quotes(char *str, int i);
 int 	replace_var(char **token_array, char *var_value, int index);
