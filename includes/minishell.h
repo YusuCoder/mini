@@ -27,6 +27,7 @@
 #define AMP 38
 #define SQUOTE 39
 #define DQUOTE 34
+#define DEFAULT 0
 
 #ifndef TAB
 #define TAB 9
@@ -119,6 +120,7 @@ void	_handle_signals(t_process stats);
 /*--------Error messages---------*/
 void	_err_msg(char *msg, char err_code);
 void	_free_it(char **p);
+void	free_ptr(void *ptr);
 /*----------TOKENIZING-----------*/
 char	**tokenizing(const char *str);
 int		take_tokens(char **token, const char *str, int counter, int i);
@@ -136,13 +138,26 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 /*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);
-void 	expand(char **tokens, char **env, t_command *cmd);
+void 	expand(char **tokens, char **env);
 int		not_in_squote(char *token, int i);
 int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
+char	*dollar_sign(char *sign, char *token,  char **env);
 int		expansion_of_first_token(char *token);
+bool	var_between_quotes(char *str, int i);
+int 	replace_var(char **token_array, char *var_value, int index);
+int 	erase_var(char **token_array, char *str, int index);
+char 	*erase_and_replace(char **token_array, char *str, char *var_value, int index);
+/*----------EXPANDING----------*/
+bool	is_var_compliant(char c);
+int		var_length(char *str);
+char	*identify_var(char *str);
+int 	var_exists(char **env, char *var);
+char 	*recover_val(t_command *data, char *str);
+int 	var_expander(t_command *data, char **token_array);
+bool	is_next_char_a_sep(char c);
+void 	update_status(char **current_token, char c, int *status);
 // char	*dollar_sign(char *sign, char *token, char **env);
-char 	*dollar_sign(char *sign, char *token, char **env, t_command *cmd);
 char	*remove_var(char *token, char *v_name);
 char	*replace_token(char *token, char *e_name);
 // char	*get_e_name(char *v_name, t_ryusupov **env);

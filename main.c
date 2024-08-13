@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 			i++;
 		}
+		expand(data.tokens, data.env);
 		create_command_list(data.tokens, &data);
 		execute(&data);
 		// if (!t.tokens)
