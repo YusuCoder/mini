@@ -12,6 +12,15 @@
 
 #include "../includes/minishell.h"
 
+void	free_ptr(void *ptr)
+{
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
+
 void	_free_it(char **p)
 {
 	free(*p);

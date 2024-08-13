@@ -3,3 +3,5 @@ obj
 a.out
 expand_1.c
 expand_2.c
+expand.c
+expand2.c
