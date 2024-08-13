@@ -52,11 +52,18 @@ char **env_sort(char **env)
 {
 	char	**sorted_env;
 	int		len_env;
+	int		index;
 
 	sorted_env = env_set(env);
 	if (!sorted_env)
 		return (NULL);
-	len_env = env_len(env);
+	index = env_var_find(sorted_env, "_");
+	if (index != -1)
+	{
+		if (env_var_remove(&sorted_env, index) < 0)
+			return (NULL);
+	}
+	len_env = env_len(sorted_env);
 	quicksort(sorted_env, 0, len_env - 1);
 	return (sorted_env);
 }

@@ -73,6 +73,36 @@ typedef struct s_commands
 	char			**path;
 	t_sub_commands	*sub_command; //array of sub-commands seperated with pipes
 }					t_command;
+
+typedef struct s_cmd
+{
+	char		**args;		//array of arguments of each command
+	int			args_num;	//number of arguments of each command
+	int			fd_input;
+	int			fd_output;
+	int			is_heredoc;		// Flag indicating if heredoc is used
+	char		*hrdc_delimeter;	// Delimiter string for heredoc
+	int			is_redir_input;	// Flag indicating if input redirection
+	char		*file_input;	// File path for input redirection (if any)
+	int			is_redir_output;	// Flag indicating if output redirection
+	char		*file_output;	// File path for output redirection (if any)
+	int			is_output_append;	// Flag indicating if output redirection is in append mode (e.g., '>>')
+	// int			is_pipe;		// Flag indicating if the command is part of a pipeline
+	// int			pipe_fd_in;		// File descriptor for reading from the previous command in a pipeline
+	// int			pipe_fd_out;	// File descriptor for writing to the next command in a pipeline
+	struct s_cmd	*next;
+}				t_cmd;
+
+/*---General program struct---*/
+typedef struct s_data
+{
+	char		**tokens;
+	char		**env;
+	int			cmd_num;	//number of commands separated with pipe
+	t_cmd		*cmd_list;	//array of commands seperated with pipes
+	int			*exit_code;
+}				t_data;
+
 typedef enum s_process
 {
 	INIT,
@@ -123,24 +153,38 @@ char	*get_c_string(char *token);
 char	*get_x_string(char	*token);
 int		count_string(char	*token);
 /*------------Sub command bouilding-------------*/
-void	sub_cmds_array(t_command *cmd, char **tokens);
-int		count_commands(char **tokens, t_command *cmd);
-int		count_cmds(char	**token);
-int		token_count(t_command *cmd, char **tokens, int i, int j);
-int		build_cmds(char	**tokens, t_command *cmd);
+// void	sub_cmds_array(t_command *cmd, char **tokens);
+// int		count_commands(char **tokens, t_command *cmd);
+// int		count_cmds(char	**token);
+// int		token_count(t_command *cmd, char **tokens, int i, int j);
+// int		build_cmds(char	**tokens, t_command *cmd);
+
+/*-------------------------*/
+/*  Command list handling  */
+/*-------------------------*/
+void	create_command_list(char **tokens, t_data *data);
+int		count_commands(char **tokens);
+int		count_arguments(char **tokens, int index);
+void	add_new_command(t_cmd **head, char **tokens, int len, int index);
+char	**set_command_args(char **tokens, int len, int index);
+void	list_add_new(t_cmd **head, t_cmd *new);
+t_cmd	*list_get_last(t_cmd *head);
+void	list_free(t_cmd **head);
 
 /*------------------------*/
 /*  Environment handling  */
 /*------------------------*/
+char	**env_create_new(void);
 char	**env_set(char **env);
 int		env_len(char **env);
-// char	**set_envp(t_ryusupov **envp);
-// int		get_len(t_ryusupov **str);
+void	env_increase_shlvl(char ***env);
+void	env_reset_oldpwd(char ***env);
 char	*env_var_create(const char *name, const char *value);
 int		env_var_find(char **env, const char *name);
+int		env_var_find_no_value(char **env, const char *name);
 int		env_var_add(char ***env, char *new_env_var);
 int		env_var_remove(char ***env, int index);
-char	*env_value_get(char **env, const char *key);
+char	*env_value_get(char **env, const char *name);
 void	env_value_delete(char **env, char *name);
 void	env_value_change(char **env, const char *name, const char *value);
 void	env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
@@ -152,7 +196,8 @@ void	swap(char **a, char **b);
 /*-------------*/
 /*  Executing  */
 /*-------------*/
-void	execute(t_command *cmd, int *exit_code);
+// void	execute(t_command *cmd, int *exit_code);
+void	execute(t_data *data);
 void	print_wrong_command(char *arg, int *exit_code);
 
 /*--------------------*/

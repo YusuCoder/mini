@@ -1,7 +1,24 @@
 
 #include "../../includes/minishell.h"
 
-// Find environment variable by name
+// Find environment variable by name without value
+int	env_var_find_no_value(char **env, const char *name)
+{
+	int	name_len;
+	int	i;
+
+	name_len = ft_strlen(name);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], name, name_len) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+// Find environment variable by name with value
 int	env_var_find(char **env, const char *name)
 {
 	int	name_len;
@@ -63,24 +80,26 @@ int	env_var_add(char ***env, char *new_env_var)
 // Remove variable from environment
 int	env_var_remove(char ***env, int index)
 {
+	char	**new_env;
+	int		len;
 	int		i;
 	int		j;
-	char	**new_env;
 
-	i = 0;
-	while ((*env)[i])
-		i++;
-	new_env = (char **)malloc(sizeof(char *) * i);
+	len = env_len(*env);
+	new_env = (char **)malloc(sizeof(char *) * len);
 	if (!new_env)
 		return (-1);
-	i = -1;
-	j = -1;
-	while ((*env)[i])
+	i = 0;
+	j = 0;
+	while (i < len)
 	{
-		if (++i != index)
-			new_env[++j] = (*env)[i];
-		else
-			free((*env)[i]);
+		if (i != index)
+		{
+			new_env[j] = (*env)[i];
+			j++;
+		}
+		else free((*env)[i]);
+		i++;
 	}
 	new_env[j] = NULL;
 	free(*env);
