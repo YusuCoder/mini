@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/01 15:45:55 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:30:47 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	parse(char	**t)
 			_err_msg("Error!\n", EXIT_FAILURE);
 		if (t[i + 1] && (((ft_strncmp(t[i], "|", 1) == 0) && (ft_strncmp(t[i + 1], "|", 1) == 0)) || parse_redirs(t[i], t[i + 1]) < 0))
 		{
-			_err_msg("Error!\n", EXIT_FAILURE);
+			_err_msg("Error!\n", EXIT_FAILURE); //need to be removed
 		}
 		i++;
 	}

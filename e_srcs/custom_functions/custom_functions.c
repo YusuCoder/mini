@@ -45,6 +45,35 @@ void	*my_realloc(void *ptr, int old_size, int new_size)
 	return (new_ptr);
 }
 
+// Length of the 2D array
+int	array_len(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+// Check if the character is a number
+int	is_number(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] >= '0' && arg[i] <= '9')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 // // Custom strcpy function
 // char *my_strcpy(char *dest, const char *src)
 // {
