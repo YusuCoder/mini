@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:43:43 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/14 13:58:11 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:43:17 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ char	*replace_token(char *token, char *e_name)
 {
 	char	*x;
 	char	*res;
-	char	*final_res;
-	char	*c;
+	// char	*final_res;
+	// char	*c;
 
 	x = get_x_string(token);
-	c = get_c_string(token);
+	// c = get_c_string(token);
 	res = ft_strjoin(x, e_name);
 	free(x);
 	// if (e_name != NULL)
 	//     free(e_name);
-	final_res = ft_strjoin(res, c);
-	free(res);
-	free(c);
-	return (final_res);
+	// final_res = ft_strjoin(res, c);
+	// free(res);
+	// free(c);
+	return (res);
 }
 
 char	*remove_var(char *token, char *v_name)

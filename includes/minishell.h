@@ -135,8 +135,11 @@ int		parse(char	**t);
 int		check_beginning_and_end(char **t, int i);
 int		parse_redirs(char *current, char *next);
 int		count_str(char c);
-int		quotes_check(char *t);
+int		quotes_check(const char *t);
 int		is_empty(const char *str);
+/*--------QUOTE HANDLING----------*/
+void	quote_handing(char **tokens);
+void 	quote_handling_r(char **tokens);
 /*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);
 void 	expand(char **tokens, char **env, t_data *exit_code);
