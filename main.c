@@ -20,8 +20,8 @@ char	*read_line(char *line)
 		if (*cwd == '/')
 			cwd++;
 	}
-	printf(RED"~/%s $\n"RESET, cwd);
-	line = readline(GREEN">>> "RESET);
+	printf(CYAN"~/%s $\n"RESET, cwd);
+	line = readline(MAGENTA">>> "RESET);
 	if (line && *line != '\0')
 		add_history(line);
 	return (line);
@@ -82,7 +82,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 			i++;
 		}
-		create_command_list(data.tokens, &data);
+		cmd_list_create(data.tokens, &data);
 		execute(&data);
 		// if (!t.tokens)
 		// 	return (0);

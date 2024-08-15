@@ -78,8 +78,7 @@ typedef struct s_cmd
 {
 	char		**args;		//array of arguments of each command
 	int			args_num;	//number of arguments of each command
-	int			fd_input;
-	int			fd_output;
+	int			fd[2];
 	int			is_heredoc;		// Flag indicating if heredoc is used
 	char		*hrdc_delimeter;	// Delimiter string for heredoc
 	int			is_redir_input;	// Flag indicating if input redirection
@@ -162,11 +161,11 @@ int		count_string(char	*token);
 /*-------------------------*/
 /*  Command list handling  */
 /*-------------------------*/
-void	create_command_list(char **tokens, t_data *data);
+void	cmd_list_create(char **tokens, t_data *data);
+void	cmd_list_add_new(t_cmd **head, char **tokens, int len, int index);
+char	**cmd_list_set_args(char **tokens, int len, int index);
 int		count_commands(char **tokens);
 int		count_arguments(char **tokens, int index);
-void	add_new_command(t_cmd **head, char **tokens, int len, int index);
-char	**set_command_args(char **tokens, int len, int index);
 void	list_add_new(t_cmd **head, t_cmd *new);
 t_cmd	*list_get_last(t_cmd *head);
 
@@ -196,12 +195,17 @@ void	swap(char **a, char **b);
 /*  Executing  */
 /*-------------*/
 void	execute(t_data *data);
+void	execute_single_command(t_data *data, t_cmd *cmd);
 void	print_wrong_command(char *arg, int *exit_code);
+void	print_wrong_path(char *arg, int *exit_code);
+int		is_builtin_cmd_only(t_data *data);
+int		is_executable(char *cmd_path);
+char	*set_cmd_path(char *str);
 
 /*--------------------*/
 /*  Builtin commands  */
 /*--------------------*/
-void	execute_builtin(t_data *data, char **args, char ***env, int *exit_code);
+void	execute_builtin(t_data *data, char **args);
 int		is_builtin(char *arg);
 int		is_cd(char *arg);
 int		is_pwd(char *arg);
@@ -244,6 +248,8 @@ int		execute_unset(char **args, char ***env, int *exit_code);
 /*--------------------*/
 /*  Custom finctions  */
 /*--------------------*/
+// void	my_strcopy(char **dst, const char *src1, const char *src2, const char *src3);
+char	*my_strjoin(const char *str1, const char *str2, const char *str3);
 char	*my_strndup(const char *str, int len);
 void	*my_realloc(void *ptr, int old_size, int new_size);
 int		array_len(char **array);
@@ -252,10 +258,11 @@ int		is_number(char *arg);
 /*---------------------*/
 /*  Cleanup functions  */
 /*---------------------*/
-void	free_all(t_data *data);
-void	free_list(t_cmd **head);
 void	free_array(char **array);
+void	free_list(t_cmd **head);
+void	free_all(t_data *data);
 void	free_exit(t_data *data, int exit_code);
+void	clean_tokens(t_data *data);
 
 /*-----------------*/
 /*  Error handler  */

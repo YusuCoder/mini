@@ -74,6 +74,53 @@ int	is_number(char *arg)
 	return (1);
 }
 
+char	*my_strjoin(const char *str1, const char *str2, const char *str3)
+{
+	char	*new_str;
+	char	*ptr;
+	int		str1_len;
+	int		str2_len;
+	int		str3_len;
+
+	if (!str1 || !str2 || !str3)
+		return (NULL);
+	str1_len = ft_strlen(str1);
+	str2_len = ft_strlen(str2);
+	str3_len = ft_strlen(str3);
+	new_str = (char *)malloc(str1_len + str2_len + str3_len + 1);
+	if (!new_str)
+		return (NULL);
+	ptr = new_str;
+	while (*str1)
+		*ptr++ = *str1++;
+	while (*str2)
+		*ptr++ = *str2++;
+	while (*str3)
+		*ptr++ = *str3++;
+	*ptr = '\0';
+	return (new_str);
+}
+
+// void	my_strcopy(char **dst, const char *src1, const char *src2, const char *src3)
+// {
+// 	char	*ptr;
+
+// 	if (!src1 && !src2 && !src3)
+// 	{
+// 		*dst = NULL;
+// 		return ;
+// 	}
+// 	ptr = *dst;
+// 	printf("ptr = dst = %s\n", *dst);
+// 	while (*src1)
+// 		*ptr++ = *src1++;
+// 	while (*src2)
+// 		*ptr++ = *src2++;
+// 	while (*src3)
+// 		*ptr++ = *src3++;
+// 	*ptr = '\0';
+// }
+
 // // Custom strcpy function
 // char *my_strcpy(char *dest, const char *src)
 // {

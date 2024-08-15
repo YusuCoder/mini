@@ -36,6 +36,8 @@ SRC_FILES	:= ./p_srcs/i_init_cmd.c \
 				./e_srcs/builtins/pwd.c \
 				./e_srcs/builtins/unset.c \
 				./e_srcs/execute.c \
+				./e_srcs/execute_utils.c \
+				./e_srcs/cleanup.c \
 				./e_srcs/error.c \
 				./e_srcs/free.c
 
