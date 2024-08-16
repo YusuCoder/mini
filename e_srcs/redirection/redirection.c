@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:15:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/16 12:15:47 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:40:54 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,3 +15,6 @@
 // void	handle_heredoc()
 
 // void	handle_redirections()
+// {
+
+// }
