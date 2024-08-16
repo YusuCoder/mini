@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:25 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/14 22:14:41 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:25:13 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,52 @@ int matching_quotes(const char *str)
     return i;
 }
 
-char	**tokenizing(const char *str)
-{
-	char	**t;
-	int		words;
-	int		words1;
-	int		x;
-	int		i;
+char **tokenizing(const char *str) {
+    char **t;
+    int words;
+    int i;
 
-	if (!str)
-		return (NULL);
-	i = 0;
-	words = count_words(str, i);
-	if (words < 1)
-		return (NULL);
-	t = (char **)malloc(sizeof(t) * (words + 1));
-	if (!t)
-		return (NULL);
-	words1 = 0;
-	x = 0;
-	if (take_tokens(t, str, words1, x) < 0)
-		return (NULL);
-	t[words] = NULL;
-	return (t);
+    if (!str) {
+        return NULL;
+    }
+
+    i = 0;
+    words = count_words(str, i);
+    if (words < 1) {
+        return NULL;
+    }
+
+    t = (char **)malloc(sizeof(char *) * (words + 1)); // Corrected memory allocation
+    if (!t) {
+        return NULL;
+    }
+
+    int num_tokens = take_tokens(t, str, 0);
+    if (num_tokens < 0) {
+        // If take_tokens indicates an error, free allocated memory
+        for (int j = 0; j < num_tokens; j++) {
+            free(t[j]);
+        }
+        free(t);
+        return NULL;
+    }
+
+    t[num_tokens] = NULL; // Null-terminate the array
+    return t;
 }
-int	main(void)
-{
-	const char *str = "echo HOME$USER$USER \"HOME    \"";
-	char **tokens = tokenizing(str);
-	if (tokens)
-	{
-		int i = 0;
-		while (tokens[i])
-		{
-			printf("[ %s ]   ", tokens[i]);
-			i++;
-		}
-		free(tokens);
-	}
-	return (0);
-}
+// int	main(void)
+// {
+// 	const char *str = "echo HOME$HOME$USER HOME";
+// 	char **tokens = tokenizing(str);
+// 	if (tokens)
+// 	{
+// 		int i = 0;
+// 		while (tokens[i])
+// 		{
+// 			printf("[ %s ]   ", tokens[i]);
+// 			i++;
+// 		}
+// 		free(tokens);
+// 	}
+// 	return (0);
+// }

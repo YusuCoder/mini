@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:51:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/14 22:12:58 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:45:52 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ int	get_word_len(const char *str, int i)
 	return (-1);
 }
 
-int	count_tokens(char token)
+int count_tokens(char token)
 {
-	if (token == PIPE || token == LESS || token == GREATER || token == AMP)
-		return (1);
-	else if (token == SQUOTE || token == DQUOTE)
-		return (2);
-	return (0);
+    if (token == PIPE || token == LESS || token == GREATER || token == AMP)
+        return 1;
+    else if (token == SQUOTE || token == DQUOTE)
+        return 2;
+    else if (token == DOLLAR)
+        return 3;
+    return 0;
 }
 
 int count_words(const char *str, int i)
