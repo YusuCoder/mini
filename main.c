@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	set_data(&data, envp, &exit_code);
 	while(1)
 	{
+		_handle_signals(INIT);
 		line = read_line(line);
 		if (!line)
 			break ;
@@ -76,7 +77,6 @@ int	main(int argc, char **argv, char **envp)
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
-			// printf("[ %s ]\n", t.tokens[i]);
 			if (!parse(data.tokens) && data.tokens)
 				break ;
 			i++;

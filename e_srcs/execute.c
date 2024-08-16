@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/16 18:54:11 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:20:27 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	execute_multiple_commands(t_data *data)
 
 void	execute(t_data *data)
 {
+	_handle_signals(CHILD_PROCESS);
+	determine_exit_code(data->exit_code);
 	if (data->cmd_num == 0)
 	{
 		data->exit_code = 0;
