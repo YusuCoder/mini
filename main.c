@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	line = NULL;
 	exit_code = 0;
-	// _init_terminal(&gl_command);
+	_init_terminal(exit_code);
 	set_data(&data, envp, &exit_code);
 	while(1)
 	{

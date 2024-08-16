@@ -113,10 +113,10 @@ typedef enum s_process
 }			t_process;
 
 /*----global variable-----*/
-t_command	gl_command; // <------- !!! DON"T FORGET TO CHANGE !!!
+// volatile sig_atomic_t g_last_signal_received = 0; // <------- !!! DON"T FORGET TO CHANGE !!!
 
 /*-----------SIGNALS----------*/
-void	_init_terminal(t_command *cmd, char **envp);
+void	_init_terminal(int exit_code);
 void	_handle_signals(t_process stats);
 /*--------Error messages---------*/
 void	_err_msg(char *msg, char err_code);

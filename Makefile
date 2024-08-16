@@ -9,8 +9,7 @@ OBJ_PATH	:= ./obj
 P_SRC_PATH	:= ./p_srcs
 E_SRC_PATH	:= ./e_srcs
 MAIN		:= main.c
-SRC_FILES	:= ./p_srcs/i_init_cmd.c \
-				./p_srcs/i_handle_signals.c \
+SRC_FILES	:= ./p_srcs/signals.c \
 				./p_srcs/errors.c \
 				./p_srcs/t_tokenize.c \
 				./p_srcs/t_add_tokens.c \
