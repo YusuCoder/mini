@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:54:19 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/15 23:49:27 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/16 04:40:09 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,6 @@ Otherwise, it iterates through the characters until it finds the end of the toke
 Then allocating the memory for the tokens.
 at the end copying the token to the allocated memory
 */
-
-// int take_tokens(char **token, const char *str, int counter, int i)
-// {
-//     int len;
-//     int res;
-
-//     while (str[i])
-//     {
-//         if (count_str(str[i]))
-//             i++;
-//         else
-//         {
-//             len = 0;
-//             if (count_tokens(str[i]) == 1)
-//                 len = 1; // Single character tokens
-//             else if (count_tokens(str[i]) == 2)
-//                 len = matching_quotes(str + i); // Handle quoted strings
-//             else
-//             {
-//                 while (str[i + len] && !count_str(str[i + len]) && count_tokens(str[i + len]) != 1)
-//                 {
-//                     len++;
-//                 }
-//             }
-//             res = alloc_tokens(token, counter, len);
-//             i += copy_tokens(token[counter++], str + i, len);
-//         }
-//     }
-//     return res;
-// }
-
 int handle_variable_or_quoted_string(const char *str)
 {
     int len = 1; // Start at 1 to account for the '$' itself
@@ -108,80 +77,58 @@ int handle_variable_or_quoted_string(const char *str)
     }
     else
     {
-        // Variable name: consume alphanumeric characters and underscores
         while (str[len] && (isalnum(str[len]) || str[len] == '_'))
         {
             len++;
         }
     }
-
     return len;
 }
 
 int take_tokens(char **token, const char *str, int i) {
+    int counter;
+    int j;
     int len;
-    int counter = 0;
+    int in_quotes;
+    char quote_char;
 
-    while (str[i]) {
-        if (str[i] == ' ' || str[i] == '\t') {
+    counter = 0;
+    while (str[i])
+    {
+        while (str[i] == ' ' || str[i] == '\t')
             i++;
-        } else {
-            len = 0;
+        if (str[i] == '\0')
+            break;
 
-            // Calculate the length of the current token
-            while (str[i + len] && str[i + len] != ' ' && str[i + len] != '\t') {
-                len++;
+        len = 0;
+        in_quotes = 0;
+        quote_char = '\0';
+        while (str[i + len] && (in_quotes || (str[i + len] != ' ' && str[i + len] != '\t')))
+        {
+            if ((str[i + len] == '\'' || str[i + len] == '\"') && !in_quotes)
+            {
+                in_quotes = 1;
+                quote_char = str[i + len];
             }
-
-            token[counter] = (char *)malloc((len + 1) * sizeof(char));
-            if (!token[counter]) {
-                // Free already allocated tokens on failure
-                for (int j = 0; j < counter; j++) {
-                    free(token[j]);
-                }
-                return -1;
-            }
-
-            for (int j = 0; j < len; j++) {
-                token[counter][j] = str[i + j];
-            }
-            token[counter][len] = '\0'; // Null-terminate the token
-            counter++;
-            i += len;
+            else if (str[i + len] == quote_char && in_quotes)
+                in_quotes = 0;
+            len++;
         }
+        token[counter] = (char *)malloc((len + 1) * sizeof(char));
+        if (!token[counter])
+        {
+            j = 0;
+            while (j < counter)
+            {
+                free(token[j]);
+                j++;
+            }
+            return (-1);
+        }
+        ft_memcpy(token[counter], &str[i], len);
+        token[counter][len] = '\0';
+        counter++;
+        i += len;
     }
-
-    return counter;
+    return (counter);
 }
-
-// int take_tokens(char **token, const char *str, int counter, int i)
-// {
-//     int len;
-//     int res;
-
-//     while (str[i])
-//     {
-//         if (count_str(str[i]))
-//             i++;
-//         else
-//         {
-//             len = 0;
-//             if (count_tokens(str[i]) == 1)
-//                 len = 1; // Single character tokens
-//             else if (count_tokens(str[i]) == 2)
-//                 len = matching_quotes(str + i); // Handle quoted strings
-//             else if (count_tokens(str[i]) == 3)
-//                 len = handle_variable_or_quoted_string(str + i); // Handle $user or $"hello"
-//             else
-//             {
-//                 while (str[i + len] && !count_str(str[i + len]) && count_tokens(str[i + len]) != 1)
-//                 {
-//                     len++;
-//                 }
-//             }
-//             res = alloc_tokens(token, counter, len);
-//             i += copy_tokens(token[counter++], str + i, len);
-//         }
-//     }
-//     return res;
-// }

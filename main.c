@@ -77,9 +77,8 @@ int	main(int argc, char **argv, char **envp)
 		while (data.tokens && data.tokens[i] != NULL)
 		{
 			// printf("[ %s ]\n", t.tokens[i]);
-			if (parse(data.tokens) && data.tokens)
-			{
-			}
+			if (!parse(data.tokens) && data.tokens)
+				break ;
 			i++;
 		}
 		i = 0;
