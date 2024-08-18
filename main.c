@@ -78,12 +78,15 @@ int	main(int argc, char **argv, char **envp)
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
-			if (parse(data.tokens) && data.tokens)
-				break ;
-			expand(data.tokens, data.env, &data);
-			quote_handing(data.tokens);
- 			cmd_list_create(data.tokens, &data);
-			execute(&data);
+			if (!parse(data.tokens, &data) && data.tokens)
+			{
+				expand(data.tokens, data.env, &data);
+				quote_handing(data.tokens);
+ 				cmd_list_create(data.tokens, &data);
+				execute(&data);
+			}
+			else
+				break;
 			i++;
 		}
 		// i = 0;

@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:25 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 03:01:23 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 21:44:36 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**tokenizing(const char *str)
 // 	char		**tokens;
 // 	int			i;
 
-// 	str = "echo '\"\'$USER'\"\'";
+// 	str = "echo '\"\'\"\'\"$USER\"'\"\'\"\'";
 // 	tokens = tokenizing(str);
 // 	if (tokens)
 // 	{

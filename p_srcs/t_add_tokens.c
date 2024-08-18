@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:54:19 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 03:02:48 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:56:13 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	handle_variable_or_quoted_string(const char *str)
 int	take_tokens(char **token, const char *str, int i)
 {
 	int		counter;
-	int		in_quotes;
+	// int		in_quotes;
 	char	quote_char;
 
 	counter = 0;
@@ -101,7 +101,7 @@ int	take_tokens(char **token, const char *str, int i)
 		if (str[i] == '\0')
 			break ;
 		len = 0;
-		in_quotes = 0;
+		// in_quotes = 0;
 		quote_char = '\0';
 		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
 		{
@@ -115,7 +115,7 @@ int	take_tokens(char **token, const char *str, int i)
 		{
 			if (str[i] == '\'' || str[i] == '\"')
 			{
-				in_quotes = 1;
+				// in_quotes = 1;
 				quote_char = str[i];
 				len++;
 				while (str[i + len])

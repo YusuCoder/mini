@@ -114,7 +114,7 @@ typedef enum s_process
 }			t_process;
 
 /*----global variable-----*/
-t_data	gl_command; // <------- !!! DON"T FORGET TO CHANGE !!!
+// t_data	gl_command; // <------- !!! DON"T FORGET TO CHANGE !!!
 
 /*-----------SIGNALS----------*/
 void	_init_terminal(int exit_code);
@@ -124,6 +124,7 @@ void	determine_exit_code(int *exit_code);
 void	_err_msg(char *msg, char err_code);
 void	_free_it(char **p);
 void	free_ptr(void *ptr);
+void	ft_perror_parsing(char *msg1, char *msg2, char *arg, int *exit_code);
 /*----------TOKENIZING-----------*/
 char	**tokenizing(const char *str);
 int 	take_tokens(char **token, const char *str, int i);
@@ -133,7 +134,7 @@ int		count_tokens(char token);
 int		get_word_len(const char *str, int i);
 int		count_str(char c);
 /*-----------PARSING-------------*/
-int		parse(char	**t);
+int		parse(char	**t, t_data *exit_code);
 int		check_beginning_and_end(char **t, int i);
 int		parse_redirs(char *current, char *next);
 int		count_str(char c);
@@ -141,7 +142,7 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 /*--------QUOTE HANDLING----------*/
 void	quote_handing(char **tokens);
-char 	*remove_last_quote(char *token);
+char 	*remove_last_quote(const char *token);
 void 	quote_handling_r(char **tokens);
 /*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);

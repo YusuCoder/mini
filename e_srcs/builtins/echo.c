@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:24:03 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/14 11:57:46 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/18 23:07:11 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	execute_echo(char **args, int *exit_code)
 		new_line = 0;
 	while (args[i])
 	{
-		if (space)
-			printf(" ");
+		// if (space)
+		// 	printf(" ");	//removed this whitespace printing becase it was printing unnecessary spaces
 		echo_print_arg(args[i], *exit_code);
 		space = 1;
 		i++;
