@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:22:10 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/16 20:42:34 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/17 20:37:03 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	count_string(char	*token)
 
 char *fill_e_name(char *line, int length)
 {
-    char *e_name = (char *)malloc(sizeof(char) * (length + 1)); // Allocate memory for the substring + null terminator
+    char *e_name = (char *)malloc(sizeof(char) * (length + 1)); 
     if (!e_name)
         return (NULL);
 
-    for (int i = 0; i < length; i++) // Copy the substring
+    for (int i = 0; i < length; i++)
     {
         e_name[i] = line[i];
     }
-    e_name[length] = '\0'; // Null-terminate the string
+    e_name[length] = '\0';
 
     return e_name;
 }

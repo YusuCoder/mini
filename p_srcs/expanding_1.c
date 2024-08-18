@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:43:43 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/16 20:27:46 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:45:31 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_v_name(char *token)
 	return (v_name);
 }
 
-char	*get_e_name(char *v_name, char **env)
+char	*get_e_name(char *v_name, char **env) //need to be modified
 {
 	int		i;
 	char	*e_name;
@@ -121,8 +121,8 @@ char	*dollar_sign(char *sign, char *token, char **env, t_data *data)
 	i = 0;
 	e_name = NULL;
 	v_name = get_v_name(token);
-	if (ft_strcmp(v_name, "?") == 0)
-		e_name = ft_itoa(*(data->exit_code));
+	if (v_name[0] ==  '?')
+		e_name = replace_question(v_name, data->exit_code);
 	else
 		e_name = get_e_name(v_name, env);
 	if (e_name == NULL || e_name[0] == '\0')

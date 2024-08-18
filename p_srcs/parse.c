@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/16 20:42:20 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:13:06 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,67 @@ int	parse_redirs(char *current, char *next)
 	if number of any of them is odd that means that quote is not closed
 */
 
+// int quotes_check(char *t)
+// {
+//     int i;
+//     int squote;
+//     int dquote;
+
+//     i = 0;
+//     squote = 0;
+//     dquote = 0;
+//     while (t[i])
+//     {
+//         if (t[i] == '\'')
+//             squote++;
+//         if (t[i] == '\"')
+//             dquote++;
+//         i++;
+//     }
+//     if (squote % 2 != 0 || dquote % 2 != 0)
+//         return (-1);
+//     return (0);
+// }
+
 int quotes_check(char *t)
 {
     int i;
     int squote;
     int dquote;
+    int in_single_quote;
+    int in_double_quote;
 
     i = 0;
     squote = 0;
     dquote = 0;
+    in_single_quote = 0;
+    in_double_quote = 0;
+
     while (t[i])
     {
-        if (t[i] == '\'')
+        if (t[i] == '\'' && !in_double_quote)
+        {
+            if (in_single_quote)
+                in_single_quote = 0;
+            else
+                in_single_quote = 1;
             squote++;
-        if (t[i] == '\"')
+        }
+        if (t[i] == '\"' && !in_single_quote)
+        {
+            if (in_double_quote)
+                in_double_quote = 0;
+            else
+                in_double_quote = 1;
             dquote++;
+        }
         i++;
     }
     if (squote % 2 != 0 || dquote % 2 != 0)
         return (-1);
     return (0);
 }
+
 
 int parse(char **t) {
     int i = 0;
@@ -90,7 +130,7 @@ int parse(char **t) {
         }
         if (t[i + 1] && (((strncmp(t[i], "|", 1) == 0) && (strncmp(t[i + 1], "|", 1) == 0)) || parse_redirs(t[i], t[i + 1]) < 0)) {
             fprintf(stderr, "Error!\n");
-            exit(EXIT_FAILURE);
+            return (0);
         }
         i++;
     }

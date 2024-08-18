@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:41:07 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/14 18:07:56 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:18:28 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,81 +38,71 @@
 // 	return (new_token);
 // }
 
-char	*remove_first_quote(char *token)
-{
-	int		i;
-	int		j;
-	int		check;
-	char	*new_token;
+char *remove_first_quote(char *token) {
+    int i = 0;
+    int j = 0;
+    int found_quote = 0;
+    int len = ft_strlen(token);
+    char *new_token = (char *)malloc((len + 1) * sizeof(char));
 
-	i = 0;
-	j = 0;
-	check = 0;
-	new_token = (char *)malloc(sizeof(char) * ft_strlen(token) + 1);
-	if (!new_token)
-		return (NULL);
-	while (token[i])
-	{
-		if (check == 0 && (token[i] == '\"' || token[i] == '\''))
-		{
-			i++;
-			check = 1;
-		}
-		new_token[j] = token[i];
-		i++;
-		j++;
-	}
-	new_token[j] = '\0';
-	return (new_token);
+    if (!new_token)
+        return NULL;
+
+    while (token[i]) {
+        if (!found_quote && (token[i] == '\"' || token[i] == '\'')) {
+            found_quote = 1;
+            i++;
+            continue; // Skip the first quote
+        }
+        new_token[j++] = token[i++];
+    }
+    new_token[j] = '\0';
+
+    return new_token;
 }
 
-char	*remove_last_quote(char	*token)
-{
-	int	i;
-	int	j;
-	int	check;
-	char	*new_token;
+char *remove_last_quote(char *token) {
+    int i = ft_strlen(token) - 1;
+    int j;
+    int found_quote = 0;
+    char *new_token;
 
-	i = ft_strlen(token) - 1;
-	check = 0;
-	new_token = (char *)malloc(ft_strlen(token) * sizeof(char) + 1);
-	while (i > 0)
-	{
-		if (check == 0 && (token[i] == '\"' || token[i] == '\''))
-			check = i;
-		i--;
-	}
-	j = 0;
-	while (i < (int)(ft_strlen(token)))
-	{
-		if (i == check)
-			i++;
-		new_token[j] = token[i];
-		j++;
-		i++;
-	}
-	new_token[j] = '\0';
-	return (new_token);
+    while (i >= 0) {
+        if (!found_quote && (token[i] == '\"' || token[i] == '\'')) {
+            found_quote = 1;
+            break; // Stop at the last quote
+        }
+        i--;
+    }
+
+    new_token = (char *)malloc((i + 1) * sizeof(char));
+
+    if (!new_token)
+        return NULL;
+
+    j = 0;
+    while (j < i) {
+        new_token[j] = token[j];
+        j++;
+    }
+    new_token[j] = '\0';
+
+    return new_token;
 }
 
-void	quote_handing(char **tokens)
-{
-	int		i;
-	char	*temp;
+void quote_handing(char **tokens) {
+    int i = 0;
+    char *temp;
 
-	i = 0;
-	while (tokens[i])
-	{
-		if (ft_strchr(tokens[i], '\"') || ft_strchr(tokens[i], '\''))
-		{
-			temp = tokens[i];
-			tokens[i] = remove_first_quote(tokens[i]);
-			free(temp);
-			temp = NULL;
-			temp = tokens[i];
-			tokens[i] = remove_last_quote(tokens[i]);
-			free(temp);
-		}
-		i++;
-	}
+    while (tokens[i]) {
+        if (ft_strchr(tokens[i], '\"') || ft_strchr(tokens[i], '\'')) {
+            temp = tokens[i];
+            tokens[i] = remove_first_quote(tokens[i]);
+            free(temp);
+            temp = tokens[i];
+            tokens[i] = remove_last_quote(tokens[i]);
+            free(temp);
+        }
+        i++;
+    }
 }

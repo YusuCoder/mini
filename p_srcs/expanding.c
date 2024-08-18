@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/16 20:42:50 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:20:20 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,19 @@ int	not_in_squote(char *token, int i)
 	while (i >= 0)
 	{
 		if (token[i] == '\'')
-			left = 1;
+		{
+			if (token[i - 1] != '\"')
+				left = 1;
+		}
 		i--;
 	}
 	while (token[x])
 	{
 		if (token[x] == '\'')
-			right = 1;
+		{
+			if (token[x + 1] != '\"')
+				right = 1;
+		}
 		x++;
 	}
 	if (right && left)
@@ -79,27 +85,6 @@ int	expansion_of_first_token(char *token)
 	}
 	return (i);
 }
-
-char	*remove_double_quotes(char *str)
-{
-	int	len;
-
-	int i, j = 0;
-	len = strlen(str);
-	char *result = malloc(len + 1); // Allocate memory for the result string
-	if (!result)
-		return (NULL); // Handle memory allocation failure
-	for (i = 0; i < len; i++)
-	{
-		if (str[i] != '"')
-		{ // Skip double quotes
-			result[j] = str[i];
-			j++;
-		}
-	}
-	result[j] = '\0'; // Null-terminate the result string
-	return (result);
-}
 /*
 	this function is responsible for expanding a certain token with ($) within the array
 */
@@ -126,8 +111,8 @@ void	expand(char **tokens, char **env, t_data *data)
 			expanded_token = dollar_sign(tokens[i], tokens[i] + x + 1, env,
 					data);
 			free(tokens[i]);
-			tokens[i] = remove_double_quotes(expanded_token);
-			free(expanded_token);
+			tokens[i] = expanded_token;
+			// free(expanded_token);
 		}
 		if (still_dollar_sign_there(tokens[i]))
 			continue ;

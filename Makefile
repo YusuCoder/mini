@@ -21,6 +21,7 @@ SRC_FILES	:= ./p_srcs/signals.c\
 				./p_srcs/expanding.c \
 				./p_srcs/expanding_1.c \
 				./p_srcs/expanding_2.c \
+				./p_srcs/expanding_3.c \
 				./p_srcs/quote_handling.c \
 				./e_srcs/custom_functions/custom_functions.c \
 				./e_srcs/custom_functions/split_str.c \

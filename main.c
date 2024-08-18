@@ -67,9 +67,10 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = 0;
 	_init_terminal(exit_code);
 	set_data(&data, envp, &exit_code);
+	_handle_signals(INIT);
 	while(1)
 	{
-		_handle_signals(INIT);
+		_handle_signals(RES);
 		line = read_line(line);
 		if (!line)
 			break ;
@@ -77,18 +78,22 @@ int	main(int argc, char **argv, char **envp)
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
-			if (!parse(data.tokens) && data.tokens)
+			if (parse(data.tokens) && data.tokens)
 				break ;
-			i++;
-		}
-		i = 0;
-		if (data.tokens != NULL)
-		{
 			expand(data.tokens, data.env, &data);
 			quote_handing(data.tokens);
  			cmd_list_create(data.tokens, &data);
 			execute(&data);
+			i++;
 		}
+		// i = 0;
+		// if (data.tokens != NULL)
+		// {
+		// 	expand(data.tokens, data.env, &data);
+		// 	quote_handing(data.tokens);
+ 		// 	cmd_list_create(data.tokens, &data);
+		// 	execute(&data);
+		// }
 		// if (!t.tokens)
 		// 	return (0);
 	}

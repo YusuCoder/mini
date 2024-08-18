@@ -141,6 +141,7 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 /*--------QUOTE HANDLING----------*/
 void	quote_handing(char **tokens);
+char 	*remove_last_quote(char *token);
 void 	quote_handling_r(char **tokens);
 /*------------EXPANDING------------*/
 // void	expand(char	**tokens, char **env);
@@ -150,6 +151,7 @@ int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
 char	*dollar_sign(char *sign, char *token,  char **env, t_data *data);
 int		expansion_of_first_token(char *token);
+char	*replace_question(const char *var, int *exit_code);
 bool	var_between_quotes(char *str, int i);
 int 	replace_var(char **token_array, char *var_value, int index);
 int 	erase_var(char **token_array, char *str, int index);

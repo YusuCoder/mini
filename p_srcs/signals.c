@@ -6,13 +6,13 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:28:22 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/17 00:22:58 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:34:14 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-volatile sig_atomic_t	g_last_signal_received = 0;
+int	g_last_signal_received = 0;
 
 // Function to determine the exit code
 void	determine_exit_code(int *exit_code)

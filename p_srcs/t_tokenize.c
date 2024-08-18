@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:25 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/16 20:45:08 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:01:23 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,38 @@
 /*In this function im checking for the quotes "" or '' if the current idex is " or ' then
   the function iterates through the string untill it finds the closing quote to return its index
 */
+// int	matching_quotes(const char *str)
+// {
+// 	int		i;
+// 	char	quote_type;
+
+// 	i = 0;
+// 	if (str[i] == DQUOTE || str[i] == SQUOTE)
+// 	{
+// 		quote_type = str[i];
+// 		i++;
+// 		while (str[i] && str[i] != quote_type)
+// 			i++;
+// 		if (str[i] == quote_type)
+// 			i++;
+// 	}
+// 	return (i);
+// }
+
 int	matching_quotes(const char *str)
 {
 	int		i;
 	char	quote_type;
 
-	i = 0;
-	if (str[i] == DQUOTE || str[i] == SQUOTE)
+	i = 1;
+	quote_type = str[0];
+	while (str[i] && str[i] != quote_type)
 	{
-		quote_type = str[i];
 		i++;
-		while (str[i] && str[i] != quote_type)
-			i++;
-		if (str[i] == quote_type)
-			i++;
+	}
+	if (str[i] == quote_type)
+	{
+		i++;
 	}
 	return (i);
 }
@@ -39,7 +57,7 @@ char	**tokenizing(const char *str)
 	int		words;
 	int		i;
 	int		num_tokens;
-    int     j;
+	int		j;
 
 	if (!str)
 		return (NULL);
@@ -53,11 +71,11 @@ char	**tokenizing(const char *str)
 	num_tokens = take_tokens(t, str, 0);
 	if (num_tokens < 0)
 	{
-        j = 0;
+		j = 0;
 		while (j < num_tokens)
 		{
 			free(t[j]);
-            j++;
+			j++;
 		}
 		free(t);
 		return (NULL);
@@ -68,11 +86,15 @@ char	**tokenizing(const char *str)
 
 // int	main(void)
 // {
-// 	const char *str = "echo HOME$HOME$USER HOME";
-// 	char **tokens = tokenizing(str);
+// 	const char	*str;
+// 	char		**tokens;
+// 	int			i;
+
+// 	str = "echo '\"\'$USER'\"\'";
+// 	tokens = tokenizing(str);
 // 	if (tokens)
 // 	{
-// 		int i = 0;
+// 		i = 0;
 // 		while (tokens[i])
 // 		{
 // 			printf("[ %s ]   ", tokens[i]);
