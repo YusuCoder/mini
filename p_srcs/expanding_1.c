@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:43:43 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 03:56:24 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:13:01 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,22 @@ char	*get_e_name(char *v_name, char **env) //need to be modified
 	char	*equal_sign;
 
 	e_name = NULL;
-	v_name_len = strlen(v_name);
+	v_name_len = ft_strlen(v_name);
 	i = 0;
 	while (env[i] != NULL)
 	{
-		equal_sign = strchr(env[i], '=');
+		equal_sign = ft_strchr(env[i], '=');
 		if (equal_sign != NULL && (size_t)(equal_sign - env[i]) == v_name_len
-			&& strncmp(v_name, env[i], v_name_len) == 0)
+			&& ft_strncmp(v_name, env[i], v_name_len) == 0)
 		{
-			e_name = fill_e_name(equal_sign + 1, strlen(equal_sign + 1));
+			e_name = fill_e_name(equal_sign + 1, ft_strlen(equal_sign + 1));
 			break ;
 		}
 		i++;
 	}
 	if (e_name == NULL)
 	{
-		e_name = (char *)calloc(1, 1);
+		e_name = (char *)ft_calloc(1, 1);
 	}
 	return (e_name);
 }

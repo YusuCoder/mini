@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:54:19 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/19 14:55:04 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:27:48 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,78 +86,14 @@ int	handle_variable_or_quoted_string(const char *str)
 	}
 	return (len);
 }
-int	take_tokens(char **token, const char *str, int i)
-{
-	int		counter;
-	// int		in_quotes;
-	char	quote_char;
-
-	counter = 0;
-	int j, len;
-	while (str[i])
-	{
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (str[i] == '\0')
-			break ;
-		len = 0;
-		// in_quotes = 0;
-		quote_char = '\0';
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
-		{
-			if ((str[i] == '>' && str[i + 1] == '>') || (str[i] == '<' && str[i
-					+ 1] == '<'))
-				len = 2;
-			else
-				len = 1;
-		}
-		else
-		{
-			if (str[i] == '\'' || str[i] == '\"')
-			{
-				// in_quotes = 1;
-				quote_char = str[i];
-				len++;
-				while (str[i + len])
-				{
-					len++;
-					if (str[i + len - 1] == quote_char)
-						break ;
-				}
-			}
-			else
-			{
-				while (str[i + len] && (str[i + len] != ' ' && str[i
-						+ len] != '\t' && str[i + len] != '|' && str[i
-						+ len] != '>' && str[i + len] != '<' && str[i
-						+ len] != '\'' && str[i + len] != '\"'))
-					len++;
-			}
-		}
-		token[counter] = (char *)malloc((len + 1) * sizeof(char));
-		if (!token[counter])
-		{
-			for (j = 0; j < counter; j++)
-				free(token[j]);
-			return (-1);
-		}
-		strncpy(token[counter], &str[i], len);
-		token[counter][len] = '\0';
-		counter++;
-		i += len;
-	}
-	return (counter);
-}
-
 // int	take_tokens(char **token, const char *str, int i)
 // {
 // 	int		counter;
-// 	int		j;
-// 	int		len;
-// 	int		in_quotes;
+// 	// int		in_quotes;
 // 	char	quote_char;
 
 // 	counter = 0;
+// 	int j, len;
 // 	while (str[i])
 // 	{
 // 		while (str[i] == ' ' || str[i] == '\t')
@@ -165,7 +101,7 @@ int	take_tokens(char **token, const char *str, int i)
 // 		if (str[i] == '\0')
 // 			break ;
 // 		len = 0;
-// 		in_quotes = 0;
+// 		// in_quotes = 0;
 // 		quote_char = '\0';
 // 		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
 // 		{
@@ -177,36 +113,100 @@ int	take_tokens(char **token, const char *str, int i)
 // 		}
 // 		else
 // 		{
-// 			while (str[i + len] && (in_quotes || (str[i + len] != ' ' && str[i
-// 						+ len] != '\t' && str[i + len] != '|' && str[i
-// 						+ len] != '>' && str[i + len] != '<')))
+// 			if (str[i] == '\'' || str[i] == '\"')
 // 			{
-// 				if ((str[i + len] == '\'' || str[i + len] == '\"')
-// 						&& !in_quotes)
-// 				{
-// 					in_quotes = 1;
-// 					quote_char = str[i + len];
-// 				}
-// 				else if (str[i + len] == quote_char && in_quotes)
-// 					in_quotes = 0;
+// 				// in_quotes = 1;
+// 				quote_char = str[i];
 // 				len++;
+// 				while (str[i + len])
+// 				{
+// 					len++;
+// 					if (str[i + len - 1] == quote_char)
+// 						break ;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				while (str[i + len] && (str[i + len] != ' ' && str[i
+// 						+ len] != '\t' && str[i + len] != '|' && str[i
+// 						+ len] != '>' && str[i + len] != '<' && str[i
+// 						+ len] != '\'' && str[i + len] != '\"'))
+// 					len++;
 // 			}
 // 		}
 // 		token[counter] = (char *)malloc((len + 1) * sizeof(char));
 // 		if (!token[counter])
 // 		{
-// 			j = 0;
-// 			while (j < counter)
-// 			{
+// 			for (j = 0; j < counter; j++)
 // 				free(token[j]);
-// 				j++;
-// 			}
 // 			return (-1);
 // 		}
-// 		ft_memcpy(token[counter], &str[i], len);
+// 		strncpy(token[counter], &str[i], len);
 // 		token[counter][len] = '\0';
 // 		counter++;
 // 		i += len;
 // 	}
 // 	return (counter);
 // }
+
+int	take_tokens(char **token, const char *str, int i)
+{
+	int		counter;
+	int		j;
+	int		len;
+	int		in_quotes;
+	char	quote_char;
+
+	counter = 0;
+	while (str[i])
+	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		if (str[i] == '\0')
+			break ;
+		len = 0;
+		in_quotes = 0;
+		quote_char = '\0';
+		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
+		{
+			if ((str[i] == '>' && str[i + 1] == '>') || (str[i] == '<' && str[i
+					+ 1] == '<'))
+				len = 2;
+			else
+				len = 1;
+		}
+		else
+		{
+			while (str[i + len] && (in_quotes || (str[i + len] != ' ' && str[i
+						+ len] != '\t' && str[i + len] != '|' && str[i
+						+ len] != '>' && str[i + len] != '<')))
+			{
+				if ((str[i + len] == '\'' || str[i + len] == '\"')
+						&& !in_quotes)
+				{
+					in_quotes = 1;
+					quote_char = str[i + len];
+				}
+				else if (str[i + len] == quote_char && in_quotes)
+					in_quotes = 0;
+				len++;
+			}
+		}
+		token[counter] = (char *)malloc((len + 1) * sizeof(char));
+		if (!token[counter])
+		{
+			j = 0;
+			while (j < counter)
+			{
+				free(token[j]);
+				j++;
+			}
+			return (-1);
+		}
+		ft_memcpy(token[counter], &str[i], len);
+		token[counter][len] = '\0';
+		counter++;
+		i += len;
+	}
+	return (counter);
+}

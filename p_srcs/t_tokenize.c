@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:25 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/19 02:51:37 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:09:47 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 /*In this function im checking for the quotes "" or '' if the current idex is " or ' then
   the function iterates through the string untill it finds the closing quote to return its index
 */
-// int	matching_quotes(const char *str)
-// {
-// 	int		i;
-// 	char	quote_type;
-
-// 	i = 0;
-// 	if (str[i] == DQUOTE || str[i] == SQUOTE)
-// 	{
-// 		quote_type = str[i];
-// 		i++;
-// 		while (str[i] && str[i] != quote_type)
-// 			i++;
-// 		if (str[i] == quote_type)
-// 			i++;
-// 	}
-// 	return (i);
-// }
-
 int	matching_quotes(const char *str)
 {
 	int		i;
@@ -90,7 +72,7 @@ char	**tokenizing(const char *str)
 // 	char		**tokens;
 // 	int			i;
 
-// 	str = "echo '\"\'\"\'\"$USER\"'\"\'\"\'";
+// 	str = "echo \"-\"l";
 // 	tokens = tokenizing(str);
 // 	if (tokens)
 // 	{
