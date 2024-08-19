@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:51:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 00:54:17 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:33:34 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int count_words(const char *str, int i)
 
     if (is_empty(str))
         return 0;
-
     while (str[i])
     {
         while (count_str(str[i]))
@@ -83,7 +82,6 @@ int count_words(const char *str, int i)
             counter++;
             continue;
         }
-
         if (count_tokens(str[i]) == 2) // Quoted token
         {
             i += matching_quotes(str + i);
@@ -98,7 +96,7 @@ int count_words(const char *str, int i)
         if (count_str(str[i]))
             i++;
     }
-    return counter;
+    return (counter);
 }
 
 // int	count_words(const char *str, int i)

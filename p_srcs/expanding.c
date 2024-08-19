@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 03:20:20 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 04:22:27 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	expand(char **tokens, char **env, t_data *data)
 //     }
 
 //     // Free the allocated memory for tokens.
-//
+
 // Note: This is necessary because the expand function replaces tokens with dynamically allocated strings.
 //     for (int i = 0; tokens[i] != NULL; i++) {
 //         free(tokens[i]);
