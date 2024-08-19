@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:54:19 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/19 18:27:48 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:49:50 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	handle_variable_or_quoted_string(const char *str)
 	}
 	else
 	{
-		while (str[len] && (isalnum(str[len]) || str[len] == '_'))
+		while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
 			len++;
 	}
 	return (len);

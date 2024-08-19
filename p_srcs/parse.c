@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/18 19:37:08 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:48:49 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,23 +118,22 @@ int	parse(char **t, t_data *data)
 		return (1);
 	while (t[i])
 	{
-        // printf("%s\n", t[i]);
 		if (quotes_check(t[i]) < 0)
 		{
-			ft_perror_parsing("minishell: ", "syntax error near unexpected token ", t[i], data->exit_code);
+			ft_perror_parsing("minishell: ", "syntax error unclosed quotes ", t[i], data->exit_code);
 			return (1);
 		}
 		if (t[i + 1] && (((strncmp(t[i], "|", 1) == 0) && (strncmp(t[i + 1],
 							"|", 1) == 0)) || parse_redirs(t[i], t[i + 1]) < 0))
 		{
-			ft_perror_parsing("minishell: ", "syntax error near unexpected token ", t[i], data->exit_code);
+			ft_perror_parsing("minishell: ", "syntax error near unexpected token ", t[i + 1], data->exit_code);
 			return (1);
 		}
 		i++;
 	}
 	if (!check_beginning_and_end(t, i - 1))
     {
-        ft_perror_parsing("minishell: ", "syntax error near unexpected token `newline'", t[i], data->exit_code);
+        ft_perror_parsing("minishell: ", "syntax error near unexpected token ", t[0], data->exit_code);
 		return (1);
     }
 	return (0);

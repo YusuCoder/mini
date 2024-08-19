@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/19 04:22:27 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/20 00:23:58 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,35 @@ int	expansion_of_first_token(char *token)
 	}
 	return (i);
 }
+
+// char *skip_dollar(char *token)
+// {
+//     int i, j;
+//     int len;
+//     char *new_token;
+
+//     if (!token)
+//         return NULL;
+
+//     len = strlen(token);
+//     new_token = (char *)malloc(len + 1);
+//     if (!new_token)
+//         return NULL;
+//     i = 0;
+//     j = 0;
+//     while (token[i])
+//     {
+//         if (token[i] != '$')
+//         {
+//             new_token[j] = token[i];
+//             j++;
+//         }
+//         i++;
+//     }
+//     new_token[j] = '\0';
+
+//     return new_token;
+// }
 /*
 	this function is responsible for expanding a certain token with ($) within the array
 */
@@ -119,65 +148,3 @@ void	expand(char **tokens, char **env, t_data *data)
 		i++;
 	}
 }
-
-
-// int main() {
-// 	t_ryusupov env_struct = {
-// 		.PATH = "/usr/bin:/bin",
-// 		.HOME = "/home/user",
-// 		.VAR = "value"
-// 	};
-// 	t_ryusupov* env = &env_struct;
-
-// 	char* tokens[] = {
-// 		"echo $PATH",
-// 		"ls -l $HOME",
-// 		"echo 'This $VAR should not expand'",
-// 		"echo \"This $VAR should expand\"",
-// 		NULL
-// 	};
-
-// 	expand(tokens, &env);
-
-// 	for (int i = 0; tokens[i] != NULL; i++) {
-// 		printf("Token %d: %s\n", i, tokens[i]);
-// 	}
-
-// 	for (int i = 0; tokens[i] != NULL; i++) {
-// 		free(tokens[i]);
-// 	}
-
-// 	return (0);
-// }
-
-// int main() {
-//     // Mock environment variable. Replace with actual environment setup.
-//     t_ryusupov* env = NULL;
-// Assuming t_ryusupov is a structure for environment variables.
-
-//     // Example tokens array to be expanded.
-//     char* tokens[] = {
-//         "echo $PATH",
-//         "ls -l $HOME",
-//         "echo 'This $VAR should not expand'",
-//         "echo \"This $VAR should expand\"",
-//         NULL // Array terminator
-//     };
-
-//     // Call the expand function.
-//     expand(tokens, &env);
-
-//     // Print the expanded tokens.
-//     for (int i = 0; tokens[i] != NULL; i++) {
-//         printf("Token %d: %s\n", i, tokens[i]);
-//     }
-
-//     // Free the allocated memory for tokens.
-
-// Note: This is necessary because the expand function replaces tokens with dynamically allocated strings.
-//     for (int i = 0; tokens[i] != NULL; i++) {
-//         free(tokens[i]);
-//     }
-
-//     return (0);
-// }

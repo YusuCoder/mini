@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:43:43 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:13:01 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/20 00:23:50 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,7 @@ char	*dollar_sign(char *sign, char *token, char **env, t_data *data)
 	char	*v_name;
 	char	*e_name;
 	char	*n_token;
-	// int		i;
 
-	// i = 0;
 	e_name = NULL;
 	v_name = get_v_name(token);
 	if (v_name[0] ==  '?')

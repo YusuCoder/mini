@@ -43,8 +43,9 @@ PIPE = if the command is echo hello | cat -3 |cat-3|cat-e taking pipe without sp
 
 /bin/echo ''totally logical''	= space at the beginning = fixed!
 echo """_"n = space between = fixed
-echo "" "" "" -n -n -n -n
+echo "" "" "" -n -n -n -n	= fixed
 export T=">>"
 echo '$'$'$'$'$' = EXPANDING PROBLEM
+mkdir " " = should create an empty name folder
 
 
