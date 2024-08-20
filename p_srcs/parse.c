@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:31 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/13 17:30:47 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:55:45 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,17 @@ int	parse(char	**t)
 	while (t[i])
 	{
 		if (quotes_check(t[i]) < 0)
-			_err_msg("Error!\n", EXIT_FAILURE);
+		// {
+		// 	printf("ERROR!\n");
+		// 	break ;
+		// }
+			_err_msg("Error!\n", 127);
 		if (t[i + 1] && (((ft_strncmp(t[i], "|", 1) == 0) && (ft_strncmp(t[i + 1], "|", 1) == 0)) || parse_redirs(t[i], t[i + 1]) < 0))
-		{
+		// {
+		// 	printf("ERROR!\n");
+		// 	break ;
 			_err_msg("Error!\n", EXIT_FAILURE); //need to be removed
-		}
+		// }
 		i++;
 	}
 	if (!check_beginning_and_end(t, i - 1))

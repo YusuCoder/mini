@@ -24,6 +24,7 @@ char	*read_line(char *line)
 	line = readline(MAGENTA">>> "RESET);
 	if (line && *line != '\0')
 		add_history(line);
+	// free(cwd);
 	return (line);
 }
 
@@ -82,7 +83,8 @@ int	main(int argc, char **argv, char **envp)
 			}
 			i++;
 		}
-		cmd_list_create(data.tokens, &data);
+		cmd_list_handler(&data);
+		redir_list_handler(&data);
 		execute(&data);
 		// if (!t.tokens)
 		// 	return (0);

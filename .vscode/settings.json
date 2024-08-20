@@ -1,6 +1,12 @@
 {
 	"files.associations": {
 		"locale": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"__tuple": "c",
+		"array": "c",
+		"chrono": "c",
+		"typeinfo": "c",
+		"string": "c",
+		"iterator": "c"
 	}
 }

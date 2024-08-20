@@ -11,16 +11,17 @@
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<limits.h>
-#include<readline/readline.h>
-#include<readline/history.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <sys/wait.h>
-#include<signal.h>
-#include<string.h>
-#include<termios.h>
+#include <signal.h>
+#include <string.h>
+#include <termios.h>
 
 #define PIPE 124
 #define LESS 60
@@ -75,21 +76,39 @@ typedef struct s_commands
 	t_sub_commands	*sub_command; //array of sub-commands seperated with pipes
 }					t_command;
 
+typedef enum s_status
+{
+	COUNT,
+	SET,
+}			t_status;
+
+typedef enum s_type
+{
+	HEREDOC,
+	INPUT,
+	OUTPUT,
+	APPEND,
+}			t_type;
+
+typedef struct s_redir
+{
+	char			*name;
+	int				is_append;
+	struct s_redir	*next;
+}				t_redir;
+
 typedef struct s_cmd
 {
-	char		**args;		//array of arguments of each command
-	int			args_num;	//number of arguments of each command
-	int			pipe_fd[2];
-	int			is_heredoc;		// Flag indicating if heredoc is used
-	char		*hrdc_delimeter;	// Delimiter string for heredoc
-	int			is_redir_input;	// Flag indicating if input redirection
-	char		*file_input;	// File path for input redirection (if any)
-	int			is_redir_output;	// Flag indicating if output redirection
-	char		*file_output;	// File path for output redirection (if any)
-	int			is_output_append;	// Flag indicating if output redirection is in append mode (e.g., '>>')
-	// int			is_pipe;		// Flag indicating if the command is part of a pipeline
-	// int			pipe_fd_in;		// File descriptor for reading from the previous command in a pipeline
-	// int			pipe_fd_out;	// File descriptor for writing to the next command in a pipeline
+	char			**cmd_array;
+	char			**args;		//array of arguments of each command
+	int				args_num;	//number of arguments of each command
+	int				pipe_fd[2];
+	int				is_heredoc;		// Flag indicating if heredoc is used
+	int				is_redir_input;	// Flag indicating if input redirection
+	int				is_redir_output;	// Flag indicating if output redirection
+	t_redir			*heredoc_list;
+	t_redir			*input_list;
+	t_redir			*output_list;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -161,6 +180,15 @@ int		count_string(char	*token);
 // int		token_count(t_command *cmd, char **tokens, int i, int j);
 // int		build_cmds(char	**tokens, t_command *cmd);
 
+/*--------------------*/
+/*  Custom finctions  */
+/*--------------------*/
+char	**split_str(char const *s, char c);
+char	*my_strjoin(const char *str1, const char *str2, const char *str3);
+char	*my_strndup(const char *str, int len);
+void	*my_realloc(void *ptr, int old_size, int new_size);
+int		is_number(char *arg);
+
 /*------------------------*/
 /*  Environment handling  */
 /*------------------------*/
@@ -183,16 +211,56 @@ void	quicksort(char **arr, int low, int high);
 int		partition(char **arr, int low, int high);
 void	swap(char **a, char **b);
 
+/*------------------*/
+/*  Array handling  */
+/*------------------*/
+char	**array_copy(char **array);
+int		array_len(char **array);
+
 /*-------------------------*/
 /*  Command list handling  */
 /*-------------------------*/
-void	cmd_list_create(char **tokens, t_data *data);
-void	cmd_list_add_new(t_cmd **head, char **tokens, int len, int index);
+void	cmd_list_handler(t_data *data);
+int		cmd_list_add_new(t_cmd **head, char **tokens, int len, int index);
 char	**cmd_list_set_args(char **tokens, int len, int index);
 int		count_commands(char **tokens);
 int		count_arguments(char **tokens, int index);
-void	list_add_new(t_cmd **head, t_cmd *new);
-t_cmd	*list_get_last(t_cmd *head);
+void	cmd_list_add(t_cmd *head, t_cmd *new);
+t_cmd	*cmd_list_last(t_cmd *head);
+
+/*-----------------------------*/
+/*  Redirection list handling  */
+/*-----------------------------*/
+int		is_redirection(char *arg);
+int		is_heredoc(char *arg);
+int		is_redir_input(char *arg);
+int		is_redir_otput(char *arg);
+int		is_redir_append(char *arg);
+int		count_redir(char **args);
+void	redir_list_handler(t_data *data);
+int		redir_list_check(t_cmd *cmd);
+int		redir_list_create(t_type type, t_cmd *cmd, int index);
+int		new_redir(t_redir **redir_list, int *redir_flag, char *name, t_type type);
+void	redir_list_add(t_redir *head, t_redir *new);
+t_redir	*redir_list_last(t_redir *head);
+int		set_cmd_array(t_cmd *cmd);
+void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
+							t_status status);
+
+/*------------------------*/
+/*  Redirection handling  */
+/*------------------------*/
+int		redirection_handler(t_cmd *cmd);
+int		redir_input_handler(t_redir *input_list);
+int		redir_output_handler(t_redir *output_list);
+
+/*--------------------*/
+/*  Heredoc handling  */
+/*--------------------*/
+int		heredoc_handler(t_redir *heredoc_list);
+int		heredoc_set_output_value(int pipe_fd[2], t_redir *redir);
+void	heredoc_child_process(int pipe_fd[2], t_redir *redir);
+void	heredoc_parent_process(int pipe_fd[2]);
 
 /*-------------*/
 /*  Executing  */
@@ -254,25 +322,15 @@ int		execute_pwd(int *exit_code);
 /*---- unset command ----*/
 int		execute_unset(char **args, char ***env, int *exit_code);
 
-/*--------------------*/
-/*  Custom finctions  */
-/*--------------------*/
-char	**split_str(char const *s, char c);
-char	*my_strjoin(const char *str1, const char *str2, const char *str3);
-char	*my_strndup(const char *str, int len);
-void	*my_realloc(void *ptr, int old_size, int new_size);
-int		array_len(char **array);
-int		is_number(char *arg);
-
 /*---------------------*/
 /*  Cleanup functions  */
 /*---------------------*/
 void	free_array(char **array);
-void	free_list(t_cmd **head);
-void	free_all(t_data *data);
+void	free_redir_list(t_redir **head);
+void	free_cmd_list(t_cmd **head);
 void	free_exit(t_data *data, int exit_code);
 void	free_error_exit(t_data *data, int exit_code, char *error_msg);
-void	clean_tokens(t_data *data);
+void	cleanup(t_data *data);
 
 /*-----------------*/
 /*  Error handler  */

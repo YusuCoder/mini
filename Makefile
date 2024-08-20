@@ -17,14 +17,18 @@ SRC_FILES	:= ./p_srcs/errors.c \
 				./p_srcs/set_envp.c \
 				./p_srcs/count_commands.c \
 				./p_srcs/sub_cmd_arrays.c \
+				./e_srcs/array/array_handler.c \
 				./e_srcs/custom_functions/custom_functions.c \
 				./e_srcs/custom_functions/split_str.c \
 				./e_srcs/environment/env_set.c \
 				./e_srcs/environment/env_sort.c \
 				./e_srcs/environment/env_value.c \
 				./e_srcs/environment/env_var.c \
-				./e_srcs/list/command_list.c \
-				./e_srcs/list/list_handler.c \
+				./e_srcs/command_list/command_list_utils.c \
+				./e_srcs/command_list/command_list.c \
+				./e_srcs/redirection_list/redirection_checker.c \
+				./e_srcs/redirection_list/redirection_list_utils.c \
+				./e_srcs/redirection_list/redirection_list.c \
 				./e_srcs/builtins/builtin_checker.c \
 				./e_srcs/builtins/cd.c \
 				./e_srcs/builtins/echo.c \
@@ -37,10 +41,12 @@ SRC_FILES	:= ./p_srcs/errors.c \
 				./e_srcs/cleanup/cleanup.c \
 				./e_srcs/cleanup/error.c \
 				./e_srcs/cleanup/free.c \
-				./e_srcs/execute_utils.c \
-				./e_srcs/execute_checker.c \
-				./e_srcs/execute_process.c \
-				./e_srcs/execute.c
+				./e_srcs/heredoc/heredoc.c \
+				./e_srcs/redirection/redirection.c \
+				./e_srcs/execution/execute_utils.c \
+				./e_srcs/execution/execute_checker.c \
+				./e_srcs/execution/execute_process.c \
+				./e_srcs/execution/execute.c
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
 MAIN_OBJ	:= $(OBJ_PATH)/main.o

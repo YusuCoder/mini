@@ -6,23 +6,20 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:05:44 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:03 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:28:51 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	is_builtin_cmd_only(t_data *data)
 {
 	if (data->cmd_num == 1
-		&& is_builtin(data->cmd_list->args[0])
+		&& is_builtin(data->cmd_list->cmd_array[0])
 		&& data->cmd_list->is_heredoc == 0
 		&& data->cmd_list->is_redir_input == 0
 		&& data->cmd_list->is_redir_output == 0)
-	{
-		execute_builtin(data, data->cmd_list->args);
 		return (1);
-	}
 	else
 		return (0);
 }
@@ -54,6 +51,8 @@ int	is_accessable(char *cmd_name, char **cmd_path, char **env)
 			return (-1);
 	}
 	path = env_value_get(env, "PATH");
+	if (path == NULL)
+		return (-1);
 	path_array = split_str(path, ':');
 	i = 0;
 	while (path_array[i])
