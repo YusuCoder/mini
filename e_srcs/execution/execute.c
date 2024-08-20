@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/20 16:28:55 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:11:05 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	execute_multiple_commands(t_data *data)
 
 void	execute(t_data *data)
 {
+	_handle_signals(CHILD_PROCESS);
+	determine_exit_code(data->exit_code);
 	if (data == NULL || data->cmd_list == NULL)
 		return ;
 	if (data->cmd_num == 0)

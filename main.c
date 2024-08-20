@@ -20,8 +20,8 @@ char	*read_line(char *line)
 		if (*cwd == '/')
 			cwd++;
 	}
-	printf(RED"~/%s $\n"RESET, cwd);
-	line = readline(GREEN">>> "RESET);
+	printf(CYAN"~/%s $\n"RESET, cwd);
+	line = readline(MAGENTA">>> "RESET);
 	if (line && *line != '\0')
 		add_history(line);
 	// free(cwd);
@@ -82,7 +82,8 @@ int	main(int argc, char **argv, char **envp)
 			{
 				expand(data.tokens, data.env, &data);
 				quote_handing(data.tokens);
- 				cmd_list_create(data.tokens, &data);
+ 				cmd_list_handler(&data);
+				redir_list_handler(&data);
 				execute(&data);
 			}
 			else

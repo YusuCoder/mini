@@ -23,8 +23,7 @@ SRC_FILES	:= ./p_srcs/signals.c\
 				./p_srcs/quote_handling.c \
 				./e_srcs/custom_functions/custom_functions.c \
 				./e_srcs/custom_functions/split_str.c \
-				./e_srcs/list/command_list.c \
-				./e_srcs/list/list_handler.c \
+				./e_srcs/array/array_handler.c \
 				./e_srcs/environment/env_set.c \
 				./e_srcs/environment/env_sort.c \
 				./e_srcs/environment/env_value.c \
