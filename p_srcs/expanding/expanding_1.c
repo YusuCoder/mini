@@ -6,11 +6,11 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:43:43 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/20 00:23:50 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:05:49 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*get_v_name(char *token)
 {
@@ -38,7 +38,7 @@ char	*get_v_name(char *token)
 	return (v_name);
 }
 
-char	*get_e_name(char *v_name, char **env) //need to be modified
+char	*get_e_name(char *v_name, char **env)
 {
 	int		i;
 	char	*e_name;
@@ -60,9 +60,7 @@ char	*get_e_name(char *v_name, char **env) //need to be modified
 		i++;
 	}
 	if (e_name == NULL)
-	{
 		e_name = (char *)ft_calloc(1, 1);
-	}
 	return (e_name);
 }
 
@@ -77,8 +75,6 @@ char	*replace_token(char *token, char *e_name)
 	c = get_c_string(token);
 	res = ft_strjoin(x, e_name);
 	free(x);
-	if (e_name != NULL)
-		free(e_name);
 	final_res = ft_strjoin(res, c);
 	free(res);
 	free(c);
@@ -119,7 +115,7 @@ char	*dollar_sign(char *sign, char *token, char **env, t_data *data)
 
 	e_name = NULL;
 	v_name = get_v_name(token);
-	if (v_name[0] ==  '?')
+	if (v_name[0] == '?')
 		e_name = replace_question(v_name, data->exit_code);
 	else
 		e_name = get_e_name(v_name, env);
@@ -131,5 +127,7 @@ char	*dollar_sign(char *sign, char *token, char **env, t_data *data)
 		n_token = replace_token(sign, e_name);
 	if (v_name)
 		free(v_name);
+	if (e_name != NULL)
+		free(e_name);
 	return (n_token);
 }

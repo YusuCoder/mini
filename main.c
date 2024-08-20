@@ -65,12 +65,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	line = NULL;
 	exit_code = 0;
-	_init_terminal(exit_code);
+	_init_terminal();
 	set_data(&data, envp, &exit_code);
-	_handle_signals(INIT);
 	while(1)
 	{
-		_handle_signals(RES);
+		_handle_signals(INIT);
 		line = read_line(line);
 		if (!line)
 			break ;

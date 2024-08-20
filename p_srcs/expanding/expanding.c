@@ -6,39 +6,53 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/20 00:23:58 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:07:07 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	not_in_squote(char *token, int i)
+int	check_left_quote(char *token, int i)
 {
-	int	x;
 	int	left;
-	int	right;
 
-	x = i;
 	left = 0;
-	right = 0;
 	while (i >= 0)
 	{
 		if (token[i] == '\'')
 		{
-			if (token[i - 1] != '\"')
-				left = 1;
+			left = 1;
+			break ;
 		}
 		i--;
 	}
-	while (token[x])
+	return (left);
+}
+
+int	check_right_quote(char *token, int i)
+{
+	int	right;
+
+	right = 0;
+	while (token[i])
 	{
-		if (token[x] == '\'')
+		if (token[i] == '\'')
 		{
-			if (token[x + 1] != '\"')
-				right = 1;
+			right = 1;
+			break ;
 		}
-		x++;
+		i++;
 	}
+	return (right);
+}
+
+int	not_in_squote(char *token, int i)
+{
+	int	left;
+	int	right;
+
+	left = check_left_quote(token, i - 1);
+	right = check_right_quote(token, i + 1);
 	if (right && left)
 		return (0);
 	return (1);
@@ -51,25 +65,6 @@ int	is_exeption(char c)
 	if (c == '\'' || c == '+' || c == '-')
 		return (1);
 	return (0);
-}
-
-int	still_dollar_sign_there(char *token)
-{
-	int	i;
-	int	check;
-
-	i = 0;
-	check = 0;
-	while (token[i])
-	{
-		if (token[i] == '$')
-			check = check + not_in_squote(token, i);
-		i++;
-	}
-	if (check > 0)
-		return (1);
-	else
-		return (0);
 }
 
 int	expansion_of_first_token(char *token)
@@ -93,12 +88,12 @@ int	expansion_of_first_token(char *token)
 //     char *new_token;
 
 //     if (!token)
-//         return NULL;
+//         return (NULL);
 
 //     len = strlen(token);
 //     new_token = (char *)malloc(len + 1);
 //     if (!new_token)
-//         return NULL;
+//         return (NULL);
 //     i = 0;
 //     j = 0;
 //     while (token[i])
@@ -112,10 +107,11 @@ int	expansion_of_first_token(char *token)
 //     }
 //     new_token[j] = '\0';
 
-//     return new_token;
+//     return (new_token);
 // }
 /*
-	this function is responsible for expanding a certain token with ($) within the array
+	this function is responsible for expanding a certain token
+	with ($) within the array
 */
 void	expand(char **tokens, char **env, t_data *data)
 {

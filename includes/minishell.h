@@ -106,6 +106,20 @@ typedef struct s_data
 	char		*last_arg;
 }				t_data;
 
+typedef struct s_quote_state
+{
+	int		in_single_quote;
+	int		in_double_quote;
+	int		squote;
+	int		dquote;
+	int		i;
+	int		j;
+	int		found_quote;
+	char	quote_char;
+	char	*result;
+
+}   t_quote_state;
+
 typedef enum s_process
 {
 	INIT,
@@ -113,11 +127,11 @@ typedef enum s_process
 	CHILD_PROCESS,
 }			t_process;
 
-/*----global variable-----*/
-// t_data	gl_command; // <------- !!! DON"T FORGET TO CHANGE !!!
+// /*----global variable-----*/
+// int	g_signal = 0;
 
 /*-----------SIGNALS----------*/
-void	_init_terminal(int exit_code);
+void	_init_terminal(void);
 void	_handle_signals(t_process stats);
 void	determine_exit_code(int *exit_code);
 /*--------Error messages---------*/
