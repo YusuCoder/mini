@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:05:44 by tkubanyc          #+#    #+#             */
+<<<<<<< HEAD:e_srcs/execution/execute_checker.c
 /*   Updated: 2024/08/20 16:28:51 by tkubanyc         ###   ########.fr       */
+=======
+/*   Updated: 2024/08/17 14:29:01 by ryusupov         ###   ########.fr       */
+>>>>>>> 453fdc44621160ce4deb8852ab6757a807aef767:e_srcs/execute_checker.c
 /*                                                                            */
 /* ************************************************************************** */
 

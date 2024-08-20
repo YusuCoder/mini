@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+<<<<<<< HEAD
 		"locale": "c",
 		"minishell.h": "c",
 		"__tuple": "c",
@@ -8,5 +9,14 @@
 		"typeinfo": "c",
 		"string": "c",
 		"iterator": "c"
+=======
+		"minishell.h": "c",
+		"sstream": "c",
+		"get_next_line.h": "c",
+		"iterator": "c",
+		"stdio.h": "c",
+		"__locale": "c",
+		"locale": "c"
+>>>>>>> 453fdc44621160ce4deb8852ab6757a807aef767
 	}
 }

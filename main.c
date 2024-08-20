@@ -20,8 +20,8 @@ char	*read_line(char *line)
 		if (*cwd == '/')
 			cwd++;
 	}
-	printf(CYAN"~/%s $\n"RESET, cwd);
-	line = readline(MAGENTA">>> "RESET);
+	printf(RED"~/%s $\n"RESET, cwd);
+	line = readline(GREEN">>> "RESET);
 	if (line && *line != '\0')
 		add_history(line);
 	// free(cwd);
@@ -66,10 +66,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	line = NULL;
 	exit_code = 0;
-	// _init_terminal(&gl_command);
+	_init_terminal();
 	set_data(&data, envp, &exit_code);
 	while(1)
 	{
+		_handle_signals(INIT);
 		line = read_line(line);
 		if (!line)
 			break ;
@@ -77,54 +78,21 @@ int	main(int argc, char **argv, char **envp)
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
-			// printf("[ %s ]\n", t.tokens[i]);
-			if (parse(data.tokens) && data.tokens)
+			if (!parse(data.tokens, &data) && data.tokens)
 			{
+				expand(data.tokens, data.env, &data);
+				quote_handing(data.tokens);
+ 				cmd_list_create(data.tokens, &data);
+				execute(&data);
+			}
+			else
+			{
+				free_array(data.tokens);
+				break;
 			}
 			i++;
 		}
-		cmd_list_handler(&data);
-		redir_list_handler(&data);
-		execute(&data);
-		// if (!t.tokens)
-		// 	return (0);
 	}
 	return (exit_code);
 }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char		*line;
-// 	t_command	t;
-// 	int			exit_code;
-
-// 	(void)argv;
-// 	(void)argc;
-// 	line = NULL;
-// 	exit_code = 0;
-// 	_init_terminal(&gl_command, envp);
-// 	t.envp = env_set(envp);
-// 	env_value_delete(t.envp, "OLDPWD");
-// 	// print_envp(t.envp);
-// 	while(1)
-// 	{
-// 		line = read_line(line);
-// 		if (!line)
-// 			break ;
-// 		t.tokens = tokenizing(line);
-// 		int i = 0;
-// 		while (t.tokens && t.tokens[i] != NULL)
-// 		{
-// 			// printf("[ %s ]\n", t.tokens[i]);
-// 			if (parse(t.tokens) && t.tokens)
-// 			{
-// 			}
-// 			i++;
-
-// 		}
-// 		execute(&t, &exit_code);
-// 		// if (!t.tokens)
-// 		// 	return (0);
-// 	}
-// 	return (exit_code);
-// }
