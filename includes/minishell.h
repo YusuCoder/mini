@@ -42,6 +42,8 @@
 
 #include "../libft/libft.h"
 
+typedef struct s_data t_data;
+
 /*---Struct for files and fd---*/
 typedef struct s_fd
 {
@@ -94,9 +96,12 @@ typedef enum s_type
 
 typedef struct s_redir
 {
+	char			*key;
+	char			*value;
 	char			*name;
 	int				is_append;
 	struct s_redir	*next;
+	struct s_data	*data;
 }				t_redir;
 
 typedef struct s_cmd
@@ -178,33 +183,23 @@ void	quote_handing(char **tokens);
 char 	*remove_last_quote(const char *token);
 void 	quote_handling_r(char **tokens);
 /*------------EXPANDING------------*/
-// void	expand(char	**tokens, char **env);
 void 	expand(char **tokens, char **env, t_data *exit_code);
 int		not_in_squote(char *token, int i);
 int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
 char	*dollar_sign(char *sign, char *token,  char **env, t_data *data);
-int		expansion_of_first_token(char *token);
 char	*replace_question(const char *var, int *exit_code);
-bool	var_between_quotes(char *str, int i);
-int 	replace_var(char **token_array, char *var_value, int index);
-int 	erase_var(char **token_array, char *str, int index);
-char 	*erase_and_replace(char **token_array, char *str, char *var_value, int index);
-/*----------EXPANDING----------*/
-bool	is_var_compliant(char c);
-int		var_length(char *str);
-char	*identify_var(char *str);
-int 	var_exists(char **env, char *var);
-char 	*recover_val(t_command *data, char *str);
-int 	var_expander(t_command *data, char **token_array);
-bool	is_next_char_a_sep(char c);
-void 	update_status(char **current_token, char c, int *status);
-// char	*dollar_sign(char *sign, char *token, char **env);
+char 	*replace_var(char *str, char *var, int i);
+char 	*remove_replace(char *str, char *var, int i);
+char	*get_v_name(char *token);
+char	*get_e_name(char *v_name, char **env);
 char	*remove_var(char *token, char *v_name);
 char	*replace_token(char *token, char *e_name);
-// char	*get_e_name(char *v_name, t_ryusupov **env);
-char 	*get_e_name(char *v_name, char **env);
-char	*get_v_name(char	*token);
+/*------------EXPANDING HEREDOC-----------*/
+void	expand_heredoc(char **tokens, char **env, t_data *data);
+char	*dollar_sign_heredoc(char *sign, char *token, char **env, t_data *data);
+int		still_dollar_heredoc(char *token);
+int		count_string_heredoc(char *token);
 char	*fill_e_name(char *line, int i);
 char	*get_c_string(char *token);
 char	*get_x_string(char	*token);
@@ -286,16 +281,16 @@ void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
 /*------------------------*/
 /*  Redirection handling  */
 /*------------------------*/
-int		redirection_handler(t_cmd *cmd);
+int		redirection_handler(t_data *data, t_cmd *cmd);
 int		redir_input_handler(t_redir *input_list);
 int		redir_output_handler(t_redir *output_list);
 
 /*--------------------*/
 /*  Heredoc handling  */
 /*--------------------*/
-int		heredoc_handler(t_redir *heredoc_list);
-int		heredoc_set_output_value(int pipe_fd[2], t_redir *redir);
-void	heredoc_child_process(int pipe_fd[2], t_redir *redir);
+int		heredoc_handler(t_data *data, t_redir *heredoc_list);
+int		eredoc_set_output_value(t_data *data, int pipe_fd[2], t_redir *redir);
+void	heredoc_child_process(t_data *data, int pipe_fd[2], t_redir *redir);
 void	heredoc_parent_process(int pipe_fd[2]);
 
 /*-------------*/

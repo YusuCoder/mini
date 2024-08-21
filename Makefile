@@ -20,6 +20,10 @@ SRC_FILES	:= ./p_srcs/signals.c\
 				./p_srcs/expanding/expanding_1.c \
 				./p_srcs/expanding/expanding_2.c \
 				./p_srcs/expanding/expanding_3.c \
+				./p_srcs/expanding/expand_quote_check.c \
+				./p_srcs/expand_heredoc/expand_heredoc.c \
+				./p_srcs/expand_heredoc/expand_utils_1.c \
+				./p_srcs/expand_heredoc/expand_utils_2.c \
 				./p_srcs/quote_handling.c \
 				./e_srcs/custom_functions/custom_functions.c \
 				./e_srcs/custom_functions/split_str.c \

@@ -74,6 +74,8 @@ int	main(int argc, char **argv, char **envp)
 		line = read_line(line);
 		if (!line)
 			break ;
+		// expand_heredoc(&line, data.env, &data);
+		// printf("%s\n", line);
 		data.tokens = tokenizing(line);
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
