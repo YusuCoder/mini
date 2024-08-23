@@ -48,7 +48,7 @@ export T=">>"
 echo '$'$'$'$'$' = EXPANDING PROBLEM
 mkdir " " = should create an empty name folder
 
-
+echo 1 '|' asdfas  = should display all string
 
 
 SEGFAULT with > file4
