@@ -1,0 +1,16 @@
+total 312
+-rw-r--r--    1 tkubanyc  2023_heilbronn    2831 Aug 22 17:48 Makefile
+-rw-r--r--    1 tkubanyc  2023_heilbronn    1191 Aug 20 21:19 NOTES
+-rw-r--r--    1 tkubanyc  2023_heilbronn    1926 Aug 23 14:41 NOTES_TILEK
+drwxr-xr-x    3 tkubanyc  2023_heilbronn     102 Aug 21 11:53 a.out.dSYM
+drwxr-xr-x   11 tkubanyc  2023_heilbronn     374 Aug 22 17:47 e_srcs
+-rw-r--r--    1 tkubanyc  2023_heilbronn       0 Aug 23 21:01 file1
+drwxr-xr-x    3 tkubanyc  2023_heilbronn     102 Aug 20 21:19 includes
+drwxr-xr-x  105 tkubanyc  2023_heilbronn    3570 Aug 23 20:59 libft
+-rw-r--r--    1 tkubanyc  2023_heilbronn    1479 Aug 23 20:53 main.c
+-rwxr-xr-x    1 tkubanyc  2023_heilbronn  114488 Aug 23 20:59 minishell
+drwxr-xr-x    5 tkubanyc  2023_heilbronn     170 Aug 23 20:59 obj
+drwxr-xr-x    9 tkubanyc  2023_heilbronn     306 Aug 21 11:53 p_srcs
+-rw-r--r--    1 tkubanyc  2023_heilbronn     144 Aug 22 20:23 readline.supp
+-rw-r--r--    1 tkubanyc  2023_heilbronn    9164 Aug 20 21:19 test.c
+-rw-r--r--    1 tkubanyc  2023_heilbronn   11118 Aug 20 21:19 test.sh

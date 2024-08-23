@@ -93,6 +93,10 @@ typedef enum s_status
 {
 	COUNT,
 	SET,
+	SKIP,
+	REDIRECT,
+	ONE,
+	MULTIPLE,
 }			t_status;
 
 typedef enum s_type
@@ -109,12 +113,14 @@ typedef struct s_redir
 	char			*value;
 	char			*name;
 	int				is_append;
+	int				is_last_input;
 	struct s_redir	*next;
 	struct s_data	*data;
 }				t_redir;
 
 typedef struct s_cmd
 {
+	int				index;
 	char			**cmd_array;
 	char			**args;		//array of arguments of each command
 	int				args_num;	//number of arguments of each command
@@ -122,6 +128,7 @@ typedef struct s_cmd
 	int				is_heredoc;		// Flag indicating if heredoc is used
 	int				is_redir_input;	// Flag indicating if input redirection
 	int				is_redir_output;	// Flag indicating if output redirection
+	char			*heredoc_input;
 	t_redir			*heredoc_list;
 	t_redir			*input_list;
 	t_redir			*output_list;
@@ -136,6 +143,7 @@ typedef struct s_data
 	int			cmd_num;	//number of commands separated with pipe
 	t_cmd		*cmd_list;	//list of commands seperated with pipes
 	int			*exit_code;
+	int			heredoc_fd[2];
 	char		*last_arg;
 }				t_data;
 
@@ -165,7 +173,7 @@ typedef enum s_process
 
 /*-----------SIGNALS----------*/
 void	_init_terminal(void);
-void	_handle_signals(t_process stats);
+void	_handle_signals(t_process stats, t_data *data);
 void	determine_exit_code(int *exit_code);
 /*--------Error messages---------*/
 void	_err_msg(char *msg, char err_code);
@@ -267,6 +275,7 @@ int		count_commands(char **tokens);
 int		count_arguments(char **tokens, int index);
 void	cmd_list_add(t_cmd *head, t_cmd *new);
 t_cmd	*cmd_list_last(t_cmd *head);
+t_cmd	*cmd_list_find(t_cmd *head, int index);
 
 /*-----------------------------*/
 /*  Redirection list handling  */
@@ -290,15 +299,15 @@ void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
 /*------------------------*/
 /*  Redirection handling  */
 /*------------------------*/
-int		redirection_handler(t_cmd *cmd);
-int		redir_input_handler(t_redir *input_list);
+int		redirection_handler(t_cmd *cmd, int *exit_code);
+int		redir_input_handler(t_redir *input_list, int *exit_code);
 int		redir_output_handler(t_redir *output_list);
 
 /*--------------------*/
 /*  Heredoc handling  */
 /*--------------------*/
 int		heredoc_handler(t_redir *heredoc_list);
-int		eredoc_set_output_value(t_data *data, int pipe_fd[2], t_redir *redir);
+int		heredoc_set_output_value(int pipe_fd[2], t_redir *redir);
 void	heredoc_child_process(int pipe_fd[2], t_redir *redir);
 void	heredoc_parent_process(int pipe_fd[2]);
 
@@ -306,15 +315,16 @@ void	heredoc_parent_process(int pipe_fd[2]);
 /*  Executing  */
 /*-------------*/
 void	execute(t_data *data);
-void	execute_single_command(t_data *data, t_cmd *cmd);
-void	execute_multiple_commands(t_data *data);
-void	execute_builtin(t_data *data, char **args);
+void	execute_single_command(t_data *data, t_cmd *cmd, t_status status);
+void	execute_builtin(t_data *data, t_cmd *cmd);
 void	execute_external(t_data *data, t_cmd *cmd);
-void	run_child_process(t_data *data, t_cmd *cmd, int *prev_fd);
-void	run_parent_process(t_cmd *cmd, int *prev_fd);
-int		set_pipe_fd(t_cmd *cmd);
+void	fork_external(t_data *data, t_cmd *cmd);
+void	execute_multiple_commands(t_data *data);
+int		pipe_set_all(t_cmd *cmd_list);
+void	pipe_close_all(t_cmd *cmd_list);
+void	pipe_redirection_handler(t_data *data, t_cmd *curr_cmd);
+void	wait_processes(pid_t last_pid, int *last_exit_code);
 int		is_accessable(char *cmd_name, char **cmd_path, char **env);
-int		is_builtin_cmd_only(t_data *data);
 int		is_executable(char *cmd_path);
 char	*set_cmd_path(char *str);
 void	print_wrong_command(char *arg, int *exit_code);

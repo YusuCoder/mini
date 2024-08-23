@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:17:37 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/20 09:09:17 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:44:08 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ int	cmd_list_add_new(t_cmd **head, char **tokens, int len, int index)
 	new_cmd->cmd_array = NULL;
 	new_cmd->next = NULL;
 	if (*head == NULL)
+	{
+		new_cmd->index = 0;
 		*head = new_cmd;
+	}
 	else
 		cmd_list_add(*head, new_cmd);
 	return (0);
