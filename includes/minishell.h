@@ -171,6 +171,8 @@ typedef enum s_process
 // /*----global variable-----*/
 // int	g_signal = 0;
 
+
+
 /*-----------SIGNALS----------*/
 void	_init_terminal(void);
 void	_handle_signals(t_process stats, t_data *data);
@@ -196,7 +198,7 @@ int		count_str(char c);
 int		quotes_check(char *t);
 int		is_empty(const char *str);
 /*--------QUOTE HANDLING----------*/
-void	quote_handing(char **tokens);
+void	quote_handing(t_cmd *cmd_list);
 char 	*remove_last_quote(const char *token);
 void 	quote_handling_r(char **tokens);
 /*------------EXPANDING------------*/
@@ -306,7 +308,6 @@ int		redir_output_handler(t_redir *output_list);
 /*--------------------*/
 /*  Heredoc handling  */
 /*--------------------*/
-int		heredoc_handler(t_redir *heredoc_list);
 int		heredoc_set_output_value(int pipe_fd[2], t_redir *redir);
 void	heredoc_child_process(int pipe_fd[2], t_redir *redir);
 void	heredoc_parent_process(int pipe_fd[2]);

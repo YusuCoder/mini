@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:53:46 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/23 21:22:03 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:52:27 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	expansion_of_first_token(char *token)
 			if (token[i + 1] == '\0' || token[i + 1] == '$'
 				|| token[i + 1] == ' ' || is_exeption(token[i + 1]))
 				return (-1);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -66,7 +66,7 @@ void	expand(char **tokens, char **env, t_data *data)
 		if (still_dollar_sign_there(tokens[i]) && tokens[i][0] != '\0')
 		{
 			if (expansion_of_first_token(tokens[i]) == -1)
-				break;
+				break ;
 			continue ;
 		}
 		i++;

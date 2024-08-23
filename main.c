@@ -72,10 +72,9 @@ int	main(int argc, char **argv, char **envp)
 			if (!parse(data.tokens, &data) && data.tokens)
 			{
 				expand(data.tokens, data.env, &data);
-				quote_handing(data.tokens);
  				cmd_list_handler(&data);
 				redir_list_handler(&data);
-				// heredoc_handler(&data);
+				quote_handing(data.cmd_list);
 				execute(&data);
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 20:17:20 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/23 19:39:07 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:53:10 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	still_dollar_sign_there(char *token)
 		{
 			in_single_quote = !in_single_quote;
 			i++;
-			continue;
+			continue ;
 		}
 		if (token[i] == '$' && !in_single_quote && token[i + 1] != '\0')
 		{
@@ -46,7 +46,6 @@ int	still_dollar_sign_there(char *token)
 	}
 	return (check > 0);
 }
-
 
 // int	still_dollar_sign_there(char *token)
 // {
@@ -61,7 +60,7 @@ int	still_dollar_sign_there(char *token)
 // 	{
 // 		if (token[i] == '\'')
 // 			in_single_quote = !in_single_quote;
-// 		if (token[i] == '$' && token[i + 1] == '\0')  // Case when $ is at the end
+// 		if (token[i] == '$' && token[i + 1] == '\0')
 // 		{
 // 			// If $ is at the end, it's not a valid expansion case, return 0
 // 			token[i] = '\0';
@@ -73,7 +72,6 @@ int	still_dollar_sign_there(char *token)
 // 	}
 // 	return (check > 0);
 // }
-
 
 // int	still_dollar_sign_there(char *token)
 // {
@@ -97,7 +95,6 @@ int	still_dollar_sign_there(char *token)
 // 			check++;
 // 		i++;
 // 	}
-
 // 	return (check > 0);
 // }
 
