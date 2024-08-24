@@ -3,34 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:28:22 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/22 20:13:54 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:04:09 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_signal = 0;
-
-// Function to determine the exit code
-// void	determine_exit_code(int *exit_code)
-// {
-// 	if (g_signal == SIGINT)
-// 		*exit_code = 130;
-// 	else if (g_signal == SIGQUIT)
-// 		*exit_code = 131;
-// 	else
-// 		*exit_code = 0;
-// }
 /*	Terminal ctrl setting disables echo messages of
 	ctrl signals using flag ECHOCTRL
 */
 
 void	_handle_child_signal(int signal)
 {
-	g_signal = signal;
 	if (signal == SIGINT)
 	{
 		// write(1, "^C\n", 3);
@@ -66,9 +53,9 @@ void	_handle_signals(t_process stats, t_data *data)
 		sigemptyset(&sa.sa_mask);
 		sa.sa_flags = SA_RESTART;
 		if (sigaction(SIGINT, &sa, NULL) < 0)
-			exit(-1);
+			return ;
 		if (sigaction(SIGQUIT, &sa, NULL) < 0)
-			exit(-1);
+			return ;
 	}
 	else
 	{
@@ -78,7 +65,6 @@ void	_handle_signals(t_process stats, t_data *data)
 		if (sigaction(SIGINT, &sa, NULL) < 0)
 			return ;
 		if (signal(SIGQUIT, SIG_IGN))
-		// if (signal(SIGQUIT, SIG_IGN) < 0)
 			return ;
 	}
 }

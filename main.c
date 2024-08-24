@@ -64,13 +64,22 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ;
 		data.tokens = tokenizing(line);
-		free(line);
-		expand(data.tokens, data.env, &data);
-		quote_handing(data.tokens);
- 		cmd_list_handler(&data);
-		redir_list_handler(&data);
-		heredoc_handler(&data);
-		execute(&data);
+		int i = 0;
+		while (data.tokens && data.tokens[i] != NULL)
+		{
+			if (!parse(data.tokens, &data) && data.tokens)
+			{
+				expand(data.tokens, data.env, &data);
+ 				cmd_list_handler(&data);
+				redir_list_handler(&data);
+				quote_handing(data.cmd_list);
+				heredoc_handler(&data);
+				execute(&data);
+			}
+			else
+				break ;
+			i++;
+		}
 	}
 	free_exit(&data, exit_code);
 }

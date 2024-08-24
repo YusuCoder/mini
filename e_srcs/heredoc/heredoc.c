@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:36:26 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 19:58:21 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:30:18 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,4 @@ void	heredoc_handler(t_data *data)
 			heredoc_input_handler(data, current);
 		current = current->next;
 	}
-	// if (heredoc_input != NULL)
-	// 	heredoc_expand();
 }

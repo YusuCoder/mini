@@ -6,30 +6,97 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 20:17:20 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/20 20:07:16 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:53:10 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	is_exeption(char c)
+{
+	if (c == '/' || c == '=' || c == '\"' || c == '$' || c == '\\')
+		return (1);
+	if (c == '\'' || c == '+' || c == '-')
+		return (1);
+	return (0);
+}
+
 int	still_dollar_sign_there(char *token)
 {
 	int	i;
+	int	in_single_quote;
 	int	check;
 
 	i = 0;
 	check = 0;
+	in_single_quote = 0;
 	while (token[i])
 	{
-		if (token[i] == '$')
-			check = check + not_in_squote(token, i);
+		if (token[i] == '\'')
+		{
+			in_single_quote = !in_single_quote;
+			i++;
+			continue ;
+		}
+		if (token[i] == '$' && !in_single_quote && token[i + 1] != '\0')
+		{
+			check++;
+		}
 		i++;
 	}
-	if (check > 0)
-		return (1);
-	else
-		return (0);
+	return (check > 0);
 }
+
+// int	still_dollar_sign_there(char *token)
+// {
+// 	int	i;
+// 	int	in_single_quote;
+// 	int	check;
+
+// 	i = 0;
+// 	check = 0;
+// 	in_single_quote = 0;
+// 	while (token[i])
+// 	{
+// 		if (token[i] == '\'')
+// 			in_single_quote = !in_single_quote;
+// 		if (token[i] == '$' && token[i + 1] == '\0')
+// 		{
+// 			// If $ is at the end, it's not a valid expansion case, return 0
+// 			token[i] = '\0';
+// 			return (0);
+// 		}
+// 		if (token[i] == '$' && !in_single_quote && token[i + 1] != '\0')
+// 			check++;
+// 		i++;
+// 	}
+// 	return (check > 0);
+// }
+
+// int	still_dollar_sign_there(char *token)
+// {
+// 	int	i;
+// 	int	in_single_quote;
+// 	int	check;
+
+// 	i = 0;
+// 	check = 0;
+// 	in_single_quote = 0;
+// 	while (token[i])
+// 	{
+// 		if (token[i] == '\'')
+// 			in_single_quote = !in_single_quote;
+// 		if (token[i] == '$' && token[i + 1] == '\0')
+// 		{
+// 			token[i] = '\0';
+// 			break;
+// 		}
+// 		if (token[i] == '$' && !in_single_quote && token[i + 1] != '\0')
+// 			check++;
+// 		i++;
+// 	}
+// 	return (check > 0);
+// }
 
 int	calculate_new_length(const char *var, const char *exit_code_str)
 {
@@ -94,42 +161,3 @@ char	*replace_question(const char *var, int *exit_code)
 	free(exit_code_str);
 	return (result);
 }
-
-// char	*replace_question(const char *var, int *exit_code)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*exit_code_str;
-// 	char	*result;
-
-// 	i = 0;
-// 	j = 0;
-// 	exit_code_str = ft_itoa(*exit_code);
-// 	while (var[i])
-// 	{
-// 		if (var[i] == '?')
-// 			j += ft_strlen(exit_code_str);
-// 		else
-// 			j++;
-// 		i++;
-// 	}
-// 	result = (char *)malloc((j + 1) * sizeof(char));
-// 	if (!result)
-// 		return (NULL);
-// 	i = 0;
-// 	j = 0;
-// 	while (var[i])
-// 	{
-// 		if (var[i] == '?')
-// 		{
-// 			strcpy(&result[j], exit_code_str);
-// 			j += ft_strlen(exit_code_str);
-// 		}
-// 		else
-// 			result[j++] = var[i];
-// 		i++;
-// 	}
-// 	result[j] = '\0';
-// 	free(exit_code_str);
-// 	return (result);
-// }
