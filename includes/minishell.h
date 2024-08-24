@@ -109,9 +109,9 @@ typedef enum s_type
 
 typedef struct s_redir
 {
+	t_type			type;
 	char			*name;
 	struct s_redir	*next;
-	struct s_data	*data;
 }				t_redir;
 
 typedef struct s_cmd
@@ -163,11 +163,6 @@ typedef enum s_process
 	CHILD_PROCESS,
 }			t_process;
 
-// /*----global variable-----*/
-// int	g_signal = 0;
-
-
-
 /*-----------SIGNALS----------*/
 void	_init_terminal(void);
 void	_handle_signals(t_process stats, t_data *data);
@@ -211,6 +206,8 @@ char	*remove_var(char *token, char *v_name);
 char	*replace_token(char *token, char *e_name);
 /*------------EXPANDING HEREDOC-----------*/
 void	expand_heredoc(char **tokens, char **env, t_data *data);
+char	*get_v_name_heredoc(char *token);
+char	*get_e_name_heredoc(char *v_name, char **env, char *original_v_name);
 char	*dollar_sign_heredoc(char *sign, char *token, char **env, t_data *data);
 int		still_dollar_heredoc(char *token);
 int		count_string_heredoc(char *token);
@@ -307,9 +304,10 @@ int		redir_input_heredoc(char *heredoc_input);
 /*--------------------*/
 /*  Heredoc handling  */
 /*--------------------*/
-int		heredoc_handler(char **env, t_redir *heredoc_list, t_status status);
-int		heredoc_redirect(char **env, char *delimeter);
-int		heredoc_readline(char **env, char *delimeter, int fd, t_status status);
+void	heredoc_handler(t_data *data);
+void	heredoc_input_handler(t_data *data, t_cmd *cmd);
+int heredoc_readline(t_cmd *cmd, char *delimiter, t_status status, char **env, t_data *data);
+int		heredoc_save_input(t_cmd *cmd, char *line);
 
 /*-------------*/
 /*  Executing  */
