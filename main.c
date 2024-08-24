@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ;
 		data.tokens = tokenizing(line);
+		free(line);
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
@@ -73,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 				quote_handing(data.tokens);
  				cmd_list_handler(&data);
 				redir_list_handler(&data);
-				// heredoc_handler(&data);
+				heredoc_handler(&data);
 				execute(&data);
 			}
 			else

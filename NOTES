@@ -49,3 +49,6 @@ echo '$'$'$'$'$' = EXPANDING PROBLEM
 mkdir " " = should create an empty name folder
 
 
+
+
+echo "$USER"$USER > file5 > file 6 | pwd | pwd | ls | cat <file6
