@@ -94,7 +94,7 @@ typedef enum s_status
 	COUNT,
 	SET,
 	SKIP,
-	REDIRECT,
+	SAVE,
 	ONE,
 	MULTIPLE,
 }			t_status;
@@ -109,11 +109,7 @@ typedef enum s_type
 
 typedef struct s_redir
 {
-	char			*key;
-	char			*value;
 	char			*name;
-	int				is_append;
-	int				is_last_input;
 	struct s_redir	*next;
 	struct s_data	*data;
 }				t_redir;
@@ -125,11 +121,10 @@ typedef struct s_cmd
 	char			**args;		//array of arguments of each command
 	int				args_num;	//number of arguments of each command
 	int				pipe_fd[2];
-	int				is_heredoc;		// Flag indicating if heredoc is used
+	int				is_heredoc;	// Flag indicating if heredoc is used
 	int				is_redir_input;	// Flag indicating if input redirection
 	int				is_redir_output;	// Flag indicating if output redirection
 	char			*heredoc_input;
-	t_redir			*heredoc_list;
 	t_redir			*input_list;
 	t_redir			*output_list;
 	struct s_cmd	*next;
@@ -287,11 +282,12 @@ int		is_heredoc(char *arg);
 int		is_redir_input(char *arg);
 int		is_redir_otput(char *arg);
 int		is_redir_append(char *arg);
-int		count_redir(char **args);
 void	redir_list_handler(t_data *data);
-int		redir_list_check(t_cmd *cmd);
-int		redir_list_create(t_type type, t_cmd *cmd, int index);
-int		new_redir(t_redir **redir_list, int *redir_flag, char *name, t_type type);
+int		redir_check(t_cmd *cmd);
+int		redir_count(char **args);
+int		redir_create(t_cmd *cmd, int index, t_type type);
+int		new_redir_handler(t_cmd *cmd, char *name, t_type type);
+int		new_redir_create(t_redir **redir_list, char *name, t_type type);
 void	redir_list_add(t_redir *head, t_redir *new);
 t_redir	*redir_list_last(t_redir *head);
 int		set_cmd_array(t_cmd *cmd);
@@ -302,15 +298,18 @@ void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
 /*  Redirection handling  */
 /*------------------------*/
 int		redirection_handler(t_cmd *cmd, int *exit_code);
-int		redir_input_handler(t_redir *input_list, int *exit_code);
 int		redir_output_handler(t_redir *output_list);
+int		redir_input_handler(t_redir *input_list, char *heredoc_input, \
+							int *exit_code);
+int		redir_input_file(t_redir *redir, int *exit_code);
+int		redir_input_heredoc(char *heredoc_input);
 
 /*--------------------*/
 /*  Heredoc handling  */
 /*--------------------*/
-int		heredoc_set_output_value(int pipe_fd[2], t_redir *redir);
-void	heredoc_child_process(int pipe_fd[2], t_redir *redir);
-void	heredoc_parent_process(int pipe_fd[2]);
+int		heredoc_handler(char **env, t_redir *heredoc_list, t_status status);
+int		heredoc_redirect(char **env, char *delimeter);
+int		heredoc_readline(char **env, char *delimeter, int fd, t_status status);
 
 /*-------------*/
 /*  Executing  */
