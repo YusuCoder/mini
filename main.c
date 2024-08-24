@@ -66,6 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		// expand_heredoc(&line, data.env, &data);
 		// printf("%s\n", line);
 		data.tokens = tokenizing(line);
+		free(line);
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
