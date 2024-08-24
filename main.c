@@ -1,9 +1,10 @@
 
 #include "./includes/minishell.h"
 
-char	*read_line(char *line)
+char	*read_line(void)
 {
 	char	cwd[PATH_MAX];
+	char	*line;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
@@ -53,34 +54,23 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	line = NULL;
 	exit_code = 0;
 	_init_terminal();
 	set_data(&data, envp, &exit_code);
 	while (1)
 	{
 		_handle_signals(RES, &data);
-		line = read_line(line);
+		line = read_line();
 		if (!line)
 			break ;
 		data.tokens = tokenizing(line);
 		free(line);
-		int i = 0;
-		while (data.tokens && data.tokens[i] != NULL)
-		{
-			if (!parse(data.tokens, &data) && data.tokens)
-			{
-				expand(data.tokens, data.env, &data);
-				quote_handing(data.tokens);
- 				cmd_list_handler(&data);
-				redir_list_handler(&data);
-				heredoc_handler(&data);
-				execute(&data);
-			}
-			else
-				break ;
-			i++;
-		}
+		expand(data.tokens, data.env, &data);
+		quote_handing(data.tokens);
+ 		cmd_list_handler(&data);
+		redir_list_handler(&data);
+		heredoc_handler(&data);
+		execute(&data);
 	}
 	free_exit(&data, exit_code);
 }

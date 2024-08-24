@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/23 21:17:38 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:19:09 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	execute_single_command(t_data *data, t_cmd *cmd, t_status status)
 	{
 		if (redirection_handler(cmd, data->exit_code) == -1)
 			free_exit(data, 1);
+		int fd = open("/dev/null", O_RDONLY);
+		if (fd != -1)
+		{
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
 		return ;
 	}
 	else
