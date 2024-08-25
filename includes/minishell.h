@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/26 01:38:16 by ryusupov          #+#    #+#             */
+/*   Updated: 2024/08/26 01:42:51 by ryusupov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -10,15 +21,6 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
-
-// # define RED ""
-// # define GREEN ""
-// # define YELLOW ""
-// # define BLUE ""
-// # define MAGENTA ""
-// # define CYAN ""
-// # define WHITE ""
-// # define RESET ""
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -53,7 +55,7 @@
 
 #include "../libft/libft.h"
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef enum s_status
 {
@@ -77,7 +79,7 @@ typedef struct s_redir
 {
 	t_type			type;
 	char			*name;
-	struct s_redir  *next;
+	struct s_redir	*next;
 }				t_redir;
 
 typedef struct s_cmd
@@ -112,13 +114,13 @@ typedef struct s_data
 
 typedef struct s_quote_state
 {
-	int	 in_single_quote;
-	int	 in_double_quote;
-	int	 squote;
-	int	 dquote;
-	int	 i;
-	int	 j;
-	int	 found_quote;
+	int		in_single_quote;
+	int		in_double_quote;
+	int		squote;
+	int		dquote;
+	int		i;
+	int		j;
+	int		found_quote;
 	char	quote_char;
 	char	*result;
 }			t_quote_state;
@@ -151,7 +153,7 @@ int		get_word_len(const char *str, int i);
 int		count_str(char c);
 
 /*-----------PARSING-------------*/
-int		parse(char  **t, t_data *exit_code);
+int		parse(char **t, t_data *exit_code);
 int		check_beginning_and_end(char **t, int i);
 int		parse_redirs(char *current, char *next);
 int		count_str(char c);
@@ -172,7 +174,7 @@ void	expand(char **tokens, char **env, t_data *exit_code);
 int		not_in_squote(char *token, int i);
 int		is_exeption(char c);
 int		still_dollar_sign_there(char *token);
-char	*dollar_sign(char *sign, char *token,  char **env, t_data *data);
+char	*dollar_sign(char *sign, char *token, char **env, t_data *data);
 char	*replace_question(const char *var, int *exit_code);
 char	*replace_var(char *str, char *var, int i);
 char	*remove_replace(char *str, char *var, int i);
@@ -188,8 +190,8 @@ int		still_dollar_heredoc(char *token);
 int		count_string_heredoc(char *token);
 char	*fill_e_name(char *line, int i);
 char	*get_c_string(char *token);
-char	*get_x_string(char  *token);
-int		count_string(char   *token);
+char	*get_x_string(char *token);
+int		count_string(char *token);
 
 /*--------------------*/
 /*  Custom finctions  */
@@ -255,7 +257,7 @@ int		redir_create(t_cmd *cmd, int index, t_type type);
 int		new_redir_handler(t_cmd *cmd, char *name, t_type type);
 int		new_redir_create(t_redir **redir_list, char *name, t_type type);
 void	redir_list_add(t_redir *head, t_redir *new);
-t_redir *redir_list_last(t_redir *head);
+t_redir	*redir_list_last(t_redir *head);
 int		set_cmd_array(t_cmd *cmd);
 void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
 							t_status status);
@@ -275,7 +277,8 @@ int		redir_input_heredoc(char *heredoc_input);
 /*--------------------*/
 void	heredoc_handler(t_data *data);
 void	heredoc_input_handler(t_data *data, t_cmd *cmd);
-int		heredoc_readline(t_cmd *cmd, char *delimeter, t_status status, t_data *data);
+int		heredoc_readline(t_cmd *cmd, char *delimeter, t_status status,
+			t_data *data);
 int		heredoc_save_input(t_cmd *cmd, char *line);
 
 /*-------------*/
@@ -334,7 +337,8 @@ int		export_no_args(char **env, int *exit_code);
 int		export_with_args(char *arg, char ***env);
 int		export_arg_with_value(char *arg, char *equal_sign, char ***env);
 int		export_arg_no_value(char *arg, char ***env);
-int		export_update_env(char ***env, const char *name, const char *value, int overwrite);
+int		export_update_env(char ***env, const char *name, const char *value,
+			int overwrite);
 
 /*---- pwd command ----*/
 int		execute_pwd(int *exit_code);
