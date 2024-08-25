@@ -11,8 +11,6 @@
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
 
-#define MAX_LINE_LENGTH 1024
-
 // # define RED ""
 // # define GREEN ""
 // # define YELLOW ""
@@ -33,6 +31,7 @@
 #include <signal.h>
 #include <string.h>
 #include <termios.h>
+#include <sys/stat.h>
 
 #define PIPE 124
 #define LESS 60
@@ -78,8 +77,7 @@ typedef struct s_redir
 {
 	t_type			type;
 	char			*name;
-	struct s_redir	*next;
-	struct s_data	*data;
+	struct s_redir  *next;
 }				t_redir;
 
 typedef struct s_cmd
@@ -130,12 +128,12 @@ typedef enum s_process
 	INIT,
 	RES,
 	CHILD_PROCESS,
-	HEREDOC_PROCESS,
 }			t_process;
 
 /*-----------SIGNALS----------*/
 void	_init_terminal(void);
 void	_handle_signals(t_process stats);
+void	determine_exit_code(int *exit_code);
 
 /*--------Error messages---------*/
 void	_err_msg(char *msg, char err_code);
@@ -161,13 +159,11 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 
 /*--------QUOTE HANDLING----------*/
-// char	*remove_single_quotes(char *token);
+void	quote_handing(t_cmd *cmd_list);
+void	count_and_find_quotes(char *token, int *start, int *end);
+char	*create_new_token(char *token, int start, int end);
 void	find_quotes(char *token, int *start, int *end);
 char	*c_new_token(char *token, int start, int end);
-void 	count_and_find_quotes(char *token, int *start, int *end);
-char	*create_new_token(char *token, int start, int end);
-char	*remove_double_quotes(char *token);
-void	quote_handing(t_cmd *cmd_list);
 char	*remove_last_quote(const char *token);
 void	quote_handling_r(char **tokens);
 
@@ -187,8 +183,6 @@ char	*replace_token(char *token, char *e_name);
 
 /*------------EXPANDING HEREDOC-----------*/
 void	expand_heredoc(char **tokens, char **env, t_data *data);
-char	*get_v_name_heredoc(char *token);
-char	*get_e_name_heredoc(char *v_name, char **env, char *original_v_name);
 char	*dollar_sign_heredoc(char *sign, char *token, char **env, t_data *data);
 int		still_dollar_heredoc(char *token);
 int		count_string_heredoc(char *token);
@@ -281,7 +275,7 @@ int		redir_input_heredoc(char *heredoc_input);
 /*--------------------*/
 void	heredoc_handler(t_data *data);
 void	heredoc_input_handler(t_data *data, t_cmd *cmd);
-int heredoc_readline(t_cmd *cmd, char *delimiter, t_status status, char **env, t_data *data);
+int		heredoc_readline(t_cmd *cmd, char *delimeter, t_status status, t_data *data);
 int		heredoc_save_input(t_cmd *cmd, char *line);
 
 /*-------------*/
@@ -318,12 +312,14 @@ int		execute_cd(char **args, char **env, int *exit_code);
 int		cd_home_dir(char **env, int *exit_code);
 int		cd_dash_arg(char **env, int *exit_code);
 int		change_directory(char *path, int *exit_code);
+int		cd_error_catcher(char *path);
+int		cd_expand_tilde(char **path);
+char	*set_home(void);
 
 /*---- echo command ----*/
 int		execute_echo(char **args, int *exit_code);
 int		echo_skip_all_n(char **args, int *i);
 int		echo_is_all_n(char *arg);
-void	echo_print_arg(char *arg, int exit_code);
 
 /*---- env command ----*/
 int		execute_env(char **env, int *exit_code);
@@ -333,11 +329,11 @@ void	execute_exit(t_data *data, char **args, int *exit_code);
 
 /*---- export command ----*/
 int		execute_export(char **args, char ***env, int *exit_code);
+int		is_valid_export_value(char *arg);
 int		export_no_args(char **env, int *exit_code);
-int		export_with_args(char *arg, char ***env, int *exit_code);
-int		export_arg_with_value(char *arg, char *equal_sign, \
-								char ***env, int *exit_code);
-int		export_arg_no_value(char *arg, char ***env, int *exit_code);
+int		export_with_args(char *arg, char ***env);
+int		export_arg_with_value(char *arg, char *equal_sign, char ***env);
+int		export_arg_no_value(char *arg, char ***env);
 int		export_update_env(char ***env, const char *name, const char *value, int overwrite);
 
 /*---- pwd command ----*/
@@ -345,6 +341,8 @@ int		execute_pwd(int *exit_code);
 
 /*---- unset command ----*/
 int		execute_unset(char **args, char ***env, int *exit_code);
+int		is_valid_unset_value(char *arg);
+int		unset_var_from_env(char *arg, char ***env);
 
 /*---------------------*/
 /*  Cleanup functions  */

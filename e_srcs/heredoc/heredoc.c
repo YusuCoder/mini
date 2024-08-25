@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:36:26 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 23:30:18 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 01:17:32 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@ int	heredoc_save_input(t_cmd *cmd, char *line)
 	return (0);
 }
 
-int	heredoc_readline(t_cmd *cmd, char *delimeter, t_status status)
+int	heredoc_readline(t_cmd *cmd, char *delimeter, t_status status, t_data *data)
 {
 	char	*line;
 
 	while (1)
 	{
+		signal(SIGINT, SIG_IGN);
 		line = readline("> ");
 		if (line == NULL)
 			return (-1);
+		expand_heredoc(&line, data->env, data);
 		if (ft_strcmp(line, delimeter) == 0)
 		{
 			free(line);
@@ -68,12 +70,12 @@ void	heredoc_input_handler(t_data *data, t_cmd *cmd)
 			delimeter = current->name;
 			if (current->next != NULL)
 			{
-				if (heredoc_readline(cmd, delimeter, SKIP) == -1)
+				if (heredoc_readline(cmd, delimeter, SKIP, data) == -1)
 					free_exit(data, 1);
 			}
 			else
 			{
-				if (heredoc_readline(cmd, delimeter, SAVE) == -1)
+				if (heredoc_readline(cmd, delimeter, SAVE, data) == -1)
 					free_exit(data, 1);
 			}
 		}
