@@ -42,6 +42,7 @@
 #define DQUOTE 34
 #define DEFAULT 0
 #define DOLLAR '$'
+#define MAX 100
 
 #ifndef TAB
 #define TAB 9
@@ -160,6 +161,12 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 
 /*--------QUOTE HANDLING----------*/
+// char	*remove_single_quotes(char *token);
+void	find_quotes(char *token, int *start, int *end);
+char	*c_new_token(char *token, int start, int end);
+void 	count_and_find_quotes(char *token, int *start, int *end);
+char	*create_new_token(char *token, int start, int end);
+char	*remove_double_quotes(char *token);
 void	quote_handing(t_cmd *cmd_list);
 char	*remove_last_quote(const char *token);
 void	quote_handling_r(char **tokens);
