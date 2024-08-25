@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:33:40 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 21:16:51 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 00:41:20 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	redir_input_file(t_redir *redir, int *exit_code)
 int	redir_input_heredoc(char *heredoc_input)
 {
 	int	pipe_fd[2];
-
 
 	if (heredoc_input == NULL)
 		return (0);
@@ -69,27 +68,19 @@ int	redir_input_handler(t_redir *input_list, char *heredoc_input, \
 	current = input_list;
 	while (current)
 	{
-		if (current->next == NULL)
+		if (current->type == HEREDOC)
 		{
-			if (current->type == HEREDOC)
-				result = redir_input_heredoc(heredoc_input);
-			else if (current->type == INPUT)
-				result = redir_input_file(current, exit_code);
-			if (result == 0 || result == -1)
-				break ;
-			current = current->next;
+			if (current->next == NULL)
+				return (redir_input_heredoc(heredoc_input));
+			else
+				current = current->next;
 		}
-		else
+		else if (current->type == INPUT)
 		{
-			if (current->type == HEREDOC)
-				current = current->next;
-			else if (current->type == INPUT)
-			{
-				result = redir_input_file(current, exit_code);
-				if (result == 0 || result == -1)
-					break ;
-				current = current->next;
-			}
+			result = redir_input_file(current, exit_code);
+			if (result == 0 || result == -1)
+				return (result);
+			current = current->next;
 		}
 	}
 	return (result);

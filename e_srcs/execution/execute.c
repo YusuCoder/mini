@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 23:45:02 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:04:17 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	execute_external(t_data *data, t_cmd *cmd)
 	char	*cmd_path;
 	int		result;
 
-	if (redirection_handler(cmd, data->exit_code) == -1)
-		free_exit(data, 1) ;
+	result = redirection_handler(cmd, data->exit_code);
+	if (result == -1)
+		free_exit(data, 1);
+	else if (result == 0)
+		return ;
 	cmd_name = cmd->cmd_array[0];
 	cmd_path = set_cmd_path(cmd_name);
 	result = is_accessable(cmd_name, &cmd_path, data->env);

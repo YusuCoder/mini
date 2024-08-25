@@ -31,6 +31,7 @@
 #include <signal.h>
 #include <string.h>
 #include <termios.h>
+#include <sys/stat.h>
 
 #define PIPE 124
 #define LESS 60
@@ -306,12 +307,14 @@ int		execute_cd(char **args, char **env, int *exit_code);
 int		cd_home_dir(char **env, int *exit_code);
 int		cd_dash_arg(char **env, int *exit_code);
 int		change_directory(char *path, int *exit_code);
+int		cd_error_catcher(char *path);
+int		cd_expand_tilde(char **path);
+char	*set_home(void);
 
 /*---- echo command ----*/
 int		execute_echo(char **args, int *exit_code);
 int		echo_skip_all_n(char **args, int *i);
 int		echo_is_all_n(char *arg);
-void	echo_print_arg(char *arg, int exit_code);
 
 /*---- env command ----*/
 int		execute_env(char **env, int *exit_code);
@@ -321,11 +324,11 @@ void	execute_exit(t_data *data, char **args, int *exit_code);
 
 /*---- export command ----*/
 int		execute_export(char **args, char ***env, int *exit_code);
+int		is_valid_export_value(char *arg);
 int		export_no_args(char **env, int *exit_code);
-int		export_with_args(char *arg, char ***env, int *exit_code);
-int		export_arg_with_value(char *arg, char *equal_sign, \
-								char ***env, int *exit_code);
-int		export_arg_no_value(char *arg, char ***env, int *exit_code);
+int		export_with_args(char *arg, char ***env);
+int		export_arg_with_value(char *arg, char *equal_sign, char ***env);
+int		export_arg_no_value(char *arg, char ***env);
 int		export_update_env(char ***env, const char *name, const char *value, int overwrite);
 
 /*---- pwd command ----*/
@@ -333,6 +336,8 @@ int		execute_pwd(int *exit_code);
 
 /*---- unset command ----*/
 int		execute_unset(char **args, char ***env, int *exit_code);
+int		is_valid_unset_value(char *arg);
+int		unset_var_from_env(char *arg, char ***env);
 
 /*---------------------*/
 /*  Cleanup functions  */

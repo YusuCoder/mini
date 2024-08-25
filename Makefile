@@ -40,6 +40,7 @@ SRC_FILES	:= ./p_srcs/signals.c\
 				./e_srcs/list_handler/redirection_list.c \
 				./e_srcs/builtins/builtin_checker.c \
 				./e_srcs/builtins/cd.c \
+				./e_srcs/builtins/cd_utils.c \
 				./e_srcs/builtins/echo.c \
 				./e_srcs/builtins/env.c \
 				./e_srcs/builtins/exit.c \

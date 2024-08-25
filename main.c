@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ;
 		data.tokens = tokenizing(line);
+		free(line);
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
@@ -77,7 +78,10 @@ int	main(int argc, char **argv, char **envp)
 				execute(&data);
 			}
 			else
+			{
+				free_array(data.tokens);
 				break ;
+			}
 			i++;
 		}
 	}
