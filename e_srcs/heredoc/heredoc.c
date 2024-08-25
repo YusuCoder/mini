@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:36:26 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/25 18:06:14 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:30:18 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,24 @@ int	heredoc_save_input(t_cmd *cmd, char *line)
 	return (0);
 }
 
-int	heredoc_readline(t_cmd *cmd, char *delimiter, t_status status, char **env,
-		t_data *data)
+int	heredoc_readline(t_cmd *cmd, char *delimeter, t_status status)
 {
 	char	*line;
 
-	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			return (0);
-		expand_heredoc(&line, env, data);
-		if (ft_strcmp(line, delimiter) == 0)
+			return (-1);
+		if (ft_strcmp(line, delimeter) == 0)
+		{
+			free(line);
 			break ;
+		}
 		if (status == SAVE)
 		{
 			if (heredoc_save_input(cmd, line) == -1)
-			{
-				free(line);
 				return (-1);
-			}
 		}
 		free(line);
 	}
@@ -71,14 +68,12 @@ void	heredoc_input_handler(t_data *data, t_cmd *cmd)
 			delimeter = current->name;
 			if (current->next != NULL)
 			{
-				if (heredoc_readline(cmd, delimeter, SKIP, data->env, data) ==
-					-1)
+				if (heredoc_readline(cmd, delimeter, SKIP) == -1)
 					free_exit(data, 1);
 			}
 			else
 			{
-				if (heredoc_readline(cmd, delimeter, SAVE, data->env, data) ==
-					-1)
+				if (heredoc_readline(cmd, delimeter, SAVE) == -1)
 					free_exit(data, 1);
 			}
 		}
