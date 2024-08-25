@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 23:45:02 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/25 13:58:32 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	execute(t_data *data)
 {
 	data->fd_stdin = dup(STDIN_FILENO);
 	data->fd_stdout = dup(STDOUT_FILENO);
-	_handle_signals(CHILD_PROCESS, data);
+	_handle_signals(CHILD_PROCESS);
 	if (data == NULL || data->cmd_list == NULL)
 		return ;
 	if (data->cmd_num == 1)

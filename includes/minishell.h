@@ -11,6 +11,8 @@
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
 
+#define MAX_LINE_LENGTH 1024
+
 // # define RED ""
 // # define GREEN ""
 // # define YELLOW ""
@@ -127,12 +129,12 @@ typedef enum s_process
 	INIT,
 	RES,
 	CHILD_PROCESS,
+	HEREDOC_PROCESS,
 }			t_process;
 
 /*-----------SIGNALS----------*/
 void	_init_terminal(void);
-void	_handle_signals(t_process stats, t_data *data);
-void	determine_exit_code(int *exit_code);
+void	_handle_signals(t_process stats);
 
 /*--------Error messages---------*/
 void	_err_msg(char *msg, char err_code);

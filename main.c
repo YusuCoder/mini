@@ -59,25 +59,22 @@ int	main(int argc, char **argv, char **envp)
 	set_data(&data, envp, &exit_code);
 	while (1)
 	{
-		_handle_signals(RES, &data);
+		_handle_signals(RES);
 		line = read_line();
 		if (!line)
 			break ;
 		data.tokens = tokenizing(line);
+		free(line);
 		int i = 0;
 		while (data.tokens && data.tokens[i] != NULL)
 		{
 			if (!parse(data.tokens, &data) && data.tokens)
 			{
-				expand_heredoc(data.tokens, data.env, &data);
+				expand(data.tokens, data.env, &data);
  				cmd_list_handler(&data);
 				redir_list_handler(&data);
 				quote_handing(data.cmd_list);
 				heredoc_handler(&data);
-<<<<<<< HEAD
-				// expand_heredoc(&data.cmd_list->heredoc_input, data.env, &data);
-=======
->>>>>>> 85600a39a551017bab2e9fa9685227fdaa8217ab
 				execute(&data);
 			}
 			else
