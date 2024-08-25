@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:17:37 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/24 17:35:28 by ryusupov         ###   ########.fr       */
+<<<<<<<<< Temporary merge branch 1
+/*   Updated: 2024/08/23 21:55:33 by ryusupov         ###   ########.fr       */
+=========
+/*   Updated: 2024/08/24 14:30:31 by tkubanyc         ###   ########.fr       */
+>>>>>>>>> Temporary merge branch 2
 /*                                                                            */
 /* ************************************************************************** */
 
