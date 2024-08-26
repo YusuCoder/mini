@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:11:45 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 16:54:01 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:40:31 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	set_data(t_data *data, char **envp, int	*exit_code)
 
 void	check_and_execute(t_data *data)
 {
-		expand(data->tokens, data->env, data);
-		cmd_list_handler(data);
-		redir_list_handler(data);
-		quote_handing(data->cmd_list);
-		heredoc_handler(data);
-		execute(data);
+	expand(data->tokens, data->env, data);
+	cmd_list_handler(data);
+	redir_list_handler(data);
+	quote_handing(data->cmd_list);
+	heredoc_handler(data);
+	execute(data);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 		{
 			free_array(data.tokens);
-			continue;
+			continue ;
 		}
 	}
 	free_exit(&data, exit_code);

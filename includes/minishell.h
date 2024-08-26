@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 01:38:16 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:44:17 by ryusupov         ###   ########.fr       */
+/*   Created: 2024/08/26 17:33:37 by ryusupov          #+#    #+#             */
+/*   Updated: 2024/08/26 17:38:55 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
+
+// # define RED ""
+// # define GREEN ""
+// # define YELLOW ""
+// # define BLUE ""
+// # define MAGENTA ""
+// # define CYAN ""
+// # define WHITE ""
+// # define RESET ""
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -161,11 +170,11 @@ int		quotes_check(char *t);
 int		is_empty(const char *str);
 
 /*--------QUOTE HANDLING----------*/
-void	quote_handing(t_cmd *cmd_list);
 void	count_and_find_quotes(char *token, int *start, int *end);
 char	*create_new_token(char *token, int start, int end);
-void	find_quotes(char *token, int *start, int *end);
 char	*c_new_token(char *token, int start, int end);
+void	find_quotes(char *token, int *start, int *end);
+void	quote_handing(t_cmd *cmd_list);
 char	*remove_last_quote(const char *token);
 void	quote_handling_r(char **tokens);
 
@@ -229,6 +238,7 @@ void	swap(char **a, char **b);
 /*------------------*/
 char	**array_copy(char **array);
 int		array_len(char **array);
+char	*array_last(char **array);
 
 /*-------------------------*/
 /*  Command list handling  */
@@ -266,7 +276,7 @@ void	cmd_array_handler(char **args, int *counter, char **cmd_array, \
 /*  Redirection handling  */
 /*------------------------*/
 int		redirection_handler(t_cmd *cmd, int *exit_code);
-int		redir_output_handler(t_redir *output_list);
+int		redir_output_handler(t_redir *output_list, int *exit_code);
 int		redir_input_handler(t_redir *input_list, char *heredoc_input, \
 							int *exit_code);
 int		redir_input_file(t_redir *redir, int *exit_code);
@@ -299,7 +309,9 @@ int		is_executable(char *cmd_path);
 char	*set_cmd_path(char *str);
 void	print_wrong_command(char *arg, int *exit_code);
 void	print_wrong_path(char *arg, int *exit_code);
+void	update_underscore_var(t_data *data, char *value);
 void	set_origin_fd(t_data *data);
+void	get_origin_fd(t_data *data);
 
 /*--------------------*/
 /*  Builtin commands  */

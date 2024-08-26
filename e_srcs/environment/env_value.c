@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:19:04 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/16 12:19:06 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:40:53 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	env_value_change(char **env, const char *name, const char *value)
 	name_len = ft_strlen(name);
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], name, name_len) == 0)
+		if (ft_strncmp(env[i], name, name_len) == 0
+			&& env[i][name_len] == '=')
 		{
 			free(env[i]);
 			new_entry = ft_strjoin(name, "=");

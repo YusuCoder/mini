@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 01:13:45 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:28:03 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	execute_single_command(t_data *data, t_cmd *cmd, t_status status)
 	{
 		if (redirection_handler(cmd, data->exit_code) == -1)
 			free_exit(data, 1);
+		update_underscore_var(data, "");
 		set_origin_fd(data);
 		return ;
 	}
@@ -81,6 +82,7 @@ void	execute_single_command(t_data *data, t_cmd *cmd, t_status status)
 	{
 		if (is_builtin(cmd->cmd_array[0]))
 		{
+			update_underscore_var(data, array_last(cmd->cmd_array));
 			execute_builtin(data, cmd);
 			set_origin_fd(data);
 		}
@@ -120,12 +122,12 @@ void	execute_multiple_commands(t_data *data)
 	}
 	pipe_close_all(data->cmd_list);
 	wait_processes(last_pid, data->exit_code);
+	update_underscore_var(data, "");
 }
 
 void	execute(t_data *data)
 {
-	data->fd_stdin = dup(STDIN_FILENO);
-	data->fd_stdout = dup(STDOUT_FILENO);
+	get_origin_fd(data);
 	_handle_signals(CHILD_PROCESS);
 	if (data == NULL || data->cmd_list == NULL)
 		return ;
