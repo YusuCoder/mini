@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:36:26 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 14:45:28 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:34:24 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	heredoc_readline(t_cmd *cmd, char *delimeter, t_status status, t_data *data)
 {
 	char	*line;
 
-	signal(SIGINT, SIG_IGN);
+	_handle_signals(INIT);
 	while (1)
 	{
 		line = readline("> ");
