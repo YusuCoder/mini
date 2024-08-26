@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:19:04 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 16:40:53 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:40:00 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,28 @@ void	env_value_change(char **env, const char *name, const char *value)
 	}
 }
 
+void	env_value_change_oldpwd(char **env, const char *name, const char *value)
+{
+	int		i;
+	size_t	name_len;
+	char	*new_entry;
+
+	i = 0;
+	name_len = ft_strlen(name);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], name, name_len) == 0)
+		{
+			free(env[i]);
+			new_entry = ft_strjoin(name, "=");
+			env[i] = ft_strjoin(new_entry, value);
+			free(new_entry);
+			return ;
+		}
+		i++;
+	}
+}
+
 int	env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code)
 {
 	char	curr_dir[PATH_MAX];
@@ -81,7 +103,7 @@ int	env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code)
 		*exit_code = 1;
 		return (-1);
 	}
-	env_value_change(env, "OLDPWD", prev_dir);
+	env_value_change_oldpwd(env, "OLDPWD", prev_dir);
 	env_value_change(env, "PWD", curr_dir);
 	return (0);
 }

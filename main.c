@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:11:45 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 17:40:31 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:20:11 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	check_and_execute(t_data *data)
 {
 	expand(data->tokens, data->env, data);
 	cmd_list_handler(data);
-	redir_list_handler(data);
 	quote_handing(data->cmd_list);
+	redir_list_handler(data);
 	heredoc_handler(data);
 	execute(data);
 }
