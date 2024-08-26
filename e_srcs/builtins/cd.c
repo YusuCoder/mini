@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:49:51 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 00:08:28 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:12:22 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	cd_dash_arg(char **env, int *exit_code)
 	return (change_directory(prev_dir, exit_code));
 }
 
-int	execute_cd(char **args, char **env, int *exit_code)
+int	execute_cd(char **args, char ***env, int *exit_code)
 {
 	char	curr_dir[PATH_MAX];
 	int		result;
@@ -83,9 +83,9 @@ int	execute_cd(char **args, char **env, int *exit_code)
 		return (-1);
 	}
 	if (array_len(args) == 1)
-		result = cd_home_dir(env, exit_code);
+		result = cd_home_dir(*env, exit_code);
 	else if (ft_strncmp(args[1], "-", 1) == 0 && ft_strlen(args[1]) == 1)
-		result = cd_dash_arg(env, exit_code);
+		result = cd_dash_arg(*env, exit_code);
 	else
 		result = change_directory(args[1], exit_code);
 	if (result == 1)

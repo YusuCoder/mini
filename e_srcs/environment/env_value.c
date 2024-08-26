@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:19:04 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 18:40:00 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:11:18 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ void	env_value_change_oldpwd(char **env, const char *name, const char *value)
 	}
 }
 
-int	env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code)
+int	env_value_change_pwd_oldpwd(char *prev_dir, char ***env, int *exit_code)
 {
 	char	curr_dir[PATH_MAX];
+	char	*new_var;
 
 	if (getcwd(curr_dir, sizeof(curr_dir)) == NULL)
 	{
@@ -103,7 +104,14 @@ int	env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code)
 		*exit_code = 1;
 		return (-1);
 	}
-	env_value_change_oldpwd(env, "OLDPWD", prev_dir);
-	env_value_change(env, "PWD", curr_dir);
+	if (env_var_find(*env, "OLDPWD") == -1)
+	{
+		new_var = env_var_create("OLDPWD", prev_dir);
+		if (env_var_add(env, new_var) == -1)
+			return (-1);
+	}
+	else
+		env_value_change_oldpwd(*env, "OLDPWD", prev_dir);
+	env_value_change(*env, "PWD", curr_dir);
 	return (0);
 }

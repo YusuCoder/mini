@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:33:37 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:13:18 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:14:40 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,8 @@ int		env_var_remove(char ***env, int index);
 char	*env_value_get(char **env, const char *name);
 void	env_value_delete(char **env, char *name);
 void	env_value_change(char **env, const char *name, const char *value);
-int		env_value_change_pwd_oldpwd(char *prev_dir, char **env, int *exit_code);
+int		env_value_change_pwd_oldpwd(char *prev_dir, char ***env,
+			int *exit_code);
 char	**env_sort(char **env);
 void	quicksort(char **arr, int low, int high);
 int		partition(char **arr, int low, int high);
@@ -323,7 +324,7 @@ int		is_env(char *arg);
 int		is_echo(char *arg);
 
 /*---- cd command ----*/
-int		execute_cd(char **args, char **env, int *exit_code);
+int		execute_cd(char **args, char ***env, int *exit_code);
 int		cd_home_dir(char **env, int *exit_code);
 int		cd_dash_arg(char **env, int *exit_code);
 int		change_directory(char *path, int *exit_code);

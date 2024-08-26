@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:20:07 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 17:28:03 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:10:36 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	execute_builtin(t_data *data, t_cmd *cmd)
 	if (redirection_handler(cmd, data->exit_code) == -1)
 		free_exit(data, 1);
 	if (is_cd(cmd->cmd_array[0]))
-		result = execute_cd(cmd->cmd_array, data->env, data->exit_code);
+		result = execute_cd(cmd->cmd_array, &data->env, data->exit_code);
 	else if (is_pwd(cmd->cmd_array[0]))
 		result = execute_pwd(data->exit_code);
 	else if (is_env(cmd->cmd_array[0]))
