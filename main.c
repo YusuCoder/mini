@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/26 14:11:45 by ryusupov          #+#    #+#             */
+/*   Updated: 2024/08/26 14:12:13 by ryusupov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
@@ -24,6 +35,7 @@ void	set_data(t_data *data, char **envp, int	*exit_code)
 	data->cmd_list = NULL;
 	data->cmd_num = 0;
 	data->tokens = NULL;
+	_init_terminal();
 	if (envp[0] == NULL)
 	{
 		data->env = env_create_new();
@@ -46,6 +58,16 @@ void	set_data(t_data *data, char **envp, int	*exit_code)
 	}
 }
 
+void	check_and_execute(t_data *data)
+{
+	expand(data->tokens, data->env, data);
+	cmd_list_handler(data);
+	redir_list_handler(data);
+	quote_handing(data->cmd_list);
+	heredoc_handler(data);
+	execute(data);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -55,7 +77,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	exit_code = 0;
-	_init_terminal();
 	set_data(&data, envp, &exit_code);
 	while (1)
 	{
@@ -65,23 +86,13 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		data.tokens = tokenizing(line);
 		free(line);
-		int i = 0;
-		while (data.tokens && data.tokens[i] != NULL)
+		if (!parse(data.tokens, &data) && data.tokens)
+			check_and_execute(&data);
+		else
 		{
-			if (!parse(data.tokens, &data) && data.tokens)
-			{
-				expand(data.tokens, data.env, &data);
- 				cmd_list_handler(&data);
-				redir_list_handler(&data);
-				quote_handing(data.cmd_list);
-				heredoc_handler(&data);
-				execute(&data);
-			}
-			else
-				break ;
-			i++;
+			free_array(data.tokens);
+			break ;
 		}
 	}
 	free_exit(&data, exit_code);
 }
-

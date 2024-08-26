@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:33:40 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 00:41:20 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:22:44 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	redir_output_handler(t_redir *output_list)
 		if (fd == -1)
 		{
 			perror("open");
-			return (-1);
+			return (0);
 		}
 		if (dup2(fd, STDOUT_FILENO) == -1)
 		{

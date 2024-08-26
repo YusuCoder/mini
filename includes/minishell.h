@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 01:38:16 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 01:42:51 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/26 01:49:05 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,38 @@
 # define WHITE "\x1b[97m"
 # define RESET "\x1b[0m"
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <limits.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <string.h>
-#include <termios.h>
-#include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <string.h>
+# include <termios.h>
+# include <sys/stat.h>
 
-#define PIPE 124
-#define LESS 60
-#define GREATER 62
-#define AMP 38
-#define SQUOTE 39
-#define DQUOTE 34
-#define DEFAULT 0
-#define DOLLAR '$'
-#define MAX 100
+# define PIPE 124
+# define LESS 60
+# define GREATER 62
+# define AMP 38
+# define SQUOTE 39
+# define DQUOTE 34
+# define DEFAULT 0
+# define DOLLAR '$'
+# define MAX 100
 
-#ifndef TAB
-#define TAB 9
-#endif
+# ifndef TAB
+#  define TAB 9
+# endif
 
-#ifndef SPACE
-#define SPACE 32
-#endif
+# ifndef SPACE
+#  define SPACE 32
+# endif
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 
 typedef struct s_data	t_data;
 
