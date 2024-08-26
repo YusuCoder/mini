@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:26:13 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/25 20:00:34 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:23:38 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	export_no_args(char **env, int *exit_code)
 		else
 			printf("declare -x %s\n", sorted_env[i]);
 	}
-	free(sorted_env);
+	free_array(sorted_env);
 	*exit_code = 0;
 	return (0);
 }
