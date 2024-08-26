@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:33:40 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 00:41:20 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:05:03 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	redir_input_handler(t_redir *input_list, char *heredoc_input, \
 	return (result);
 }
 
-int	redir_output_handler(t_redir *output_list)
+int	redir_output_handler(t_redir *output_list, int *exit_code)
 {
 	t_redir	*current;
 	int		fd;
@@ -100,8 +100,8 @@ int	redir_output_handler(t_redir *output_list)
 			fd = open(current->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
-			perror("open");
-			return (-1);
+			*exit_code = 1;
+			return (perror("open"), 0);
 		}
 		if (dup2(fd, STDOUT_FILENO) == -1)
 		{
@@ -133,6 +133,6 @@ int	redirection_handler(t_cmd *cmd, int *exit_code)
 			return (result);
 	}
 	if (cmd->is_redir_output && output_list)
-		result = redir_output_handler(output_list);
+		result = redir_output_handler(output_list, exit_code);
 	return (result);
 }

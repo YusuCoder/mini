@@ -56,6 +56,7 @@ SRC_FILES	:= ./p_srcs/signals.c\
 				./e_srcs/execution/execute_utils.c \
 				./e_srcs/execution/execute_checker.c \
 				./e_srcs/execution/execute_process.c \
+				./e_srcs/execution/execute_fd_handler.c \
 				./e_srcs/execution/execute.c
 
 OBJS		:= $(patsubst %, $(OBJ_PATH)/%, $(SRC_FILES:.c=.o))
