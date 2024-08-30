@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:36:26 by tkubanyc          #+#    #+#             */
-/*   Updated: 2024/08/26 16:34:24 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:14:46 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	heredoc_save_input(t_cmd *cmd, char *line)
 		temp = my_strjoin(cmd->heredoc_input, line, "\n");
 		if (temp == NULL)
 			free(cmd->heredoc_input);
+		free(cmd->heredoc_input);
 		cmd->heredoc_input = temp;
 	}
 	return (0);
