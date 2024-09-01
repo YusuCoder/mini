@@ -1,4 +1,4 @@
-# 42Cursus Minishell made by [ryusupov](https://github.com/YusuCoder) and [tkubanyc](https://github.com/Tilek12)
+# 42Cursus Minishell developed by [ryusupov](https://github.com/YusuCoder) and [tkubanyc](https://github.com/Tilek12)
 
 ### Project overview for 42Minishell 
 ![GitHub last commit](https://img.shields.io/github/last-commit/YusuCoder/minishell)
