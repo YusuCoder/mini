@@ -6,7 +6,7 @@
 /*   By: ryusupov <ryusupov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:11:45 by ryusupov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:20:11 by ryusupov         ###   ########.fr       */
+/*   Updated: 2024/09/01 15:43:42 by ryusupov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@ char	*read_line(void)
 {
 	char	cwd[PATH_MAX];
 	char	*line;
+	char	prompt[PATH_MAX + 4];
+	char	*last_component;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
 		return (NULL);
 	}
-	printf(CYAN"%s $\n"RESET, cwd);
-	line = readline(">>> ");
+	// printf(CYAN"%s $\n"RESET, cwd);
+	last_component = strrchr(cwd, '/');
+	if (last_component == NULL)
+		last_component = cwd;
+	else
+		last_component++;
+	snprintf(prompt, sizeof(prompt), RED"~ %s: 🚀 "RESET, last_component);
+	line = readline(prompt);
 	if (line && *line != '\0')
 		add_history(line);
 	return (line);
 }
 
-void	set_data(t_data *data, char **envp, int	*exit_code)
+void	set_data(t_data *data, char **envp, int *exit_code)
 {
 	data->exit_code = exit_code;
 	data->cmd_list = NULL;
