@@ -6,9 +6,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/YusuCoder/minishell)
 ![GitHub language count](https://img.shields.io/github/languages/count/YusuCoder/minishell)
 ![GitHub contributors](https://img.shields.io/github/contributors/YusuCoder/minishell)
-
-## [About](#about) | [Supported Features](#supported-features) | [Tests](#test-examples) | [Run the Program](#run-the-program) | [Study Summary](#study-summary)
-
+![GitHub top language](https://img.shields.io/github/languages/top/YusuCoder/minishell)
 
 # :speaking_head: About
 > The objective of this project is for us to create a simple shell. Yes, out own little bash or zsh. We will lear a lot about processes and file descriptors and This project was one of the most challenging yet
@@ -94,5 +92,9 @@
 
 ```
 
-
+# :spiral_notepad: Conclusion
+### Definition
+> Minishell is a hands-on project designed to deepen your understanding of Unix shell behavior and system-level programming. By creating this simplified shell,
+> you gain practical experience with core concepts such as process management, file descriptors, and system calls. This project not only reinforces your knowledge
+> of how shells operate but also provides a solid foundation for tackling more advanced shell features and system programming challenges in the future.
     
